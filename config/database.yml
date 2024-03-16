@@ -9,12 +9,12 @@ default: &default
 
 development:
   <<: *default
-  database: startup_mission_development
+  database: startup_delivery_development
 
 test:
   <<: *default
-  database: startup_mission_test
+  database: startup_delivery_test
 
 production:
   <<: *default
-  database: startup_mission_production
+  database: startup_delivery_production
