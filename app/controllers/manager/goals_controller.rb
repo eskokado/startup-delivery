@@ -1,6 +1,6 @@
 module Manager
   class GoalsController < InternalController
-    before_action :set_goal,
+    before_action :get_goal,
                   only: %i[show edit update
                            destroy]
 
@@ -64,8 +64,9 @@ module Manager
 
     private
 
-    def set_goal
-      @goal = Goal.find(params[:id])
+    def get_goal
+      @goal = Goal.find_by(id: params[:id])
+      redirect_to(manager_goals_path, alert: "Goal not found") unless @goal
     end
 
     def goal_params
