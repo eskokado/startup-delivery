@@ -1,7 +1,7 @@
 module Manager
   module Goals
     class DoneController < InternalController
-      before_action :set_goal,
+      before_action :get_goal,
                     only: %i[index show]
 
       def index
@@ -9,7 +9,7 @@ module Manager
         respond_to do |format|
           format.html do
             redirect_to manager_goals_path,
-                        notice: t('.other')
+                        notice: t('controllers.manager.goals.done.one')
           end
         end
       end
@@ -19,7 +19,7 @@ module Manager
         respond_to do |format|
           format.html do
             redirect_to manager_goal_path(@goal),
-                        notice: t('.one')
+                        notice: t('controllers.manager.goals.done.one')
           end
         end
       end
@@ -30,7 +30,7 @@ module Manager
 
         respond_to do |format|
           format.json do
-            render json: { message: t('.other') },
+            render json: { message: t('controllers.manager.goals.done.other') },
                    status: :ok
           end
         end
@@ -38,7 +38,7 @@ module Manager
 
       private
 
-      def set_goal
+      def get_goal
         @goal = Goal.find(params[:goal_id])
       end
     end
