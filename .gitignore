@@ -40,3 +40,4 @@
 node_modules
 .idea
 coverage
+dump.rdb
