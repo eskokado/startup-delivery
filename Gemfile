@@ -32,6 +32,11 @@ gem 'tzinfo-data',
 gem 'yaml'
 gem 'json', '2.7.1'
 gem 'acts_as_tenant'
+gem 'rack-cors', require: 'rack/cors'
+
+
+# Auth
+gem 'devise_token_auth'
 
 group :development, :test do
   gem 'annotate'

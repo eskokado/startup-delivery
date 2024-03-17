@@ -141,6 +141,10 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise_token_auth (1.2.2)
+      bcrypt (~> 3.0)
+      devise (> 3.5.2, < 5)
+      rails (>= 4.2.0, < 7.1)
     diff-lcs (1.5.0)
     docile (1.4.0)
     erubi (1.12.0)
@@ -270,6 +274,8 @@ GEM
       nio4r (~> 2.0)
     racc (1.7.1)
     rack (2.2.8)
+    rack-cors (1.1.1)
+      rack (>= 2.0.0)
     rack-mini-profiler (3.1.1)
       rack (>= 1.2.0)
     rack-test (2.1.0)
@@ -504,6 +510,7 @@ DEPENDENCIES
   cpf_faker
   database_cleaner
   devise
+  devise_token_auth
   factory_bot_rails
   ffaker
   foreman
@@ -518,6 +525,7 @@ DEPENDENCIES
   pg (~> 1.2)
   pry-byebug
   puma (~> 5.0)
+  rack-cors
   rack-mini-profiler
   rails (~> 7.0.4, >= 7.0.4.2)
   rails-controller-testing
@@ -557,4 +565,4 @@ RUBY VERSION
    ruby 2.7.5p203
 
 BUNDLED WITH
-   2.3.3
+   2.4.20
