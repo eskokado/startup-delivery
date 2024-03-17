@@ -1,5 +1,8 @@
 require 'sidekiq/web'
 Rails.application.routes.draw do
+  mount_devise_token_auth_for 'User', at: 'auth', controllers: {
+    sessions: 'api/sessions'
+  }, as: 'api_auth'
   devise_for :users
   mount Sidekiq::Web => '/sidekiq'
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
