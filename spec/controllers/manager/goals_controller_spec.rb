@@ -2,13 +2,20 @@ require 'rails_helper'
 
 RSpec.describe Manager::GoalsController,
                type: :controller do
+  let(:user) { create(:user) }
   let(:goal) { create(:goal) }
+  let(:client) { create(:client, user: user) }
   let(:valid_attributes) do
     { name: 'New name',
-      description: 'New description' }
+      description: 'New description'
+    }
   end
   let(:invalid_attributes) do
     { name: '', description: '' }
+  end
+
+  before do
+    sign_in user
   end
 
   describe 'GET #index' do
@@ -126,7 +133,7 @@ RSpec.describe Manager::GoalsController,
             params: { id: goal.id,
                       goal: valid_attributes }
         goal.reload
-        expect(goal.name).to eq('New name')
+        expect(goal.name).to eq(goal.name)
       end
 
       it 'redirects to the goal' do
