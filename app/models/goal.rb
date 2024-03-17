@@ -32,4 +32,9 @@ class Goal < ApplicationRecord
   def to_s
     name
   end
+
+  def done!
+    self.status = :done
+    save!
+  end
 end
