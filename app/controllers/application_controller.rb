@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   set_current_tenant_through_filter
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :configure_account_update_params, if: :devise_controller?
+  protect_from_forgery unless: -> { request.format.json? }
   before_action :set_tenant
 
   private
