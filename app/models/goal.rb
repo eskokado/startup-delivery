@@ -3,6 +3,7 @@
 # Table name: goals
 #
 #  id          :bigint           not null, primary key
+#  deleted_at  :datetime
 #  description :string
 #  finished_at :datetime
 #  name        :string
@@ -11,9 +12,15 @@
 #  updated_at  :datetime         not null
 #  client_id   :integer
 #
+# Indexes
+#
+#  index_goals_on_deleted_at  (deleted_at)
+#
 class Goal < ApplicationRecord
+  acts_as_paranoid
   acts_as_tenant :client
   has_many :tasks, dependent: :destroy, inverse_of: :goal
+  belongs_to :client
 
   enum status: { backlog: 'backlog', todo: 'todo', block: 'block',
                  doing: 'doing', done: 'done' }
