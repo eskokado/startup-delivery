@@ -37,5 +37,10 @@ RSpec.describe Goal, type: :model do
       goal.destroy
       expect(task.reload.deleted_at).not_to be_nil
     end
+
+    it "marks goal as done" do
+      goal.done!
+      expect(goal.status).to eq("done")
+    end
   end
 end
