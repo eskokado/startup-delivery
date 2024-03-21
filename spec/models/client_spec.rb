@@ -25,4 +25,14 @@ RSpec.describe Client, type: :model do
   describe "Validations" do
     it { should validate_presence_of(:document) }
   end
+  describe "Custom methods" do
+    let(:user) { create(:user) }
+    let(:client) { create(:client, user: user) }
+
+    it "soft deletes associated goals when client is destroyed" do
+      goal = create(:goal, client: client)
+      client.destroy
+      expect(goal.reload.deleted_at).not_to be_nil
+    end
+  end
 end
