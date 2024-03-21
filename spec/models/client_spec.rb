@@ -21,4 +21,8 @@ RSpec.describe Client, type: :model do
     it { should belong_to(:user) }
     it { should have_many(:goals).dependent(:destroy) }
   end
+
+  describe "Validations" do
+    it { should validate_presence_of(:document) }
+  end
 end
