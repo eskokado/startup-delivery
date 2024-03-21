@@ -27,4 +27,15 @@ RSpec.describe Goal, type: :model do
     it { should have_many(:tasks).dependent(:destroy) }
     it { should belong_to(:client) }
   end
+
+  describe 'custom methods' do
+    let(:client) { create(:client) }
+    let(:goal) { create(:goal, client: client) }
+
+    it "soft deletes associated tasks when goal is destroyed" do
+      task = create(:task, goal: goal)
+      goal.destroy
+      expect(task.reload.deleted_at).not_to be_nil
+    end
+  end
 end
