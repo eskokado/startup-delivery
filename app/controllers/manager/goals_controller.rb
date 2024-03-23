@@ -1,6 +1,6 @@
 module Manager
   class GoalsController < InternalController
-    before_action :get_goal,
+    before_action :set_goal,
                   only: %i[show edit update
                            destroy]
 
@@ -26,7 +26,7 @@ module Manager
         if @goal.save
           format.html do
             redirect_to manager_goal_path(@goal),
-                        notice: t('.create')
+                        notice: t('controllers.manager.goals.create')
           end
         else
           format.html do
@@ -42,7 +42,7 @@ module Manager
         if @goal.update(goal_params)
           format.html do
             redirect_to manager_goal_path(@goal),
-                        notice: t('.update')
+                        notice: t('controllers.manager.goals.update')
           end
         else
           format.html do
@@ -58,14 +58,14 @@ module Manager
       respond_to do |format|
         format.html do
           redirect_to manager_goals_path,
-                      notice: t('.destroy')
+                      notice: t('controllers.manager.goals.destroy')
         end
       end
     end
 
     private
 
-    def get_goal
+    def set_goal
       @goal = Goal.find_by(id: params[:id])
       redirect_to(manager_goals_path, alert: "Goal not found") unless @goal
     end
