@@ -1,14 +1,15 @@
 require 'rails_helper'
 
 RSpec.feature 'Manager Goals', type: :feature do
-  let(:user) { create(:user) }
+  let!(:user) { FactoryBot.create(:user) }
+  let!(:client) { FactoryBot.create(:client, user: user) }
 
-  before do
-    create(:goal, name: 'Aprender Ruby')
-    create(:goal, name: 'Aprender Rails')
-
-    sign_in user
+  before(:each) do
+    FactoryBot.create(:goal, client: client, name: 'Aprender Ruby')
+    FactoryBot.create(:goal, client: client, name: 'Aprender Rails')
+    login_as(user, scope: :user)
   end
+
 
   scenario 'list goals' do
     visit manager_goals_path
@@ -28,7 +29,7 @@ RSpec.feature 'Manager Goals', type: :feature do
     expect(page).to have_text('Feito')
   end
 
-  scenario 'list goals action many done' do
+  scenario 'list goals action many done', js: true do
     visit manager_goals_path
 
     expect(page).to have_text('Fazer')
@@ -36,12 +37,11 @@ RSpec.feature 'Manager Goals', type: :feature do
     check "#{convert_to_id(Goal.first)}-checkbox"
     check "#{convert_to_id(Goal.last)}-checkbox"
     click_button 'actionsDropdownButton'
-    click_link I18n.t('views.manager.goals.index.action_1')
-    expect(page).to have_text('Finalizar')
+    click_button I18n.t('views.manager.goals.index.action_1')
 
-    # TODO: Problema com javascript, parece que o capybara não
+    # Resolvido TODO: Problema com javascript, parece que o capybara não
     # executa o javascript
-    # expect(page).to have_text('Feito')
+    expect(page).to have_text('Feito')
   end
 
   scenario 'create goal' do
@@ -55,20 +55,20 @@ RSpec.feature 'Manager Goals', type: :feature do
 
     click_button I18n.t('views.manager.goals.new.save')
 
-    # TODO: Não redireciona a página ou demora para aparecer
-    # expect(page).to have_content('Meta cadastrada com sucesso.')
-    # expect(page).to have_content('Aprender Ruby on Rails')
-    # expect(page).to have_content('Curso de Ruby')
-    # expect(page).to have_content('Curso de Rails')
+    # Resolvido TODO: Não redireciona a página ou demora para aparecer
+    expect(page).to have_content('Meta cadastrada com sucesso.')
+    expect(page).to have_content('Aprender Ruby on Rails')
+    expect(page).to have_content('Curso de Ruby')
+    expect(page).to have_content('Curso de Rails')
 
   end
 
-  scenario 'show goal action done' do
+  scenario 'show goal action done', js: true do
     visit manager_goal_path(Goal.first)
 
     click_link I18n.t('views.manager.goals.show.done')
 
-    expect(page).to have_text('Feito')
+    expect(page).to have_text(I18n.t('controllers.manager.goals.done.one'))
   end
 
   scenario 'show goal' do
@@ -85,9 +85,9 @@ RSpec.feature 'Manager Goals', type: :feature do
     fill_in 'Descrição', with: 'Criar projeto editora de livro'
     click_button I18n.t('views.manager.goals.edit.save')
 
-    # TODO: Não redireciona a página ou demora para aparecer
-    # expect(page).to have_text('Meta atualizada com sucesso.')
-    # expect(page).to have_text('Aprender Ruby on Rails')
+    # Resolvido TODO: Não redireciona a página ou demora para aparecer
+    expect(page).to have_text('Meta atualizada com sucesso.')
+    expect(page).to have_text('Aprender Ruby on Rails')
   end
 
   scenario 'delete goal' do
@@ -99,8 +99,8 @@ RSpec.feature 'Manager Goals', type: :feature do
 
     page.accept_alert I18n.t('views.manager.goals.show.delete_confirm')
 
-    # TODO: Não redireciona a página ou demora para aparecer
-    # expect(page).to have_text('Meta apagada com sucesso.')
-    # expect(page).not_to have_text('Aprender Ruby')
+    # Resolvido TODO: Não redireciona a página ou demora para aparecer
+    expect(page).to have_text('Meta apagada com sucesso.')
+    expect(page).not_to have_text('Aprender Ruby')
   end
 end
