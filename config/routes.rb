@@ -24,8 +24,7 @@ Rails.application.routes.draw do
     resources :goals
     namespace :goals do
       namespace :done do
-        post :index
-        post :show
+        post :one
         post :many
       end
     end
