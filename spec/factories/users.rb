@@ -26,5 +26,7 @@ FactoryBot.define do
     email { FFaker::Internet.email }
     password { 'abc12345abc' }
     password_confirmation { 'abc12345abc' }
+    uid { email }
+    provider { 'email' }
   end
 end
