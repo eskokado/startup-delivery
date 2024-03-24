@@ -17,9 +17,7 @@ module Manager
             .update_all(status: :done)
 
         respond_to do |format|
-          format.turbo_stream do
-            render turbo_stream: turbo_stream.replace("goals_list", partial: "manager/goals/goals/goal", collection: Goal.all)
-          end
+          format.html { redirect_to manager_goals_path, notice: t('controllers.manager.goals.done.other') }
         end
       end
 
