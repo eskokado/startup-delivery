@@ -41,3 +41,4 @@ node_modules
 .idea
 coverage
 dump.rdb
+.byebug_history
