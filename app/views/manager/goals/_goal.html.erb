@@ -22,11 +22,11 @@
           </li>
         </ul>
         <div class="py-1">
-          <%= link_to t('.delete'), manager_goal_path(goal),
-                      data: { turbo_method: :delete, turbo_confirm: t('.delete_confirm') }, class: "block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" %>
+          <%= link_to t('views.manager.goals.goal.delete'), manager_goal_path(goal),
+                      data: { turbo_method: :delete, turbo_confirm: t('views.manager.goals.goal.delete_confirm') }, class: "block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" %>
         </div>
         <div class="py-1">
-          <%= link_to t('.done'), manager_goals_done_index_path(goal_id: goal), data: { turbo_method: :post },
+          <%= link_to t('views.manager.goals.goal.done'), manager_goals_done_one_path(goal_id: goal), data: { turbo_method: :post },
                       class: "block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" %>
         </div>
       <% end %>

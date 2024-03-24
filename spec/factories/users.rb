@@ -6,9 +6,12 @@
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  name                   :string
+#  provider               :string           default("email"), not null
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
+#  tokens                 :json
+#  uid                    :string           default(""), not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
@@ -23,5 +26,7 @@ FactoryBot.define do
     email { FFaker::Internet.email }
     password { 'abc12345abc' }
     password_confirmation { 'abc12345abc' }
+    uid { email }
+    provider { 'email' }
   end
 end

@@ -8,6 +8,9 @@ Bundler.require(*Rails.groups)
 
 module StartupMissionBaseRails
   class Application < Rails::Application
+    # Config default time to Brasília for lesson launch_time
+    config.time_zone = 'Brasilia'
+
     config.active_job.queue_adapter = :sidekiq
 
     # Initialize configuration defaults for originally generated Rails version.
