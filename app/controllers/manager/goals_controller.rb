@@ -6,8 +6,13 @@ module Manager
 
     def index
       @q = Goal.ransack(params[:q])
-      @goals = @q.result(distinct: true)
-      @goals = @goals.order('created_at').page(params[:page]).per(4)
+      results = @q.result(distinct: true)
+      if results.is_a?(ActiveRecord::Relation)
+        @goals = results.order('created_at DESC').page(params[:page]).per(4)
+      else
+        sorted_goals = results.sort_by(&:created_at).reverse
+        @goals = Kaminari.paginate_array(sorted_goals).page(params[:page]).per(4)
+      end
     end
 
     def show; end
