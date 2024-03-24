@@ -21,6 +21,6 @@ FactoryBot.define do
   factory :task do
     name { FFaker::Lorem.sentence }
     description { FFaker::Lorem.paragraph }
-    status { %w[backlog todo block doing done].sample }
+    status { 'todo' }
   end
 end
