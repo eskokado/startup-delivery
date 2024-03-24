@@ -1,8 +1,10 @@
 import {Controller} from "@hotwired/stimulus"
+import { Turbo } from "@hotwired/turbo-rails"
+
 
 export default class extends Controller {
     static values = {finishEndpoint: String}
-    static targets = ["checkbox"];
+    static targets = ["finishButton"]
 
     finishingMany() {
         const ids = this.checkboxTargets
@@ -19,6 +21,7 @@ export default class extends Controller {
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRF-Token': token,
+                'Accept': 'text/vnd.turbo-stream.html',
             },
             body: JSON.stringify(data),
         })

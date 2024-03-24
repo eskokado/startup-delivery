@@ -6,8 +6,13 @@ module Manager
 
     def index
       @q = Goal.ransack(params[:q])
-      @goals = @q.result(distinct: true)
-      @goals = @goals.order('created_at').page(params[:page]).per(4)
+      results = @q.result(distinct: true)
+      if results.is_a?(ActiveRecord::Relation)
+        @goals = results.order('created_at DESC').page(params[:page]).per(4)
+      else
+        sorted_goals = results.sort_by(&:created_at).reverse
+        @goals = Kaminari.paginate_array(sorted_goals).page(params[:page]).per(4)
+      end
     end
 
     def show; end
@@ -21,11 +26,12 @@ module Manager
 
     def create
       @goal = Goal.new(goal_params)
+      @goal.client = current_user.client
       respond_to do |format|
         if @goal.save
           format.html do
             redirect_to manager_goal_path(@goal),
-                        notice: t('.create')
+                        notice: t('controllers.manager.goals.create')
           end
         else
           format.html do
@@ -41,7 +47,7 @@ module Manager
         if @goal.update(goal_params)
           format.html do
             redirect_to manager_goal_path(@goal),
-                        notice: t('.update')
+                        notice: t('controllers.manager.goals.update')
           end
         else
           format.html do
@@ -57,7 +63,7 @@ module Manager
       respond_to do |format|
         format.html do
           redirect_to manager_goals_path,
-                      notice: t('.destroy')
+                      notice: t('controllers.manager.goals.destroy')
         end
       end
     end
@@ -65,7 +71,8 @@ module Manager
     private
 
     def set_goal
-      @goal = Goal.find(params[:id])
+      @goal = Goal.find_by(id: params[:id])
+      redirect_to(manager_goals_path, alert: "Goal not found") unless @goal
     end
 
     def goal_params

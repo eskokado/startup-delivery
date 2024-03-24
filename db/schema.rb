@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_25_145408) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_21_091327) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -73,6 +73,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_25_145408) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_clients_on_deleted_at"
     t.index ["user_id"], name: "index_clients_on_user_id"
   end
 
@@ -84,6 +86,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_25_145408) do
     t.datetime "updated_at", null: false
     t.datetime "finished_at"
     t.integer "client_id"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_goals_on_deleted_at"
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -94,15 +98,20 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_25_145408) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "finished_at"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_tasks_on_deleted_at"
     t.index ["goal_id"], name: "index_tasks_on_goal_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "email", default: "", null: false
+    t.string "provider", default: "email", null: false
+    t.string "uid", default: "", null: false
     t.string "encrypted_password", default: "", null: false
+    t.string "email", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.json "tokens"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"

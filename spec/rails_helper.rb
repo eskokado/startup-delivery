@@ -12,6 +12,7 @@ require 'rspec/rails'
 require 'capybara/rspec'
 require 'capybara/rails'
 require 'sidekiq/testing'
+require 'selenium/webdriver'
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -38,7 +39,16 @@ rescue ActiveRecord::PendingMigrationError => e
   puts e.to_s.strip
   exit 1
 end
+
 RSpec.configure do |config|
+  Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+
+  config.include Devise::Test::IntegrationHelpers, type: :feature
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include ApiHelpers, type: :request
+
+  config.include FactoryBot::Syntax::Methods
+
   config.include ApplicationHelper
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = Rails.root.join('spec/fixtures').to_s

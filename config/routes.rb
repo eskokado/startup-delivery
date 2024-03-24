@@ -1,5 +1,6 @@
 require 'sidekiq/web'
 Rails.application.routes.draw do
+  mount_devise_token_auth_for 'User', at: 'auth', as: 'api_auth'
   devise_for :users
   mount Sidekiq::Web => '/sidekiq'
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
@@ -9,7 +10,7 @@ Rails.application.routes.draw do
              ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
-  namespace :api do
+  namespace :api, defaults: { format: :json } do
     namespace :goals do
       namespace :done do
         post :index
@@ -23,8 +24,7 @@ Rails.application.routes.draw do
     resources :goals
     namespace :goals do
       namespace :done do
-        post :index
-        post :show
+        post :one
         post :many
       end
     end

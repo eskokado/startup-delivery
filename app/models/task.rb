@@ -3,6 +3,7 @@
 # Table name: tasks
 #
 #  id          :bigint           not null, primary key
+#  deleted_at  :datetime
 #  description :string
 #  finished_at :datetime
 #  name        :string
@@ -13,9 +14,12 @@
 #
 # Indexes
 #
-#  index_tasks_on_goal_id  (goal_id)
+#  index_tasks_on_deleted_at  (deleted_at)
+#  index_tasks_on_goal_id     (goal_id)
 #
 class Task < ApplicationRecord
+  acts_as_paranoid
+
   belongs_to :goal
 
   enum status: { backlog: 'backlog', todo: 'todo', block: 'block',
