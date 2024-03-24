@@ -2,9 +2,10 @@ require 'rails_helper'
 
 RSpec.describe Manager::GoalsController,
                type: :controller do
-  let(:user) { create(:user) }
-  let(:goal) { create(:goal) }
+  let(:user) { FactoryBot.create(:user) }
   let(:client) { create(:client, user: user) }
+  let(:goal) { create(:goal, client: client) }
+  let(:goals) { create_list(:goal, 3, client: client) }
   let(:valid_attributes) do
     { name: 'New name',
       description: 'New description'
@@ -14,11 +15,26 @@ RSpec.describe Manager::GoalsController,
     { name: '', description: '' }
   end
 
-  before do
-    sign_in user
+  before(:each) do
+    allow_any_instance_of(InternalController).to receive(:authenticate_user!).and_return(true)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
   end
 
   describe 'GET #index' do
+    it 'renders the index template' do
+      get :index
+      expect(response).to render_template(:index)
+    end
+
+    it 'assigns all goals as @goals for the given search parameters' do
+      search_result_double = double('search_result', result: goals)
+      allow(Goal).to receive_message_chain(:ransack, :result).and_return(goals)
+
+      get :index
+
+      expect(assigns(:goals)).to match_array(goals)
+    end
+
     it 'assigns all goals as @goals' do
       get :index
       expect(assigns(:goals)).to eq([goal])
@@ -27,7 +43,6 @@ RSpec.describe Manager::GoalsController,
 
   describe 'GET #index with search' do
     it 'returns the goals searched correctly' do
-      # DADO
       goal1 = create(:goal, name: 'Learn Python',
                             description: 'learn dataframes and data analisys')
       goal2 = create(:goal,
@@ -38,7 +53,6 @@ RSpec.describe Manager::GoalsController,
              description: 'learn how to import and use pandas library as pd',
              goal: goal1)
 
-      # QUANDO
       get :index,
           params: {
             q:
@@ -48,7 +62,6 @@ RSpec.describe Manager::GoalsController,
               }
           }
 
-      # ENTÃO
       expect(assigns(:goals)).to include(goal1)
       expect(assigns(:goals)).to_not include(goal2)
     end
@@ -105,10 +118,9 @@ RSpec.describe Manager::GoalsController,
     context 'with valid params' do
       # TODO: não está salvando no BD de testes
       # it 'creates a new Goal' do
-      #   expect do
-      #     post :create,
-      #          params: { goal: valid_attributes }
-      #   end.to change(Goal, :count).by(1)
+      #   post :create,
+      #        params: { goal: valid_attributes }
+      #   expect(Goal.count).to eq(1)
       # end
 
       # TODO: não está salvando no BD de testes
