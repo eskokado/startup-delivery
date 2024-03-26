@@ -32,15 +32,15 @@ RSpec.describe Goal, type: :model do
     let(:client) { create(:client) }
     let(:goal) { create(:goal, client: client) }
 
-    it "soft deletes associated tasks when goal is destroyed" do
+    it 'soft deletes associated tasks when goal is destroyed' do
       task = create(:task, goal: goal)
       goal.destroy
       expect(task.reload.deleted_at).not_to be_nil
     end
 
-    it "marks goal as done" do
+    it 'marks goal as done' do
       goal.done!
-      expect(goal.status).to eq("done")
+      expect(goal.status).to eq('done')
     end
   end
 end

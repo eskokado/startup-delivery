@@ -25,8 +25,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
 
-  has_one :client
+  has_one :client, dependent: :destroy
   has_one_attached :avatar
   accepts_nested_attributes_for :client
-
 end

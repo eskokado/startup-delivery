@@ -7,17 +7,22 @@ module Manager
       def one
         @goal.done!
         respond_to do |format|
-          format.html { redirect_to manager_goals_path, notice: t('controllers.manager.goals.done.one') }
+          format.html do
+            redirect_to manager_goals_path,
+                        notice: t('controllers.manager.goals.done.one')
+          end
         end
       end
 
-
       def many
         Goal.where(id: params[:done][:goal_ids])
-            .update_all(status: :done)
+            .find_each { |goal| goal.update(status: :done) }
 
         respond_to do |format|
-          format.html { redirect_to manager_goals_path, notice: t('controllers.manager.goals.done.other') }
+          format.html do
+            redirect_to manager_goals_path,
+                        notice: t('controllers.manager.goals.done.other')
+          end
         end
       end
 

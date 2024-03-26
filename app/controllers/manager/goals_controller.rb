@@ -5,14 +5,9 @@ module Manager
                            destroy]
 
     def index
-      @q = Goal.ransack(params[:q])
-      results = @q.result(distinct: true)
-      if results.is_a?(ActiveRecord::Relation)
-        @goals = results.order('created_at DESC').page(params[:page]).per(4)
-      else
-        sorted_goals = results.sort_by(&:created_at).reverse
-        @goals = Kaminari.paginate_array(sorted_goals).page(params[:page]).per(4)
-      end
+      fetch_service = ::Goals::FetchService.new(params)
+      @q = fetch_service.search
+      @goals = fetch_service.call
     end
 
     def show; end
@@ -72,7 +67,7 @@ module Manager
 
     def set_goal
       @goal = Goal.find_by(id: params[:id])
-      redirect_to(manager_goals_path, alert: "Goal not found") unless @goal
+      redirect_to(manager_goals_path, alert: 'Goal not found') unless @goal
     end
 
     def goal_params

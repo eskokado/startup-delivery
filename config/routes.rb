@@ -28,7 +28,7 @@ Rails.application.routes.draw do
         post :many
       end
     end
-
+    resources :categories
     get '', to: 'home#index', as: :home
   end
 
