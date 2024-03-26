@@ -28,5 +28,4 @@ class User < ApplicationRecord
   has_one :client
   has_one_attached :avatar
   accepts_nested_attributes_for :client
-
 end

@@ -72,7 +72,7 @@ module Manager
 
     def set_goal
       @goal = Goal.find_by(id: params[:id])
-      redirect_to(manager_goals_path, alert: "Goal not found") unless @goal
+      redirect_to(manager_goals_path, alert: 'Goal not found') unless @goal
     end
 
     def goal_params

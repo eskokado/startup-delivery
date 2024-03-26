@@ -8,8 +8,7 @@ RSpec.describe Manager::GoalsController,
   let(:goals) { create_list(:goal, 3, client: client) }
   let(:valid_attributes) do
     { name: 'New name',
-      description: 'New description'
-    }
+      description: 'New description' }
   end
   let(:invalid_attributes) do
     { name: '', description: '' }
@@ -27,7 +26,7 @@ RSpec.describe Manager::GoalsController,
     end
 
     it 'assigns all goals as @goals for the given search parameters' do
-      search_result_double = double('search_result', result: goals)
+      double('search_result', result: goals)
       allow(Goal).to receive_message_chain(:ransack, :result).and_return(goals)
 
       get :index

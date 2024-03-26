@@ -10,7 +10,6 @@ RSpec.describe Manager::Goals::DoneController do
     allow_any_instance_of(InternalController).to receive(:authenticate_user!).and_return(true)
   end
 
-
   context 'POST #one' do
     it 'status todo to done' do
       post :one, params: { goal_id: goal.id }
