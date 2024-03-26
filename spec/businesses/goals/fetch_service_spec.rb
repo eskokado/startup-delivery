@@ -18,16 +18,29 @@ RSpec.describe Goals::FetchService do
       it 'orders by created_at DESC and paginates the results' do
         params = { page: 1 }
         service = Goals::FetchService.new(params)
-        expect(service.call.to_a).to eq([goal_recent, goal_two_days_ago, goal_three_days_ago, goal_four_days_ago])
+        expect(service.call.to_a).to eq([goal_recent,
+                                         goal_two_days_ago,
+                                         goal_three_days_ago,
+                                         goal_four_days_ago])
       end
 
       context 'when results are an array' do
         it 'sorts by created_at DESC and paginates the results' do
-          allow(Goal).to receive(:ransack).and_return(double(result: [goal_oldest,
-                                                                      goal_four_days_ago, goal_three_days_ago, goal_two_days_ago, goal_recent]))
+          allow(Goal).to receive(:ransack).and_return(
+            double(result: [goal_oldest,
+                            goal_four_days_ago,
+                            goal_three_days_ago,
+                            goal_two_days_ago,
+                            goal_recent])
+          )
           params = { page: 1 }
           service = Goals::FetchService.new(params)
-          expect(service.call.to_a).to eq([goal_recent, goal_two_days_ago, goal_three_days_ago, goal_four_days_ago])
+          expect(service.call.to_a).to eq([
+                                            goal_recent,
+                                            goal_two_days_ago,
+                                            goal_three_days_ago,
+                                            goal_four_days_ago
+                                          ])
         end
       end
 
