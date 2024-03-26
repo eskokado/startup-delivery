@@ -32,4 +32,12 @@ RSpec.describe Category, type: :model do
   describe 'associations' do
     it { should belong_to(:client) }
   end
+
+  describe 'acts_as_paranoid' do
+    it 'soft deletes the category' do
+      category = create(:category)
+
+      expect { category.destroy }.to change(Category.only_deleted, :count).by(1)
+    end
+  end
 end
