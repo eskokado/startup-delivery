@@ -7,5 +7,6 @@ pt-BR:
       sign_out: "Sair da conta"
     menu_goals:
       menu_1: 'Metas'
+      menu_2: 'Categorias'
     menu_dash:
       menu_1: 'Painel'
