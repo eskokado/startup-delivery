@@ -29,6 +29,15 @@ RSpec.describe Goals::FetchService do
           expect(service.call.to_a).to eq([goal_1, goal_2, goal_3, goal_4])
         end
       end
+
+      context 'with search parameters' do
+        it 'filters the results according to the search query' do
+          params = { q: { created_at_eq: date_3.to_date.to_s }, page: 1 }
+          service = Goals::FetchService.new(params)
+          results = service.call.to_a
+          expect(results).to eq([goal_3])
+        end
+      end
     end
   end
 end
