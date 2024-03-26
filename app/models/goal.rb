@@ -49,7 +49,7 @@ class Goal < ApplicationRecord
 
   private
 
-  def update_goals_deleted_at
-    goals.find_each { |g| g.update(deleted_at: Time.current) }
+  def update_tasks_deleted_at
+    tasks.find_each { |g| g.update(deleted_at: Time.current) }
   end
 end
