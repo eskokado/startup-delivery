@@ -16,7 +16,7 @@ module Manager
 
       def many
         Goal.where(id: params[:done][:goal_ids])
-            .update_all(status: :done)
+            .find_each { |goal| goal.update(status: :done) }
 
         respond_to do |format|
           format.html do
