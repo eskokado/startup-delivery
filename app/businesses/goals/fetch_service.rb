@@ -1,8 +1,8 @@
 module Goals
   class FetchService < BusinessApplication
     PER_PAGE = 4
-
     attr_reader :search
+
     def initialize(params)
       @params = params
       @search = Goal.ransack(@params[:q])
