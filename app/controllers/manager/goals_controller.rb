@@ -5,7 +5,9 @@ module Manager
                            destroy]
 
     def index
-      @goals = Goals::FetchService.new(params).call
+      fetch_service = ::Goals::FetchService.new(params)
+      @q = fetch_service.search
+      @goals = fetch_service.call
     end
 
     def show; end
