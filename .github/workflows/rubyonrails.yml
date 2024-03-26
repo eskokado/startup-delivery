@@ -21,12 +21,12 @@ jobs:
         ports:
           - "5432:5432"
         env:
-          POSTGRES_DB: startup_mission_test
+          POSTGRES_DB: startup_delivery_test
           POSTGRES_USER: rails
           POSTGRES_PASSWORD: password
     env:
       RAILS_ENV: test
-      DATABASE_URL: "postgres://rails:password@localhost:5432/startup_mission_test"
+      DATABASE_URL: "postgres://rails:password@localhost:5432/startup_delivery_test"
     steps:
       - uses: actions/checkout@v2
       - name: Set up Ruby
