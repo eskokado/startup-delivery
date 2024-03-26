@@ -20,6 +20,15 @@ RSpec.describe Goals::FetchService do
         service = Goals::FetchService.new(params)
         expect(service.call.to_a).to eq([goal_1, goal_2, goal_3, goal_4])
       end
+
+      context 'when results are an array' do
+        it 'sorts by created_at DESC and paginates the results' do
+          allow(Goal).to receive(:ransack).and_return(double(result: [goal_5, goal_4, goal_3, goal_2, goal_1]))
+          params = { page: 1 }
+          service = Goals::FetchService.new(params)
+          expect(service.call.to_a).to eq([goal_1, goal_2, goal_3, goal_4])
+        end
+      end
     end
   end
 end
