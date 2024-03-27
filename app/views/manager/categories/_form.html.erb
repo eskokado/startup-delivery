@@ -1,0 +1,13 @@
+<div class="flex flex-col">
+  <div class="w-full">
+    <%= form.input :name, placeholder: '', required: true, class: 'form-control' %>
+  </div>
+
+  <div class="w-full mt-4">
+    <%= form.input :description, as: :text, placeholder: '', required: true, class: 'form-control' %>
+  </div>
+
+  <div class="w-full mt-4">
+    <%= form.input :image, required: true, class: 'form-control' %>
+  </div>
+</div>
