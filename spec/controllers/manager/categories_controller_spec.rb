@@ -54,5 +54,13 @@ RSpec.describe Manager::CategoriesController,
         expect(flash[:notice]).to eq I18n.t('controllers.manager.categories.create')
       end
     end
+
+    context 'with invalid attributes' do
+      it 'does not save the new category' do
+        expect {
+          post :create, params: { category: FactoryBot.attributes_for(:category, name: nil, client_id: client.id) }
+        }.not_to change(Category, :count)
+      end
+    end
   end
 end
