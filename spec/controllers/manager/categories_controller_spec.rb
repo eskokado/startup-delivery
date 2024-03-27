@@ -61,6 +61,11 @@ RSpec.describe Manager::CategoriesController,
           post :create, params: { category: FactoryBot.attributes_for(:category, name: nil, client_id: client.id) }
         }.not_to change(Category, :count)
       end
+
+      it 're-renders the new method' do
+        post :create, params: { category: FactoryBot.attributes_for(:category, name: nil, client_id: client.id) }
+        expect(response).to render_template(:new)
+      end
     end
   end
 end
