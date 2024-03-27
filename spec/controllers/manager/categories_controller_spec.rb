@@ -43,27 +43,50 @@ RSpec.describe Manager::CategoriesController,
   describe 'POST #create' do
     context 'with valid attributes' do
       it 'creates a new category' do
-        expect {
-          post :create, params: { category: FactoryBot.attributes_for(:category, client_id: client.id) }
-        }.to change(Category, :count).by(1)
+        expect do
+          post :create,
+               params: {
+                 category: FactoryBot.attributes_for(
+                   :category, client_id: client.id
+                 )
+               }
+        end.to change(Category, :count).by(1)
       end
 
       it 'redirects to the category path with a notice on successful save' do
-        post :create, params: { category: FactoryBot.attributes_for(:category, client_id: client.id) }
-        expect(response).to redirect_to(manager_category_path(assigns(:category)))
-        expect(flash[:notice]).to eq I18n.t('controllers.manager.categories.create')
+        post :create,
+             params: {
+               category: FactoryBot.attributes_for(
+                 :category, client_id: client.id
+               )
+             }
+        expect(response)
+          .to redirect_to(manager_category_path(assigns(:category)))
+        expect(flash[:notice])
+          .to eq I18n.t('controllers.manager.categories.create')
       end
     end
 
     context 'with invalid attributes' do
       it 'does not save the new category' do
-        expect {
-          post :create, params: { category: FactoryBot.attributes_for(:category, name: nil, client_id: client.id) }
-        }.not_to change(Category, :count)
+        expect do
+          post :create, params: {
+            category: FactoryBot.attributes_for(
+              :category,
+              name: nil,
+              client_id: client.id
+            )
+          }
+        end.not_to change(Category, :count)
       end
 
       it 're-renders the new method' do
-        post :create, params: { category: FactoryBot.attributes_for(:category, name: nil, client_id: client.id) }
+        post :create,
+             params: {
+               category: FactoryBot.attributes_for(
+                 :category, name: nil, client_id: client.id
+               )
+             }
         expect(response).to render_template(:new)
       end
     end

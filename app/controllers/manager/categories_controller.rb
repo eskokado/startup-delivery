@@ -32,6 +32,5 @@ module Manager
     def category_params
       params.require(:category).permit(:name, :description, :image_url)
     end
-
   end
 end
