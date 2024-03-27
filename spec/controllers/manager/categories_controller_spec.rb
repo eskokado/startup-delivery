@@ -47,6 +47,12 @@ RSpec.describe Manager::CategoriesController,
           post :create, params: { category: FactoryBot.attributes_for(:category, client_id: client.id) }
         }.to change(Category, :count).by(1)
       end
+
+      it 'redirects to the category path with a notice on successful save' do
+        post :create, params: { category: FactoryBot.attributes_for(:category, client_id: client.id) }
+        expect(response).to redirect_to(manager_category_path(assigns(:category)))
+        expect(flash[:notice]).to eq I18n.t('controllers.manager.categories.create')
+      end
     end
   end
 end
