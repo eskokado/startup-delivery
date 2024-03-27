@@ -21,10 +21,11 @@
 #  fk_rails_...  (client_id => clients.id)
 #
 class Category < ApplicationRecord
+  has_one_attached :image
+
   acts_as_paranoid
   belongs_to :client
 
   validates :name, presence: true
   validates :description, presence: true
-  validates :image_url, presence: true
 end
