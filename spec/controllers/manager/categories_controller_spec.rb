@@ -39,4 +39,14 @@ RSpec.describe Manager::CategoriesController,
       expect(response).to render_template(:new)
     end
   end
+
+  describe 'POST #create' do
+    context 'with valid attributes' do
+      it 'creates a new category' do
+        expect {
+          post :create, params: { category: FactoryBot.attributes_for(:category, client_id: client.id) }
+        }.to change(Category, :count).by(1)
+      end
+    end
+  end
 end
