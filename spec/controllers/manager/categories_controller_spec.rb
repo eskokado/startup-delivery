@@ -27,4 +27,11 @@ RSpec.describe Manager::CategoriesController,
       expect(response).to render_template(:index)
     end
   end
+
+  describe 'GET #new' do
+    it 'assigns a new Category to @category' do
+      get :new
+      expect(assigns(:category)).to be_a_new(Category)
+    end
+  end
 end
