@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Manager::GoalsController,
+RSpec.describe Manager::CategoriesController,
                type: :controller do
   let(:user) { FactoryBot.create(:user) }
   let(:client) { create(:client, user: user) }
@@ -16,6 +16,12 @@ RSpec.describe Manager::GoalsController,
   end
 
   describe 'GET #index' do
+    it 'assigns @categories' do
+      category = FactoryBot.create(:category, client: client)
+      get :index
+      expect(assigns(:categories)).to eq([category])
+    end
+
     it 'renders the index template' do
       get :index
       expect(response).to render_template(:index)
