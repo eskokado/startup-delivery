@@ -1,5 +1,5 @@
 module Goals
-  class FetchService < BusinessApplication
+  class Fetch < BusinessApplication
     PER_PAGE = 4
     attr_reader :search
 

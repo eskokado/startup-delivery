@@ -3,7 +3,7 @@ module Manager
     before_action :set_goal, only: %i[show edit update destroy]
 
     def index
-      fetch_service = ::Goals::FetchService.new(params)
+      fetch_service = ::Goals::Fetch.new(params)
       @q = fetch_service.search
       @goals = fetch_service.call
     end
