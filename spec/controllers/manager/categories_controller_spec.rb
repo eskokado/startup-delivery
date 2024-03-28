@@ -54,6 +54,15 @@ RSpec.describe Manager::CategoriesController,
       expect(assigns(:categories)).to include(category1)
       expect(assigns(:categories)).to_not include(category2)
     end
+
+    it 'excludes non-matching results' do
+      create(:category, name: 'Non-Matching Category', client: client)
+
+      get :index,
+          params: { q: { name_or_description_cont: 'Pequeno' } }
+
+      expect(assigns(:categories)).to be_empty
+    end
   end
 
   describe 'GET #new' do
