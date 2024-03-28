@@ -11,21 +11,25 @@ RSpec.describe Categories::Fetch do
     let(:four_days_ago) { 4.days.ago.midnight }
     let(:five_days_ago) { 5.days.ago.midnight }
 
-    let!(:category_recent) {
-      create(:category, created_at: one_day_ago, client: client)
-    }
-    let!(:category_two_days_ago) {
+    let!(:category_recent) do
+      create(
+        :category,
+        created_at: one_day_ago,
+        client: client
+      )
+    end
+    let!(:category_two_days_ago) do
       create(:category, created_at: two_days_ago, client: client)
-    }
-    let!(:category_three_days_ago) {
+    end
+    let!(:category_three_days_ago) do
       create(:category, created_at: three_days_ago, client: client)
-    }
-    let!(:category_four_days_ago) {
+    end
+    let!(:category_four_days_ago) do
       create(:category, created_at: four_days_ago, client: client)
-    }
-    let!(:category_oldest) {
+    end
+    let!(:category_oldest) do
       create(:category, created_at: five_days_ago, client: client)
-    }
+    end
 
     context 'when results are ActiveRecord::Relation' do
       it 'orders by created_at DESC and paginates the results' do
