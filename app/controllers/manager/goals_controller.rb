@@ -1,8 +1,6 @@
 module Manager
   class GoalsController < InternalController
-    before_action :set_goal,
-                  only: %i[show edit update
-                           destroy]
+    before_action :set_goal, only: %i[show edit update destroy]
 
     def index
       fetch_service = ::Goals::FetchService.new(params)
@@ -22,59 +20,44 @@ module Manager
     def create
       @goal = Goal.new(goal_params)
       @goal.client = current_user.client
-      respond_to do |format|
-        if @goal.save
-          format.html do
-            redirect_to manager_goal_path(@goal),
-                        notice: t('controllers.manager.goals.create')
-          end
-        else
-          format.html do
-            render :new,
-                   status: :unprocessable_entity
-          end
-        end
+      if @goal.save
+        redirect_to_success(manager_goal_path(@goal), 'create')
+      else
+        render_failure(:new)
       end
     end
 
     def update
-      respond_to do |format|
-        if @goal.update(goal_params)
-          format.html do
-            redirect_to manager_goal_path(@goal),
-                        notice: t('controllers.manager.goals.update')
-          end
-        else
-          format.html do
-            render :edit,
-                   status: :unprocessable_entity
-          end
-        end
+      if @goal.update(goal_params)
+        redirect_to_success(manager_goal_path(@goal), 'update')
+      else
+        render_failure(:edit)
       end
     end
 
     def destroy
       @goal.destroy
-      respond_to do |format|
-        format.html do
-          redirect_to manager_goals_path,
-                      notice: t('controllers.manager.goals.destroy')
-        end
-      end
+      redirect_to manager_goals_path, notice: t('controllers.manager.goals.destroy')
     end
 
     private
 
     def set_goal
-      @goal = Goal.find_by(id: params[:id])
-      redirect_to(manager_goals_path, alert: 'Goal not found') unless @goal
+      @goal = Goal.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      redirect_to(manager_goals_path, alert: 'Goal not found')
     end
 
     def goal_params
-      params.require(:goal).permit(:name,
-                                   :description, :status,
-                                   tasks_attributes:
-                                     %i[id name description status _destroy])
+      params.require(:goal).permit(:name, :description, :status, tasks_attributes: %i[id name description status _destroy])
+    end
+
+    def redirect_to_success(path, action)
+      redirect_to path, notice: t("controllers.manager.goals.#{action}")
+    end
+
+    def render_failure(template)
+      render template, status: :unprocessable_entity
     end
   end
 end
