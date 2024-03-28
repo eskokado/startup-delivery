@@ -3,9 +3,9 @@ module Manager
     before_action :set_goal, only: %i[show edit update destroy]
 
     def index
-      fetch_service = ::Goals::Fetch.new(params)
-      @q = fetch_service.search
-      @goals = fetch_service.call
+      fetch = ::Goals::Fetch.new(params)
+      @q = fetch.search
+      @goals = fetch.call
     end
 
     def show; end
@@ -37,7 +37,8 @@ module Manager
 
     def destroy
       @goal.destroy
-      redirect_to manager_goals_path, notice: t('controllers.manager.goals.destroy')
+      redirect_to manager_goals_path,
+                  notice: t('controllers.manager.goals.destroy')
     end
 
     private
@@ -49,7 +50,9 @@ module Manager
     end
 
     def goal_params
-      params.require(:goal).permit(:name, :description, :status, tasks_attributes: %i[id name description status _destroy])
+      params.require(:goal)
+            .permit(:name, :description, :status,
+                    tasks_attributes: %i[id name description status _destroy])
     end
 
     def redirect_to_success(path, action)
