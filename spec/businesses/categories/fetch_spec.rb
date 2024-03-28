@@ -37,5 +37,25 @@ RSpec.describe Categories::Fetch do
                                          category_four_days_ago])
       end
     end
+
+    context 'when results are an array' do
+      it 'sorts by created_at DESC and paginates the results' do
+        allow(Category).to receive(:ransack).and_return(
+          double(result: [category_oldest,
+                          category_four_days_ago,
+                          category_three_days_ago,
+                          category_two_days_ago,
+                          category_recent])
+        )
+        params = { page: 1 }
+        service = Categories::Fetch.new(params, client: client)
+        expect(service.call.to_a).to eq([
+                                          category_recent,
+                                          category_two_days_ago,
+                                          category_three_days_ago,
+                                          category_four_days_ago
+                                        ])
+      end
+    end
   end
 end
