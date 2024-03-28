@@ -11,7 +11,7 @@ module Categories
 
     def call
       results = @search.result(distinct: true)
-      paginate(results)
+      paginate_results(results)
     end
 
     private
@@ -21,13 +21,9 @@ module Categories
       @search = Category.ransack(search_params)
     end
 
-    def paginate(results)
-      if results.is_a?(ActiveRecord::Relation)
-        results.order(created_at: :desc).page(@params[:page]).per(PER_PAGE)
-      else
-        sorted_goals = results.sort_by(&:created_at).reverse
-        Kaminari.paginate_array(sorted_goals).page(@params[:page]).per(PER_PAGE)
-      end
+    def paginate_results(results)
+      paginator = ::Shared::Paginator.new(results, @params[:page], PER_PAGE)
+      paginator.call
     end
   end
 end
