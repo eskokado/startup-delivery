@@ -63,6 +63,13 @@ RSpec.describe Manager::CategoriesController,
 
       expect(assigns(:categories)).to be_empty
     end
+
+    it 'renders the index template' do
+      get :index,
+          params: { q: { name_or_description_cont: 'Search Nothing' } }
+
+      expect(response).to render_template(:index)
+    end
   end
 
   describe 'GET #new' do
