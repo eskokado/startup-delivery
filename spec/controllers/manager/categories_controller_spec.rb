@@ -26,6 +26,16 @@ RSpec.describe Manager::CategoriesController,
       get :index
       expect(response).to render_template(:index)
     end
+
+    it 'assigns all categories as @categories for the given search parameters' do
+      double('search_result', result: categories)
+      allow(Category)
+        .to receive_message_chain(:ransack, :result).and_return(categories)
+
+      get :index
+
+      expect(assigns(:categories)).to match_array(categories)
+    end
   end
 
   describe 'GET #new' do
