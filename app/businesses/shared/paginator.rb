@@ -10,6 +10,7 @@ module Shared
 
     def call
       return paginate_relation if results.is_a?(ActiveRecord::Relation)
+
       paginate_array
     end
 

@@ -19,6 +19,5 @@ module Goals
       paginator = ::Shared::Paginator.new(results, @params[:page], PER_PAGE)
       paginator.call
     end
-
   end
 end
