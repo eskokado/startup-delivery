@@ -38,6 +38,24 @@ RSpec.describe Manager::CategoriesController,
     end
   end
 
+  describe 'GET #index with search' do
+    it 'returns the categories searched correctly' do
+      category1 = create(:category,
+                         name: 'Pizzas',
+                         description: 'Pizzas grandes',
+                         client: client)
+      category2 = create(:category,
+                         name: 'Lanches',
+                         description: 'Combobox completo',
+                         client: client)
+      get :index,
+          params: { q: { name_or_description_cont: 'grandes' } }
+
+      expect(assigns(:categories)).to include(category1)
+      expect(assigns(:categories)).to_not include(category2)
+    end
+  end
+
   describe 'GET #new' do
     it 'assigns a new Category to @category' do
       get :new
