@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Goals::FetchService do
+RSpec.describe Goals::Fetch do
   describe '#call' do
     let(:one_day_ago) { 1.day.ago.midnight }
     let(:two_days_ago) { 2.days.ago.midnight }
@@ -17,7 +17,7 @@ RSpec.describe Goals::FetchService do
     context 'when results are ActiveRecord::Relation' do
       it 'orders by created_at DESC and paginates the results' do
         params = { page: 1 }
-        service = Goals::FetchService.new(params)
+        service = Goals::Fetch.new(params)
         expect(service.call.to_a).to eq([goal_recent,
                                          goal_two_days_ago,
                                          goal_three_days_ago,
@@ -34,7 +34,7 @@ RSpec.describe Goals::FetchService do
                             goal_recent])
           )
           params = { page: 1 }
-          service = Goals::FetchService.new(params)
+          service = Goals::Fetch.new(params)
           expect(service.call.to_a).to eq([
                                             goal_recent,
                                             goal_two_days_ago,
@@ -51,7 +51,7 @@ RSpec.describe Goals::FetchService do
             page: 1
           }
 
-          service = Goals::FetchService.new(params)
+          service = Goals::Fetch.new(params)
           results = service.call.to_a
           expect(results).to eq([goal_three_days_ago])
         end

@@ -26,6 +26,50 @@ RSpec.describe Manager::CategoriesController,
       get :index
       expect(response).to render_template(:index)
     end
+
+    it 'assigns @categories for the given search parameters' do
+      double('search_result', result: categories)
+      allow(Category)
+        .to receive_message_chain(:ransack, :result).and_return(categories)
+
+      get :index
+
+      expect(assigns(:categories)).to match_array(categories)
+    end
+  end
+
+  describe 'GET #index with search' do
+    it 'returns the categories searched correctly' do
+      category1 = create(:category,
+                         name: 'Pizzas',
+                         description: 'Pizzas grandes',
+                         client: client)
+      category2 = create(:category,
+                         name: 'Lanches',
+                         description: 'Combobox completo',
+                         client: client)
+      get :index,
+          params: { q: { name_or_description_cont: 'grandes' } }
+
+      expect(assigns(:categories)).to include(category1)
+      expect(assigns(:categories)).to_not include(category2)
+    end
+
+    it 'excludes non-matching results' do
+      create(:category, name: 'Non-Matching Category', client: client)
+
+      get :index,
+          params: { q: { name_or_description_cont: 'Pequeno' } }
+
+      expect(assigns(:categories)).to be_empty
+    end
+
+    it 'renders the index template' do
+      get :index,
+          params: { q: { name_or_description_cont: 'Search Nothing' } }
+
+      expect(response).to render_template(:index)
+    end
   end
 
   describe 'GET #new' do
