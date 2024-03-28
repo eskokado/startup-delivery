@@ -2,7 +2,9 @@ module Manager
   class CategoriesController < InternalController
     def index
       client = current_user.client
-      @categories = Category.where(client: client)
+      fetch = ::Categories::Fetch.new(params, client: client)
+      @q = fetch.search
+      @categories = fetch.call
     end
 
     def new
