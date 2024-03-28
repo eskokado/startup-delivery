@@ -57,5 +57,18 @@ RSpec.describe Categories::Fetch do
                                         ])
       end
     end
+
+    context 'with search parameters' do
+      it 'filters the results according to the search query' do
+        params = {
+          q: { created_at_eq: three_days_ago.to_date.to_s },
+          page: 1
+        }
+
+        service = Categories::Fetch.new(params, client: client)
+        results = service.call.to_a
+        expect(results).to eq([category_three_days_ago])
+      end
+    end
   end
 end
