@@ -159,6 +159,15 @@ RSpec.describe Manager::CategoriesController,
         expect(category.name).to eq('Nova Categoria')
         expect(category.description).to eq('Nova descrição')
       end
+
+      it 'redirects to the category with a notice on successful update' do
+        patch :update, params: {
+          id: category.id,
+          category: { name: 'Atualizada' }
+        }
+        expect(response).to redirect_to(manager_category_path(category))
+        expect(flash[:notice]).to eq I18n.t('controllers.manager.categories.update')
+      end
     end
   end
 end
