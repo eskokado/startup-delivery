@@ -135,4 +135,11 @@ RSpec.describe Manager::CategoriesController,
       end
     end
   end
+
+  describe 'GET #edit' do
+    it 'assigns the requested category to @category' do
+      get :edit, params: { id: category.id }
+      expect(assigns(:category)).to eq(category)
+    end
+  end
 end
