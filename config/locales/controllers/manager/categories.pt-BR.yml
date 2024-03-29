@@ -5,3 +5,4 @@ pt-BR:
         create: 'Categoria cadastrada com sucesso.'
         update: 'Categoria atualizada com sucesso.'
         destroy: 'Categoria apagada com sucesso.'
+        not_found: 'Categoria inexistente.'
