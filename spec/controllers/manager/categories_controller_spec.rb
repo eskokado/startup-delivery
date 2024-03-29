@@ -166,7 +166,8 @@ RSpec.describe Manager::CategoriesController,
           category: { name: 'Atualizada' }
         }
         expect(response).to redirect_to(manager_category_path(category))
-        expect(flash[:notice]).to eq I18n.t('controllers.manager.categories.update')
+        expect(flash[:notice])
+          .to eq I18n.t('controllers.manager.categories.update')
       end
     end
   end

@@ -53,7 +53,10 @@ module Manager
       @category = Category.find(params[:id])
       @category.client = current_user.client
     rescue ActiveRecord::RecordNotFound
-      redirect_to(manager_categories_path, alert: t('controllers.manager.categories.not_found'))
+      redirect_to(
+        manager_categories_path,
+        alert: t('controllers.manager.categories.not_found')
+      )
     end
 
     def redirect_to_success(path, action)
