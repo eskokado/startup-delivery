@@ -147,4 +147,18 @@ RSpec.describe Manager::CategoriesController,
       expect(response).to render_template(:edit)
     end
   end
+
+  describe 'PATCH #update' do
+    context 'with valid attributes' do
+      it 'updates the category' do
+        patch :update, params: {
+          id: category.id,
+          category: { name: 'Nova Categoria', description: 'Nova descrição' }
+        }
+        category.reload
+        expect(category.name).to eq('Nova Categoria')
+        expect(category.description).to eq('Nova descrição')
+      end
+    end
+  end
 end
