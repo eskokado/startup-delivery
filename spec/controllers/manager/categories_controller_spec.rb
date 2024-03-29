@@ -135,4 +135,40 @@ RSpec.describe Manager::CategoriesController,
       end
     end
   end
+
+  describe 'GET #edit' do
+    it 'assigns the requested category to @category' do
+      get :edit, params: { id: category.id }
+      expect(assigns(:category)).to eq(category)
+    end
+
+    it 'renders the edit template' do
+      get :edit, params: { id: category.id }
+      expect(response).to render_template(:edit)
+    end
+  end
+
+  describe 'PATCH #update' do
+    context 'with valid attributes' do
+      it 'updates the category' do
+        patch :update, params: {
+          id: category.id,
+          category: { name: 'Nova Categoria', description: 'Nova descrição' }
+        }
+        category.reload
+        expect(category.name).to eq('Nova Categoria')
+        expect(category.description).to eq('Nova descrição')
+      end
+
+      it 'redirects to the category with a notice on successful update' do
+        patch :update, params: {
+          id: category.id,
+          category: { name: 'Atualizada' }
+        }
+        expect(response).to redirect_to(manager_category_path(category))
+        expect(flash[:notice])
+          .to eq I18n.t('controllers.manager.categories.update')
+      end
+    end
+  end
 end
