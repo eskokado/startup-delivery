@@ -141,5 +141,10 @@ RSpec.describe Manager::CategoriesController,
       get :edit, params: { id: category.id }
       expect(assigns(:category)).to eq(category)
     end
+
+    it 'renders the edit template' do
+      get :edit, params: { id: category.id }
+      expect(response).to render_template(:edit)
+    end
   end
 end
