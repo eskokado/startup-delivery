@@ -8,6 +8,19 @@
   </div>
 
   <div class="w-full mt-4">
-    <%= form.input :image, required: true, class: 'form-control' %>
+    <% if @category.image.attached? %>
+      <div class="mb-3">
+        <%= image_tag @category.image, class: 'existing-image-class', alt: t('manager.categories.shared.image_actual') %>
+        <p><%= t('manager.categories.shared.image_actual_message') %></p>
+      </div>
+    <% end %>
+    <%= form.input :image, as: :file, required: !@category.image.attached?, input_html: { class: 'form-control' } %>
+    <% if @category.image.attached? %>
+      <div class="mt-2">
+        <%= hidden_field_tag 'category[remove_image]', '0' %>
+        <%= check_box_tag 'category[remove_image]', '1' %>
+        <%= label_tag 'category_remove_image', t('manager.categories.shared.image_remove') %>
+      </div>
+    <% end %>
   </div>
 </div>
