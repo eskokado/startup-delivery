@@ -31,6 +31,12 @@ pt-BR:
         save: 'Salvar'
         delete: 'Apagar'
         delete_confirm: 'Você tem certeza?'
+      category:
+        show: 'Mostrar'
+        edit: 'Editar'
+        done: 'Finalizar'
+        delete: 'Apagar'
+        delete_confirm: 'Você tem certeza?'
       shared:
         image_actual: 'Imagem atual'
         image_actual_message: 'Imagem atual. Para alterar, selecione uma nova imagem abaixo.'
