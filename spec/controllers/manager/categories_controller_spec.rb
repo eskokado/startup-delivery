@@ -194,5 +194,12 @@ RSpec.describe Manager::CategoriesController,
         delete :destroy, params: { id: category.id }
       end.to change(Category, :count).by(-1)
     end
+
+    it 'redirects to the categories index with a notice' do
+      delete :destroy, params: { id: category.id }
+      expect(response).to redirect_to(manager_categories_path)
+      expect(flash[:notice])
+        .to eq(I18n.t('controllers.manager.categories.destroy'))
+    end
   end
 end
