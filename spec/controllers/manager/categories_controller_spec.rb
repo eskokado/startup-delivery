@@ -185,4 +185,14 @@ RSpec.describe Manager::CategoriesController,
       expect(assigns(:category)).to eq(category)
     end
   end
+
+  describe 'DELETE #destroy' do
+    let!(:category) { create(:category, client: client) }
+
+    it 'deletes the category' do
+      expect do
+        delete :destroy, params: { id: category.id }
+      end.to change(Category, :count).by(-1)
+    end
+  end
 end
