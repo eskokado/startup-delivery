@@ -1,6 +1,6 @@
 module Manager
   class CategoriesController < InternalController
-    before_action :set_category, only: %i[show edit update]
+    before_action :set_category, only: %i[show edit update destroy]
 
     def index
       client = current_user.client
@@ -43,6 +43,12 @@ module Manager
       else
         render_failure(:edit)
       end
+    end
+
+    def destroy
+      @category.destroy
+      redirect_to manager_categories_path,
+                  notice: t('controllers.manager.categories.destroy')
     end
 
     private

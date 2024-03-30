@@ -3,6 +3,8 @@
     <h1 class="font-bold text-4xl"><%= t('.title') %></h1>
     <div>
       <%= link_to t('.edit'), edit_manager_category_path(@category), class: "mr-2 items-center justify-center text-white bg-blue-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800" %>
+      <%= link_to t('.delete'), manager_category_path(@category),
+                  data: { turbo_method: :delete, turbo_confirm: t('.delete_confirm') }, class: "mr-2 items-center justify-center text-white bg-blue-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800" %>
     </div>
   </div>
 
@@ -17,8 +19,11 @@
     <label class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"><%= Goal.human_attribute_name("description") %></label>
   </div>
   <div class="relative z-0 w-full mb-6 group mt-4 w-1/3">
-    <div class="mb-3 w-1/3">
-      <%= image_tag @category.image, class: 'existing-image-class', alt: t('manager.categories.shared.image_actual') %>
-    </div>
+    <% if @category.image.attached? %>
+      <div class="mb-3 w-1/3">
+        <%= image_tag @category.image, class: 'existing-image-class', alt: t('manager.categories.shared.image_actual') %>
+        <p><%= t('manager.categories.shared.image_actual_message') %></p>
+      </div>
+    <% end %>
   </div>
 </div>
