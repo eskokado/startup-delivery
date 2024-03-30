@@ -1,6 +1,6 @@
 module Manager
   class CategoriesController < InternalController
-    before_action :set_category, only: %i[edit update]
+    before_action :set_category, only: %i[show edit update]
 
     def index
       client = current_user.client
@@ -8,6 +8,8 @@ module Manager
       @q = fetch.search
       @categories = fetch.call
     end
+
+    def show; end
 
     def new
       @category = Category.new
