@@ -171,4 +171,10 @@ RSpec.describe Manager::CategoriesController,
       end
     end
   end
+
+  describe 'GET #show' do
+    it 'responds with success' do
+      expect(response).to have_http_status(:success)
+    end
+  end
 end
