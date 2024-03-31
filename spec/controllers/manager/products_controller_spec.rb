@@ -20,5 +20,9 @@ RSpec.describe Manager::ProductsController, type: :controller do
     it 'populates an array of products' do
       expect(assigns(:products)).to match_array(Product.all)
     end
+
+    it 'renders the :index view' do
+      expect(response).to render_template :index
+    end
   end
 end
