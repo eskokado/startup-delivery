@@ -1,0 +1,13 @@
+<% @products.each do |product| %>
+  <tr class="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600" id="<%= dom_id product %>">
+    <td class="px-4 py-3"> <%= product.name %></td>
+    <td class="px-4 py-3"> <%= product.description %></td>
+    <td class="px-4 py-3"> <%= number_to_currency(product.value) %></td>
+    <td class="px-4 py-3"> <%= product.category.name %></td>
+    <td class="px-4 py-3">
+      <%= image_tag(product.photo, size: "50x50", alt: product.name) if product.photo.attached? %>
+    </td>
+    <td class="px-4 py-3 flex items-center justify-end">
+    </td>
+  </tr>
+<% end %>
