@@ -102,11 +102,25 @@ if Rails.env.development?
   ]
 
   delivery_categories.each do |category_attrs|
-    Category.create(
+    category = Category.create(
       name: category_attrs[:name],
       description: category_attrs[:description],
       image_url: category_attrs[:image_url],
       client: client_1
     )
+
+    rand(5..10).times do
+      Product.create(
+        name: FFaker::Product.product_name,
+        description: FFaker::Lorem.sentence,
+        long_description: FFaker::Lorem.paragraph,
+        value: FFaker::Number.decimal(whole_digits: 2, fractional_digits: 2),
+        category: category,
+        client: client_1,
+        combo: FFaker::Boolean.random,
+        pizza: FFaker::Boolean.random,
+        deleted_at: nil
+      )
+    end
   end
 end
