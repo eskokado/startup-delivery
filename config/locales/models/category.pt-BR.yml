@@ -1,0 +1,19 @@
+pt-BR:
+  activerecord:
+    errors:
+      models:
+        category:
+          attributes:
+            name:
+              blank: 'nao pode ficar em branco'
+    models:
+      category:
+        one: 'Category'
+        other: 'Categorias'
+    attributes:
+      category:
+        name: 'Nome'
+        description: 'Descrição'
+        image_url: 'Url da imagem'
+        created_at: 'Criado em'
+        updated_at: 'Atualizado em'

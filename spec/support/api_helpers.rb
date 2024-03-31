@@ -1,6 +1,11 @@
 module ApiHelpers
   def auth_user(user)
-    post '/auth/sign_in', params: { email: user.email, password: user.password }.to_json, headers: { 'Content-Type' => 'application/json', 'Accept' => 'application/json' }
+    post '/auth/sign_in',
+         params: { email: user.email, password: user.password }.to_json,
+         headers: {
+           'Content-Type' => 'application/json',
+           'Accept' => 'application/json'
+         }
 
     token = response.headers['access-token']
     client = response.headers['client']

@@ -17,19 +17,19 @@
 require 'rails_helper'
 
 RSpec.describe Client, type: :model do
-  describe "Associations" do
+  describe 'Associations' do
     it { should belong_to(:user) }
     it { should have_many(:goals).dependent(:destroy) }
   end
 
-  describe "Validations" do
+  describe 'Validations' do
     it { should validate_presence_of(:document) }
   end
-  describe "Custom methods" do
+  describe 'Custom methods' do
     let(:user) { create(:user) }
     let(:client) { create(:client, user: user) }
 
-    it "soft deletes associated goals when client is destroyed" do
+    it 'soft deletes associated goals when client is destroyed' do
       goal = create(:goal, client: client)
       client.destroy
       expect(goal.reload.deleted_at).not_to be_nil

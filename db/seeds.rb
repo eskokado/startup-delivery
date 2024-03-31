@@ -88,4 +88,39 @@ if Rails.env.development?
   Task.create(name: 'Treinamento do modelo', description: 'Treinar um modelo de chatbot',
               status: "done", goal: goal15)
 
+  delivery_categories = [
+    { name: "Pizza", description: "Deliciosas pizzas tradicionais e gourmet.", image_url: "pizza_image_url" },
+    { name: "Sushi", description: "Sushis e sashimis frescos dos melhores chefs.", image_url: "sushi_image_url" },
+    { name: "Hambúrguer", description: "Hambúrgueres suculentos com uma variedade de coberturas.", image_url: "hamburguer_image_url" },
+    { name: "Comida Chinesa", description: "Pratos clássicos chineses para satisfazer seus desejos.", image_url: "comida_chinesa_image_url" },
+    { name: "Comida Italiana", description: "Autênticas massas italianas e mais.", image_url: "comida_italiana_image_url" },
+    { name: "Comida Mexicana", description: "Cozinha mexicana picante e saborosa.", image_url: "comida_mexicana_image_url" },
+    { name: "Comida Indiana", description: "Pratos indianos ricos e aromáticos.", image_url: "comida_indiana_image_url" },
+    { name: "Salgados", description: "Variados tipos de salgados, como coxinhas e empadas.", image_url: "salgados_image_url" },
+    { name: "Comida Vegetariana", description: "Opções deliciosas e saudáveis para vegetarianos.", image_url: "comida_vegetariana_image_url" },
+    { name: "Sobremesas", description: "Doces tentadores para finalizar sua refeição.", image_url: "sobremesas_image_url" }
+  ]
+
+  delivery_categories.each do |category_attrs|
+    category = Category.create(
+      name: category_attrs[:name],
+      description: category_attrs[:description],
+      image_url: category_attrs[:image_url],
+      client: client_1
+    )
+
+    rand(5..10).times do
+      Product.create(
+        name: FFaker::Product.product_name,
+        description: FFaker::Lorem.sentence,
+        long_description: FFaker::Lorem.paragraph,
+        value: FFaker::Number.decimal(whole_digits: 2, fractional_digits: 2),
+        category: category,
+        client: client_1,
+        combo: FFaker::Boolean.random,
+        pizza: FFaker::Boolean.random,
+        deleted_at: nil
+      )
+    end
+  end
 end

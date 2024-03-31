@@ -14,7 +14,8 @@ RSpec.describe Api::Goals::DoneController, type: :request do
     end
 
     it 'marks a goal as done' do
-      post '/api/goals/done/index', params: { goal_id: @goal.id }, headers: auth_headers
+      post '/api/goals/done/index', params: { goal_id: @goal.id },
+                                    headers: auth_headers
       expect(response).to have_http_status(:ok)
 
       data = json_response
@@ -23,7 +24,8 @@ RSpec.describe Api::Goals::DoneController, type: :request do
     end
 
     it 'returns 404 if goal is not found' do
-      post '/api/goals/done/index', params: { goal_id: 'invalid' }, headers: auth_headers
+      post '/api/goals/done/index', params: { goal_id: 'invalid' },
+                                    headers: auth_headers
 
       expect(response).to have_http_status(:not_found)
     end
@@ -37,7 +39,8 @@ RSpec.describe Api::Goals::DoneController, type: :request do
     end
 
     it 'marks a goal as done' do
-      post '/api/goals/done/show', params: { goal_id: @goal.id }, headers: auth_headers
+      post '/api/goals/done/show', params: { goal_id: @goal.id },
+                                   headers: auth_headers
 
       expect(response).to have_http_status(:ok)
 
@@ -47,7 +50,8 @@ RSpec.describe Api::Goals::DoneController, type: :request do
     end
 
     it 'returns 404 if goal is not found' do
-      post '/api/goals/done/show', params: { goal_id: 'invalid' }, headers: auth_headers
+      post '/api/goals/done/show', params: { goal_id: 'invalid' },
+                                   headers: auth_headers
 
       expect(response).to have_http_status(:not_found)
     end
@@ -61,7 +65,8 @@ RSpec.describe Api::Goals::DoneController, type: :request do
     end
 
     it 'marks goals as done' do
-      post '/api/goals/done/many', params: { goal_ids: @goals.pluck(:id) }, headers: auth_headers
+      post '/api/goals/done/many', params: { goal_ids: @goals.pluck(:id) },
+                                   headers: auth_headers
 
       expect(response).to have_http_status(:ok)
 
@@ -71,7 +76,8 @@ RSpec.describe Api::Goals::DoneController, type: :request do
     end
 
     it 'returns 404 if goals are not found' do
-      post '/api/goals/done/many', params: { goal_ids: 'invalid' }, headers: auth_headers
+      post '/api/goals/done/many', params: { goal_ids: 'invalid' },
+                                   headers: auth_headers
 
       expect(response).to have_http_status(:not_found)
     end

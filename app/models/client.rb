@@ -22,8 +22,11 @@ class Client < ApplicationRecord
 
   validates :document, presence: true
 
-  def destroy
-    goals.update_all(deleted_at: Time.current) if persisted?
-    super
+  before_destroy :update_goals_deleted_at, if: :persisted?
+
+  private
+
+  def update_goals_deleted_at
+    goals.find_each { |g| g.update(deleted_at: Time.current) }
   end
 end

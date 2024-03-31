@@ -1,0 +1,23 @@
+<section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5" data-controller="products--index">
+  <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
+    <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg">
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <tr>
+            <th scope="col" class="px-4 py-3"><%= Product.human_attribute_name("name") %></th>
+            <th scope="col" class="px-4 py-3"><%= Product.human_attribute_name("description") %></th>
+            <th scope="col" class="px-4 py-3"><%= Product.human_attribute_name("value") %></th>
+            <th scope="col" class="px-4 py-3"><%= Product.human_attribute_name("category") %></th>
+            <th scope="col" class="px-4 py-3"><%= Product.human_attribute_name("image") %></th>
+            <th scope="col" class="px-4 py-3">Ações</th>
+          </tr>
+          </thead>
+          <tbody>
+          <%= render @products %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>

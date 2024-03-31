@@ -32,10 +32,7 @@ class Goal < ApplicationRecord
                                         reject_if: :all_blank
   after_update :after_update
 
-  def destroy
-    tasks.update_all(deleted_at: Time.current) if persisted?
-    super
-  end
+  before_destroy :update_tasks_deleted_at, if: :persisted?
 
   def after_update
     GoalFinishedJob.perform_later(self)
@@ -48,5 +45,11 @@ class Goal < ApplicationRecord
   def done!
     self.status = :done
     save!
+  end
+
+  private
+
+  def update_tasks_deleted_at
+    tasks.find_each { |g| g.update(deleted_at: Time.current) }
   end
 end
