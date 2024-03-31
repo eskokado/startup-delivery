@@ -48,4 +48,9 @@ RSpec.describe Product, type: :model do
     product = build(:product, value: 0)
     expect(product).not_to be_valid
   end
+
+  describe 'associations' do
+    it { should belong_to(:category) }
+    it { should belong_to(:client) }
+  end
 end
