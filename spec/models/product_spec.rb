@@ -43,4 +43,9 @@ RSpec.describe Product, type: :model do
     product = build(:product, value: nil)
     expect(product).not_to be_valid
   end
+
+  it 'is not valid with a value less than or equal to 0' do
+    product = build(:product, value: 0)
+    expect(product).not_to be_valid
+  end
 end
