@@ -1,29 +1,9 @@
 module Products
-  class Fetch < BusinessApplication
-    PER_PAGE = 4
-    attr_reader :search
-
-    def initialize(params, client)
-      @params = params
-      @client = client
-      configure_search
-    end
-
-    def call
-      results = @search.result(distinct: true)
-      paginate_results(results)
-    end
-
+  class Fetch < ApplicationFetch
     private
 
-    def configure_search
-      search_params = @params.fetch(:q, {}).merge(client_eq: @client)
-      @search = Product.ransack(search_params)
-    end
-
-    def paginate_results(results)
-      paginator = ::Shared::Paginator.new(results, @params[:page], PER_PAGE)
-      paginator.call
+    def model_class
+      Product
     end
   end
 end
