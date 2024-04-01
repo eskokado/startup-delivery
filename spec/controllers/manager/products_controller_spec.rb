@@ -47,4 +47,20 @@ RSpec.describe Manager::ProductsController, type: :controller do
       expect(response).to render_template(:new)
     end
   end
+
+
+  describe 'POST #create' do
+    context 'with valid attributes' do
+      it 'creates a new product' do
+        expect do
+          post :create,
+               params: {
+                 product: FactoryBot.attributes_for(
+                   :product, client_id: client.id, category_id: category.id
+                 )
+               }
+        end.to change(Product, :count).by(1)
+      end
+    end
+  end
 end
