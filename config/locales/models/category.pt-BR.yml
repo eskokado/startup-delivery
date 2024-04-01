@@ -13,7 +13,9 @@ pt-BR:
     attributes:
       category:
         name: 'Nome'
+        image: 'Imagem'
         description: 'Descrição'
         image_url: 'Url da imagem'
         created_at: 'Criado em'
         updated_at: 'Atualizado em'
+        deleted_at: 'Deletado em'
