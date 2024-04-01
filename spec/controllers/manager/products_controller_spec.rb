@@ -75,6 +75,16 @@ RSpec.describe Manager::ProductsController, type: :controller do
           }
         end.not_to change(Product, :count)
       end
+
+      it 're-renders the new method' do
+        post :create,
+             params: {
+               product: FactoryBot.attributes_for(
+                 :product, name: nil, client_id: client.id
+               )
+             }
+        expect(response).to render_template(:new)
+      end
     end
   end
 end
