@@ -62,5 +62,19 @@ RSpec.describe Manager::ProductsController, type: :controller do
         end.to change(Product, :count).by(1)
       end
     end
+
+    context 'with invalid attributes' do
+      it 'does not save the new product' do
+        expect do
+          post :create, params: {
+            product: FactoryBot.attributes_for(
+              :product,
+              name: nil,
+              client_id: client.id
+            )
+          }
+        end.not_to change(Product, :count)
+      end
+    end
   end
 end
