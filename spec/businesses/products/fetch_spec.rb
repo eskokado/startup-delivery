@@ -41,5 +41,25 @@ RSpec.describe Products::Fetch do
                                          product_four_days_ago])
       end
     end
+
+    context 'when results are an array' do
+      it 'sorts by created_at DESC and paginates the results' do
+        allow(Product).to receive(:ransack).and_return(
+          double(result: [product_oldest,
+                          product_four_days_ago,
+                          product_three_days_ago,
+                          product_two_days_ago,
+                          product_recent])
+        )
+        params = { page: 1 }
+        service = Products::Fetch.new(params, client: client)
+        expect(service.call.to_a).to eq([
+                                          product_recent,
+                                          product_two_days_ago,
+                                          product_three_days_ago,
+                                          product_four_days_ago
+                                        ])
+      end
+    end
   end
 end
