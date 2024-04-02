@@ -6,3 +6,5 @@ pt-BR:
         update: 'Categoria atualizada com sucesso.'
         destroy: 'Categoria apagada com sucesso.'
         not_found: 'Categoria inexistente.'
+        error: 'Falha ao cadastrar categoria.'
+

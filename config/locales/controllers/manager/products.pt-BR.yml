@@ -6,3 +6,4 @@ pt-BR:
         update: 'Produto atualizado com sucesso.'
         destroy: 'Produto apagado com sucesso.'
         not_found: 'Produto inexistente.'
+        error: 'Falha ao cadastrar produto.'

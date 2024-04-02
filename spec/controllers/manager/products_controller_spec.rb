@@ -86,4 +86,40 @@ RSpec.describe Manager::ProductsController, type: :controller do
       end
     end
   end
+
+  describe 'GET #edit' do
+    it 'assigns the requested product to @product' do
+      get :edit, params: { id: product.id }
+      expect(assigns(:product)).to eq(product)
+    end
+
+    it 'renders the edit template' do
+      get :edit, params: { id: product.id }
+      expect(response).to render_template(:edit)
+    end
+  end
+
+  describe 'PATCH #update' do
+    context 'with valid attributes' do
+      it 'updates the product' do
+        patch :update, params: {
+          id: product.id,
+          product: { name: 'Novo produto', description: 'Nova descrição' }
+        }
+        product.reload
+        expect(product.name).to eq('Novo produto')
+        expect(product.description).to eq('Nova descrição')
+      end
+
+      it 'redirects to the product with a notice on successful update' do
+        patch :update, params: {
+          id: product.id,
+          product: { name: 'Atualizada' }
+        }
+        expect(response).to redirect_to(manager_product_path(product))
+        expect(flash[:notice])
+          .to eq I18n.t('controllers.manager.products.update')
+      end
+    end
+  end
 end
