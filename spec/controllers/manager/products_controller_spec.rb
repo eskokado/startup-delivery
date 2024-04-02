@@ -92,5 +92,10 @@ RSpec.describe Manager::ProductsController, type: :controller do
       get :edit, params: { id: product.id }
       expect(assigns(:product)).to eq(product)
     end
+
+    it 'renders the edit template' do
+      get :edit, params: { id: product.id }
+      expect(response).to render_template(:edit)
+    end
   end
 end
