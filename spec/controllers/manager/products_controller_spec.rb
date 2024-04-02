@@ -122,4 +122,21 @@ RSpec.describe Manager::ProductsController, type: :controller do
       end
     end
   end
+
+  describe 'DELETE #destroy' do
+    let!(:product) { create(:product, client: client) }
+
+    it 'deletes the product' do
+      expect do
+        delete :destroy, params: { id: product.id }
+      end.to change(Product, :count).by(-1)
+    end
+
+    it 'redirects to the products index with a notice' do
+      delete :destroy, params: { id: product.id }
+      expect(response).to redirect_to(manager_products_path)
+      expect(flash[:notice])
+        .to eq(I18n.t('controllers.manager.products.destroy'))
+    end
+  end
 end
