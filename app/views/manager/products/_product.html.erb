@@ -17,6 +17,9 @@
         <% if action_name != "show" %>
           <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="apple-imac-27-dropdown-button">
             <li>
+              <%= link_to t('.show'), manager_product_path(product), class: "block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
+            </li>
+            <li>
               <%= link_to t('.edit'), edit_manager_product_path(product), class: "block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
             </li>
             <div class="py-1">

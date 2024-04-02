@@ -5,13 +5,15 @@ module Manager
     before_action :build_product, only: %i[create]
     before_action :set_current_client_context, only: %i[index create]
     before_action -> { prepare_resource(Product) },
-                  only: %i[edit update destroy]
+                  only: %i[show edit update destroy]
 
     def index
       fetch = ::Products::Fetch.new(params, client: @client)
       @q = fetch.search
       @products = fetch.call
     end
+
+    def show; end
 
     def new
       @product = Product.new

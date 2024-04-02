@@ -123,6 +123,20 @@ RSpec.describe Manager::ProductsController, type: :controller do
     end
   end
 
+  describe 'GET #show' do
+    before do
+      get :show, params: { id: product.id }
+    end
+
+    it 'responds with success' do
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'assigns the requested product to @product' do
+      expect(assigns(:product)).to eq(product)
+    end
+  end
+
   describe 'DELETE #destroy' do
     let!(:product) { create(:product, client: client) }
 
