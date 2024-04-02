@@ -1,5 +1,7 @@
 module Manager
   class ProductsController < InternalController
+    include ResponseHandler
+
     before_action :set_client, only: %i[index create]
     before_action :build_product, only: %i[create]
     before_action :set_product, only: %i[edit update]
@@ -68,14 +70,8 @@ module Manager
       )
     end
 
-    def redirect_to_success(product, action)
-      redirect_to manager_product_path(product),
-                  notice: t("controllers.manager.products.#{action}")
-    end
-
-    def render_failure(view)
-      flash.now[:alert] = t('controllers.manager.products.error')
-      render view, status: :unprocessable_entity
+    def path_for(resource)
+      manager_product_path(resource)
     end
   end
 end

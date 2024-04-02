@@ -1,5 +1,7 @@
 module Manager
   class CategoriesController < InternalController
+    include ResponseHandler
+
     before_action :set_category, only: %i[show edit update destroy]
 
     def index
@@ -65,14 +67,8 @@ module Manager
       )
     end
 
-    def redirect_to_success(category, action)
-      redirect_to manager_category_path(category),
-                  notice: t("controllers.manager.categories.#{action}")
-    end
-
-    def render_failure(view)
-      flash.now[:alert] = t('controllers.manager.categories.error')
-      render view, status: :unprocessable_entity
+    def path_for(resource)
+      manager_category_path(resource)
     end
   end
 end
