@@ -54,13 +54,13 @@ module Manager
     end
 
     def set_product
-      @product = Product.find(params[:id])
-      @product.client = current_user.client
-    rescue ActiveRecord::RecordNotFound
+      @product = current_user.client.products.find_by(id: params[:id])
+      return if @product
+
       redirect_to(
         manager_products_path,
         alert: t('controllers.manager.products.not_found')
-      )
+      ) and return
     end
 
     def path_for(resource)
