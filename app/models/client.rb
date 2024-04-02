@@ -20,11 +20,13 @@ class Client < ApplicationRecord
   belongs_to :user
   has_many :goals, dependent: :destroy
   has_many :categories, dependent: :destroy
+  has_many :products, dependent: :destroy
 
   validates :document, presence: true
 
   before_destroy :update_goals_deleted_at, if: :persisted?
   before_destroy :update_categories_deleted_at, if: :persisted?
+  before_destroy :update_products_deleted_at, if: :persisted?
 
   private
 
@@ -35,6 +37,12 @@ class Client < ApplicationRecord
   def update_categories_deleted_at
     categories.find_each do |category|
       category.update(deleted_at: Time.current)
+    end
+  end
+
+  def update_products_deleted_at
+    products.find_each do |product|
+      product.update(deleted_at: Time.current)
     end
   end
 end
