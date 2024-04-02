@@ -22,7 +22,8 @@ module Manager
       @client = current_user.client
     end
 
-    def create_resource(resource, resource_params, success_action:, failure_view:)
+    def create_resource(resource, resource_params,
+                        success_action:, failure_view:)
       resource.assign_attributes(resource_params)
       resource.client = @client if @client && resource.respond_to?(:client=)
 
@@ -33,13 +34,8 @@ module Manager
       end
     end
 
-    def update_resource(
-      resource,
-      resource_params,
-      success_action:,
-      failure_view:,
-      purge_attachment: nil
-    )
+    def update_resource(resource, resource_params, success_action:,
+                        failure_view:, purge_attachment: nil)
       purge_attachment_if_requested(resource, purge_attachment) if
         purge_attachment
       if resource.update(resource_params)
