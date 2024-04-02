@@ -17,8 +17,7 @@ module Manager
     end
 
     def create
-      @product.assign_attributes(product_params.merge(client: @client))
-      create_resource(@product,
+      create_resource(@product, product_params,
                       success_action: 'create',
                       failure_view: :new)
     end

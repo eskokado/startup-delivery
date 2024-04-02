@@ -19,8 +19,7 @@ module Manager
     end
 
     def create
-      @category.assign_attributes(category_params.merge(client: @client))
-      create_resource(@category,
+      create_resource(@category, category_params,
                       success_action: 'create',
                       failure_view: :new)
     end
@@ -50,13 +49,13 @@ module Manager
     end
 
     def set_category
-      @category = Category.find(params[:id])
-      @category.client = current_user.client
-    rescue ActiveRecord::RecordNotFound
+      @category = current_user.client.categories.find_by(id: params[:id])
+      return if @category
+
       redirect_to(
         manager_categories_path,
         alert: t('controllers.manager.categories.not_found')
-      )
+      ) and return
     end
 
     def build_category
