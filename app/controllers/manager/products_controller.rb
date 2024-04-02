@@ -2,6 +2,7 @@ module Manager
   class ProductsController < InternalController
     before_action :set_client, only: %i[index create]
     before_action :build_product, only: %i[create]
+    before_action :set_product, only: %i[edit update]
 
     def index
       fetch = ::Products::Fetch.new(params, client: @client)
@@ -21,6 +22,18 @@ module Manager
       else
         flash.now[:alert] = t('controllers.manager.products.error')
         render :new, status: :unprocessable_entity
+      end
+    end
+
+    def edit; end
+
+    def update
+      @product.photo.purge if params[:product][:remove_photo] == '1'
+
+      if @product.update(product_params)
+        redirect_to_success(manager_product_path(@product), 'update')
+      else
+        render_failure(:edit)
       end
     end
 
@@ -45,6 +58,20 @@ module Manager
         :value,
         :category_id
       )
+    end
+
+    def set_product
+      @product = Product.find(params[:id])
+      @product.client = current_user.client
+    rescue ActiveRecord::RecordNotFound
+      redirect_to(
+        manager_products_path,
+        alert: t('controllers.manager.products.not_found')
+      )
+    end
+
+    def redirect_to_success(path, action)
+      redirect_to path, notice: t("controllers.manager.products.#{action}")
     end
   end
 end
