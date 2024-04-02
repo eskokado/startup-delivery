@@ -26,13 +26,13 @@ module Manager
     def edit; end
 
     def update
-      @product.photo.purge if params[:product][:remove_photo] == '1'
-
-      if @product.update(product_params)
-        redirect_to_success(@product, 'update')
-      else
-        render_failure(:edit)
-      end
+      update_resource(
+        @product,
+        product_params,
+        success_action: 'update',
+        failure_view: :edit,
+        purge_attachment: :photo
+      )
     end
 
     private

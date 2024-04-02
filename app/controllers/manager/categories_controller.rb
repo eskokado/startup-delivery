@@ -28,13 +28,13 @@ module Manager
     def edit; end
 
     def update
-      @category.image.purge if params[:category][:remove_image] == '1'
-
-      if @category.update(category_params)
-        redirect_to_success(@category, 'update')
-      else
-        render_failure(:edit)
-      end
+      update_resource(
+        @category,
+        category_params,
+        success_action: 'update',
+        failure_view: :edit,
+        purge_attachment: :image
+      )
     end
 
     def destroy
