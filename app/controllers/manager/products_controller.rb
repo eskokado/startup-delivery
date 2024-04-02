@@ -4,7 +4,7 @@ module Manager
 
     before_action :build_product, only: %i[create]
     before_action :set_current_client_context, only: %i[index create]
-    before_action :set_product, only: %i[edit update]
+    before_action -> { prepare_resource(Product) }, only: %i[edit update]
 
     def index
       fetch = ::Products::Fetch.new(params, client: @client)
@@ -51,16 +51,6 @@ module Manager
         :value,
         :category_id
       )
-    end
-
-    def set_product
-      @product = current_user.client.products.find_by(id: params[:id])
-      return if @product
-
-      redirect_to(
-        manager_products_path,
-        alert: t('controllers.manager.products.not_found')
-      ) and return
     end
 
     def path_for(resource)

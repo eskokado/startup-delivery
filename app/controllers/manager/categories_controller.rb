@@ -4,7 +4,8 @@ module Manager
 
     before_action :build_category, only: %i[create]
     before_action :set_current_client_context, only: %i[index create]
-    before_action :set_category, only: %i[show edit update destroy]
+    before_action -> { prepare_resource(Category) },
+                  only: %i[show edit update destroy]
 
     def index
       fetch = ::Categories::Fetch.new(params, client: @client)
@@ -46,16 +47,6 @@ module Manager
 
     def category_params
       params.require(:category).permit(:name, :description, :image)
-    end
-
-    def set_category
-      @category = current_user.client.categories.find_by(id: params[:id])
-      return if @category
-
-      redirect_to(
-        manager_categories_path,
-        alert: t('controllers.manager.categories.not_found')
-      ) and return
     end
 
     def build_category
