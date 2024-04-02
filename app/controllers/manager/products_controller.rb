@@ -2,8 +2,8 @@ module Manager
   class ProductsController < InternalController
     include ResponseHandler
 
-    before_action :set_client, only: %i[index create]
     before_action :build_product, only: %i[create]
+    before_action :set_current_client_context, only: %i[index create]
     before_action :set_product, only: %i[edit update]
 
     def index
@@ -38,10 +38,6 @@ module Manager
     end
 
     private
-
-    def set_client
-      @client = current_user.client
-    end
 
     def build_product
       @product = Product.new(product_params)

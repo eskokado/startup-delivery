@@ -2,11 +2,12 @@ module Manager
   class CategoriesController < InternalController
     include ResponseHandler
 
+    before_action :build_category, only: %i[create]
+    before_action :set_current_client_context, only: %i[index create]
     before_action :set_category, only: %i[show edit update destroy]
 
     def index
-      client = current_user.client
-      fetch = ::Categories::Fetch.new(params, client: client)
+      fetch = ::Categories::Fetch.new(params, client: @client)
       @q = fetch.search
       @categories = fetch.call
     end
@@ -18,8 +19,7 @@ module Manager
     end
 
     def create
-      @category = Category.new(category_params)
-      @category.client = current_user.client
+      @category.assign_attributes(category_params.merge(client: @client))
       respond_to do |format|
         if @category.save
           format.html do
@@ -69,6 +69,10 @@ module Manager
 
     def path_for(resource)
       manager_category_path(resource)
+    end
+
+    def build_category
+      @category = Category.new(category_params)
     end
   end
 end

@@ -16,6 +16,10 @@ module Manager
 
       private
 
+      def set_current_client_context
+        @client = current_user.client
+      end
+
       # Define this method in your controller to specify the redirect path
       # for the `redirect_to_success` method.
       def path_for(resource)
