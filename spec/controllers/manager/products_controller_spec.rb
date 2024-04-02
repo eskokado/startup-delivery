@@ -110,6 +110,16 @@ RSpec.describe Manager::ProductsController, type: :controller do
         expect(product.name).to eq('Novo produto')
         expect(product.description).to eq('Nova descrição')
       end
+
+      it 'redirects to the product with a notice on successful update' do
+        patch :update, params: {
+          id: product.id,
+          product: { name: 'Atualizada' }
+        }
+        expect(response).to redirect_to(manager_product_path(product))
+        expect(flash[:notice])
+          .to eq I18n.t('controllers.manager.products.update')
+      end
     end
   end
 end
