@@ -17,11 +17,9 @@ module Manager
     def create
       @product.assign_attributes(product_params.merge(client: @client))
       if @product.save
-        redirect_to manager_product_path(@product),
-                    notice: t('controllers.manager.products.create')
+        redirect_to_success(@product, 'create')
       else
-        flash.now[:alert] = t('controllers.manager.products.error')
-        render :new, status: :unprocessable_entity
+        render_failure(:new)
       end
     end
 
@@ -31,7 +29,7 @@ module Manager
       @product.photo.purge if params[:product][:remove_photo] == '1'
 
       if @product.update(product_params)
-        redirect_to_success(manager_product_path(@product), 'update')
+        redirect_to_success(@product, 'update')
       else
         render_failure(:edit)
       end
@@ -70,8 +68,14 @@ module Manager
       )
     end
 
-    def redirect_to_success(path, action)
-      redirect_to path, notice: t("controllers.manager.products.#{action}")
+    def redirect_to_success(product, action)
+      redirect_to manager_product_path(product),
+                  notice: t("controllers.manager.products.#{action}")
+    end
+
+    def render_failure(view)
+      flash.now[:alert] = t('controllers.manager.products.error')
+      render view, status: :unprocessable_entity
     end
   end
 end
