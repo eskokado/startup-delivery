@@ -98,4 +98,18 @@ RSpec.describe Manager::ProductsController, type: :controller do
       expect(response).to render_template(:edit)
     end
   end
+
+  describe 'PATCH #update' do
+    context 'with valid attributes' do
+      it 'updates the product' do
+        patch :update, params: {
+          id: product.id,
+          product: { name: 'Novo produto', description: 'Nova descrição' }
+        }
+        product.reload
+        expect(product.name).to eq('Novo produto')
+        expect(product.description).to eq('Nova descrição')
+      end
+    end
+  end
 end
