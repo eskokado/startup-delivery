@@ -1,6 +1,6 @@
 module Manager
   class CategoriesController < InternalController
-    include ResponseHandler
+    include ManagerActionsSupport
 
     before_action :build_category, only: %i[create]
     before_action :set_current_client_context, only: %i[index create]
@@ -20,17 +20,9 @@ module Manager
 
     def create
       @category.assign_attributes(category_params.merge(client: @client))
-      respond_to do |format|
-        if @category.save
-          format.html do
-            redirect_to_success(@category, 'create')
-          end
-        else
-          format.html do
-            render_failure(:new)
-          end
-        end
-      end
+      create_resource(@category,
+                      success_action: 'create',
+                      failure_view: :new)
     end
 
     def edit; end
@@ -67,12 +59,16 @@ module Manager
       )
     end
 
-    def path_for(resource)
+    def build_category
+      @category = Category.new(category_params)
+    end
+
+    def success_path_for(resource)
       manager_category_path(resource)
     end
 
-    def build_category
-      @category = Category.new(category_params)
+    def path_for(resource)
+      manager_category_path(resource)
     end
   end
 end

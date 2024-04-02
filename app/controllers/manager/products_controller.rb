@@ -1,6 +1,6 @@
 module Manager
   class ProductsController < InternalController
-    include ResponseHandler
+    include ManagerActionsSupport
 
     before_action :build_product, only: %i[create]
     before_action :set_current_client_context, only: %i[index create]
@@ -18,11 +18,9 @@ module Manager
 
     def create
       @product.assign_attributes(product_params.merge(client: @client))
-      if @product.save
-        redirect_to_success(@product, 'create')
-      else
-        render_failure(:new)
-      end
+      create_resource(@product,
+                      success_action: 'create',
+                      failure_view: :new)
     end
 
     def edit; end
