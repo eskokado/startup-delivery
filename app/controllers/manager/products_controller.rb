@@ -4,7 +4,8 @@ module Manager
 
     before_action :build_product, only: %i[create]
     before_action :set_current_client_context, only: %i[index create]
-    before_action -> { prepare_resource(Product) }, only: %i[edit update]
+    before_action -> { prepare_resource(Product) },
+                  only: %i[edit update destroy]
 
     def index
       fetch = ::Products::Fetch.new(params, client: @client)
@@ -32,6 +33,12 @@ module Manager
         failure_view: :edit,
         purge_attachment: :photo
       )
+    end
+
+    def destroy
+      @product.destroy
+      redirect_to manager_products_path,
+                  notice: t('controllers.manager.products.destroy')
     end
 
     private
