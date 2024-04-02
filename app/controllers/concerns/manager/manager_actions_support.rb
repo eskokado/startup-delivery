@@ -22,7 +22,10 @@ module Manager
       @client = current_user.client
     end
 
-    def create_resource(resource, success_action:, failure_view:)
+    def create_resource(resource, resource_params, success_action:, failure_view:)
+      resource.assign_attributes(resource_params)
+      resource.client = @client if @client && resource.respond_to?(:client=)
+
       if resource.save
         redirect_to_success(resource, success_action)
       else
