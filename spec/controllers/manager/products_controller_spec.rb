@@ -86,4 +86,11 @@ RSpec.describe Manager::ProductsController, type: :controller do
       end
     end
   end
+
+  describe 'GET #edit' do
+    it 'assigns the requested product to @product' do
+      get :edit, params: { id: product.id }
+      expect(assigns(:product)).to eq(product)
+    end
+  end
 end
