@@ -21,13 +21,11 @@ module Manager
       respond_to do |format|
         if @category.save
           format.html do
-            redirect_to manager_category_path(@category),
-                        notice: t('controllers.manager.categories.create')
+            redirect_to_success(@category, 'create')
           end
         else
           format.html do
-            render :new,
-                   status: :unprocessable_entity
+            render_failure(:new)
           end
         end
       end
@@ -39,7 +37,7 @@ module Manager
       @category.image.purge if params[:category][:remove_image] == '1'
 
       if @category.update(category_params)
-        redirect_to_success(manager_category_path(@category), 'update')
+        redirect_to_success(@category, 'update')
       else
         render_failure(:edit)
       end
@@ -67,8 +65,14 @@ module Manager
       )
     end
 
-    def redirect_to_success(path, action)
-      redirect_to path, notice: t("controllers.manager.categories.#{action}")
+    def redirect_to_success(category, action)
+      redirect_to manager_category_path(category),
+                  notice: t("controllers.manager.categories.#{action}")
+    end
+
+    def render_failure(view)
+      flash.now[:alert] = t('controllers.manager.categories.error')
+      render view, status: :unprocessable_entity
     end
   end
 end
