@@ -50,5 +50,29 @@ module Manager
       attachment.purge if
         params[resource.model_name.param_key][attachment_key] == '1'
     end
+
+    def prepare_resource(resource_class)
+      resource = find_resource(resource_class)
+      handle_resource_not_found(resource_class) unless resource
+    end
+
+    def find_resource(resource_class)
+      current_user.client.send(resource_class.to_s.downcase.pluralize)
+                  .find_by(id: params[:id]).tap do |resource|
+        instance_variable_set("@#{resource_class.to_s.downcase}", resource)
+      end
+    end
+
+    def handle_resource_not_found(resource_class)
+      redirect_to_not_found(resource_class)
+    end
+
+    def redirect_to_not_found(resource_class)
+      redirect_to(
+        send("manager_#{resource_class.to_s.downcase.pluralize}_path"),
+        alert: t("controllers.manager.#{resource_class.to_s.downcase.pluralize}
+                  .not_found")
+      ) and return
+    end
   end
 end
