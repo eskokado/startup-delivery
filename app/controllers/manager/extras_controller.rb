@@ -4,7 +4,7 @@ module Manager
     before_action :build_extra, only: %i[create]
     before_action :set_current_client_context, only: %i[index create]
     before_action -> { prepare_resource(Extra) },
-                  only: %i[edit update]
+                  only: %i[show edit update]
 
     def index
       fetch = ::Extras::Fetch.new(params, client: @client)
@@ -32,6 +32,8 @@ module Manager
         failure_view: :edit
       )
     end
+
+    def show; end
 
     private
 
