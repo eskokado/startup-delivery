@@ -90,6 +90,19 @@ RSpec.describe Manager::ExtrasController, type: :controller do
                }
         end.to change(Extra, :count).by(1)
       end
+
+      it 'redirects to the extra path with a notice on successful save' do
+        post :create,
+             params: {
+               extra: FactoryBot.attributes_for(
+                 :extra, client_id: client.id, category_id: category.id
+               )
+             }
+        expect(response)
+          .to redirect_to(manager_extra_path(assigns(:extra)))
+        expect(flash[:notice])
+          .to eq I18n.t('controllers.manager.extras.create')
+      end
     end
   end
 end
