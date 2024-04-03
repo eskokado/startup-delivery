@@ -53,10 +53,6 @@ module Manager
       @category = Category.new(category_params)
     end
 
-    def success_path_for(resource)
-      manager_category_path(resource)
-    end
-
     def path_for(resource)
       manager_category_path(resource)
     end
