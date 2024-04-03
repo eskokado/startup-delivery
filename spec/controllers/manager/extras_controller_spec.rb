@@ -183,4 +183,14 @@ RSpec.describe Manager::ExtrasController, type: :controller do
       expect(assigns(:extra)).to eq(extra)
     end
   end
+
+  describe 'DELETE #destroy' do
+    let!(:extra) { create(:extra, client: client) }
+
+    it 'deletes the extra' do
+      expect do
+        delete :destroy, params: { id: extra.id }
+      end.to change(Extra, :count).by(-1)
+    end
+  end
 end
