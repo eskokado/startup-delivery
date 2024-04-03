@@ -157,6 +157,16 @@ RSpec.describe Manager::ExtrasController, type: :controller do
         expect(extra.name).to eq('Novo adicional')
         expect(extra.value).to eq(150)
       end
+
+      it 'redirects to the extra with a notice on successful update' do
+        patch :update, params: {
+          id: extra.id,
+          extra: { name: 'Atualizada' }
+        }
+        expect(response).to redirect_to(manager_extra_path(extra))
+        expect(flash[:notice])
+          .to eq I18n.t('controllers.manager.extras.update')
+      end
     end
   end
 end
