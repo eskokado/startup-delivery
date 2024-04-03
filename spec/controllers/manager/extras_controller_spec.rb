@@ -192,5 +192,12 @@ RSpec.describe Manager::ExtrasController, type: :controller do
         delete :destroy, params: { id: extra.id }
       end.to change(Extra, :count).by(-1)
     end
+
+    it 'redirects to the extras index with a notice' do
+      delete :destroy, params: { id: extra.id }
+      expect(response).to redirect_to(manager_extras_path)
+      expect(flash[:notice])
+        .to eq(I18n.t('controllers.manager.extras.destroy'))
+    end
   end
 end
