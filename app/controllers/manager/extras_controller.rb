@@ -4,7 +4,7 @@ module Manager
     before_action :build_extra, only: %i[create]
     before_action :set_current_client_context, only: %i[index create]
     before_action -> { prepare_resource(Extra) },
-                  only: %i[show edit update]
+                  only: %i[show edit update destroy]
 
     def index
       fetch = ::Extras::Fetch.new(params, client: @client)
@@ -34,6 +34,12 @@ module Manager
     end
 
     def show; end
+
+    def destroy
+      @extra.destroy
+      redirect_to manager_extras_path,
+                  notice: t('controllers.manager.extras.destroy')
+    end
 
     private
 
