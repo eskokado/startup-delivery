@@ -5,7 +5,7 @@ RSpec.describe Manager::ExtrasController, type: :controller do
   let(:client) { create(:client, user: user) }
   let(:category) { create(:category, client: client) }
 
-  let(:extras) { create_list(:extra, 10, client: client) }
+  let(:extras) { create_list(:extra, 3, client: client) }
   let(:extra) { create(:extra, client: client, category: category) }
 
   before(:each) do
@@ -25,6 +25,16 @@ RSpec.describe Manager::ExtrasController, type: :controller do
     it 'renders the :index view' do
       get :index
       expect(response).to render_template :index
+    end
+
+    it 'assigns @extras for the given search parameters' do
+      double('search_result', result: extras)
+      allow(Extra)
+        .to receive_message_chain(:ransack, :result).and_return(extras)
+
+      get :index
+
+      expect(assigns(:extras)).to match_array(extras)
     end
   end
 end
