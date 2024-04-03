@@ -145,4 +145,18 @@ RSpec.describe Manager::ExtrasController, type: :controller do
       expect(response).to render_template(:edit)
     end
   end
+
+  describe 'PATCH #update' do
+    context 'with valid attributes' do
+      it 'updates the extra' do
+        patch :update, params: {
+          id: extra.id,
+          extra: { name: 'Novo adicional', value: 150 }
+        }
+        extra.reload
+        expect(extra.name).to eq('Novo adicional')
+        expect(extra.value).to eq(150)
+      end
+    end
+  end
 end
