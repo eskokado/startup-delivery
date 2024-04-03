@@ -178,5 +178,9 @@ RSpec.describe Manager::ExtrasController, type: :controller do
     it 'responds with success' do
       expect(response).to have_http_status(:success)
     end
+
+    it 'assigns the requested extra to @extra' do
+      expect(assigns(:extra)).to eq(extra)
+    end
   end
 end
