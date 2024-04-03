@@ -183,4 +183,21 @@ RSpec.describe Manager::ExtrasController, type: :controller do
       expect(assigns(:extra)).to eq(extra)
     end
   end
+
+  describe 'DELETE #destroy' do
+    let!(:extra) { create(:extra, client: client) }
+
+    it 'deletes the extra' do
+      expect do
+        delete :destroy, params: { id: extra.id }
+      end.to change(Extra, :count).by(-1)
+    end
+
+    it 'redirects to the extras index with a notice' do
+      delete :destroy, params: { id: extra.id }
+      expect(response).to redirect_to(manager_extras_path)
+      expect(flash[:notice])
+        .to eq(I18n.t('controllers.manager.extras.destroy'))
+    end
+  end
 end

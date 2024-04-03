@@ -31,7 +31,7 @@ pt-BR:
         save: 'Salvar'
         delete: 'Apagar'
         delete_confirm: 'Você tem certeza?'
-      product:
+      extra:
         show: 'Mostrar'
         edit: 'Editar'
         delete: 'Apagar'
