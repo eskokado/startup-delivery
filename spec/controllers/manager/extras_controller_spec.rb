@@ -71,5 +71,10 @@ RSpec.describe Manager::ExtrasController, type: :controller do
       get :new
       expect(assigns(:extra)).to be_a_new(Extra)
     end
+
+    it 'renders the new template' do
+      get :new
+      expect(response).to render_template(:new)
+    end
   end
 end
