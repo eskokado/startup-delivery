@@ -104,5 +104,20 @@ RSpec.describe Manager::ExtrasController, type: :controller do
           .to eq I18n.t('controllers.manager.extras.create')
       end
     end
+
+    context 'with invalid attributes' do
+      it 'does not save the new extra' do
+        expect do
+          post :create, params: {
+            extra: FactoryBot.attributes_for(
+              :extra,
+              name: nil,
+              client_id: client.id,
+              category_id: category.id
+            )
+          }
+        end.not_to change(Extra, :count)
+      end
+    end
   end
 end
