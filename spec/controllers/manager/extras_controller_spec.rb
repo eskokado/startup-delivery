@@ -57,5 +57,12 @@ RSpec.describe Manager::ExtrasController, type: :controller do
 
       expect(assigns(:extras)).to be_empty
     end
+
+    it 'renders the index template' do
+      get :index,
+          params: { q: { name_cont: 'Search Nothing' } }
+
+      expect(response).to render_template(:index)
+    end
   end
 end
