@@ -77,4 +77,19 @@ RSpec.describe Manager::ExtrasController, type: :controller do
       expect(response).to render_template(:new)
     end
   end
+
+  describe 'POST #create' do
+    context 'with valid attributes' do
+      it 'creates a new extra' do
+        expect do
+          post :create,
+               params: {
+                 extra: FactoryBot.attributes_for(
+                   :extra, client_id: client.id, category_id: category.id
+                 )
+               }
+        end.to change(Extra, :count).by(1)
+      end
+    end
+  end
 end
