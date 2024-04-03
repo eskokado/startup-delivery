@@ -48,5 +48,14 @@ RSpec.describe Manager::ExtrasController, type: :controller do
       expect(assigns(:extras)).to include(extra1)
       expect(assigns(:extras)).to_not include(extra2)
     end
+
+    it 'excludes non-matching results' do
+      create(:extra, name: 'Non-Matching Extra', client: client)
+
+      get :index,
+          params: { q: { name_cont: 'Pequeno' } }
+
+      expect(assigns(:extras)).to be_empty
+    end
   end
 end
