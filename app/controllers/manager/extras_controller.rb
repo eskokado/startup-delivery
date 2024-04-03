@@ -4,7 +4,9 @@ module Manager
     before_action :set_current_client_context, only: %i[index]
 
     def index
-      @extras = Extra.all
+      fetch = ::Extras::Fetch.new(params, client: @client)
+      @q = fetch.search
+      @extras = fetch.call
     end
   end
 end
