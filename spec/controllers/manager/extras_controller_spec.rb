@@ -37,4 +37,16 @@ RSpec.describe Manager::ExtrasController, type: :controller do
       expect(assigns(:extras)).to match_array(extras)
     end
   end
+
+  describe 'GET #index with search' do
+    it 'returns the extras searched correctly' do
+      extra1 = create(:extra, name: 'Fritas grandes', client: client)
+      extra2 = create(:extra, name: 'Fritas completo', client: client)
+      get :index,
+          params: { q: { name_cont: 'grandes' } }
+
+      expect(assigns(:extras)).to include(extra1)
+      expect(assigns(:extras)).to_not include(extra2)
+    end
+  end
 end
