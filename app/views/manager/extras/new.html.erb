@@ -1,0 +1,14 @@
+<%= simple_form_for @extra, url: manager_extras_path,
+                    html: { class: 'form_extra_new relative',
+                            data: {
+                              controller: 'nested-form',
+                              nested_form_wrapper_selector_value: '.nested-form-wrapper'
+                            } } do |form| %>
+  <div class="flex justify-between items-center mb-4">
+    <h1 class="font-bold text-4xl"><%= t('.add') %></h1>
+    <div>
+      <%= form.button :submit, t('.save'), class: 'cursor-pointer' %>
+    </div>
+  </div>
+  <%= render "form", extra: @extra, form: form %>
+<% end %>
