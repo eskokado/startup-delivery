@@ -1,9 +1,9 @@
-module Categories
+module Products
   class Fetch < ApplicationFetch
     private
 
     def model_class
-      Category
+      Product
     end
   end
 end

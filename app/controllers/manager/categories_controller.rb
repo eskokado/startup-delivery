@@ -1,10 +1,14 @@
 module Manager
   class CategoriesController < InternalController
-    before_action :set_category, only: %i[show edit update destroy]
+    include ManagerActionsSupport
+
+    before_action :build_category, only: %i[create]
+    before_action :set_current_client_context, only: %i[index create]
+    before_action -> { prepare_resource(Category) },
+                  only: %i[show edit update destroy]
 
     def index
-      client = current_user.client
-      fetch = ::Categories::Fetch.new(params, client: client)
+      fetch = ::Categories::Fetch.new(params, client: @client)
       @q = fetch.search
       @categories = fetch.call
     end
@@ -16,33 +20,21 @@ module Manager
     end
 
     def create
-      @category = Category.new(category_params)
-      @category.client = current_user.client
-      respond_to do |format|
-        if @category.save
-          format.html do
-            redirect_to manager_category_path(@category),
-                        notice: t('controllers.manager.categories.create')
-          end
-        else
-          format.html do
-            render :new,
-                   status: :unprocessable_entity
-          end
-        end
-      end
+      create_resource(@category, category_params,
+                      success_action: 'create',
+                      failure_view: :new)
     end
 
     def edit; end
 
     def update
-      @category.image.purge if params[:category][:remove_image] == '1'
-
-      if @category.update(category_params)
-        redirect_to_success(manager_category_path(@category), 'update')
-      else
-        render_failure(:edit)
-      end
+      update_resource(
+        @category,
+        category_params,
+        success_action: 'update',
+        failure_view: :edit,
+        purge_attachment: :image
+      )
     end
 
     def destroy
@@ -57,18 +49,12 @@ module Manager
       params.require(:category).permit(:name, :description, :image)
     end
 
-    def set_category
-      @category = Category.find(params[:id])
-      @category.client = current_user.client
-    rescue ActiveRecord::RecordNotFound
-      redirect_to(
-        manager_categories_path,
-        alert: t('controllers.manager.categories.not_found')
-      )
+    def build_category
+      @category = Category.new(category_params)
     end
 
-    def redirect_to_success(path, action)
-      redirect_to path, notice: t("controllers.manager.categories.#{action}")
+    def path_for(resource)
+      manager_category_path(resource)
     end
   end
 end

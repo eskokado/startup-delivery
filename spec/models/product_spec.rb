@@ -30,7 +30,7 @@ require 'rails_helper'
 
 RSpec.describe Product, type: :model do
   it 'is valid with valid attributes' do
-    product = build(:product)
+    product = FactoryBot.create(:product)
     expect(product).to be_valid
   end
 

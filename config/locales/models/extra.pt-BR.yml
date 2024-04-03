@@ -7,15 +7,14 @@ pt-BR:
             name:
               blank: 'nao pode ficar em branco'
     models:
-      category:
-        one: 'Category'
-        other: 'Categorias'
+      extra:
+        one: 'Extra'
+        other: 'Extras'
     attributes:
-      category:
+      extra:
         name: 'Nome'
-        image: 'Imagem'
-        description: 'Descrição'
-        image_url: 'Url da imagem'
+        value: 'Valor'
+        category: 'Categoria'
         created_at: 'Criado em'
         updated_at: 'Atualizado em'
         deleted_at: 'Deletado em'

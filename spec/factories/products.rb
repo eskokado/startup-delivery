@@ -32,8 +32,8 @@ FactoryBot.define do
     description { FFaker::Lorem.sentence }
     long_description { FFaker::Lorem.paragraph }
     value { FFaker::Number.decimal(whole_digits: 2, fractional_digits: 2) }
-    association :category
-    association :client
+    association :category, factory: :category
+    association :client, factory: :client
     combo { false }
     pizza { false }
     deleted_at { nil }

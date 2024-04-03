@@ -1,0 +1,9 @@
+pt-BR:
+  controllers:
+    manager:
+      extras:
+        create: 'Adicional cadastrado com sucesso.'
+        update: 'Adicional atualizado com sucesso.'
+        destroy: 'Adicional apagado com sucesso.'
+        not_found: 'Adicional inexistente.'
+        error: 'Falha ao cadastrar adicional.'
