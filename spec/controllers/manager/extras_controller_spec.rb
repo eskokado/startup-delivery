@@ -133,4 +133,40 @@ RSpec.describe Manager::ExtrasController, type: :controller do
       end
     end
   end
+
+  describe 'GET #edit' do
+    it 'assigns the requested extra to @extra' do
+      get :edit, params: { id: extra.id }
+      expect(assigns(:extra)).to eq(extra)
+    end
+
+    it 'renders the edit template' do
+      get :edit, params: { id: extra.id }
+      expect(response).to render_template(:edit)
+    end
+  end
+
+  describe 'PATCH #update' do
+    context 'with valid attributes' do
+      it 'updates the extra' do
+        patch :update, params: {
+          id: extra.id,
+          extra: { name: 'Novo adicional', value: 150 }
+        }
+        extra.reload
+        expect(extra.name).to eq('Novo adicional')
+        expect(extra.value).to eq(150)
+      end
+
+      it 'redirects to the extra with a notice on successful update' do
+        patch :update, params: {
+          id: extra.id,
+          extra: { name: 'Atualizada' }
+        }
+        expect(response).to redirect_to(manager_extra_path(extra))
+        expect(flash[:notice])
+          .to eq I18n.t('controllers.manager.extras.update')
+      end
+    end
+  end
 end
