@@ -1,0 +1,38 @@
+pt-BR:
+  manager:
+    extras:
+      index:
+        search: 'Pesquisar'
+        add: "Cadastrar adicional"
+        filter_by: 'Filtrar'
+        filter_1: 'Concluídas'
+        filter_2: 'Não concluídas'
+        pages:
+          showing: 'Mostrando'
+          of: 'de'
+        previous: 'anterior'
+        next: 'próximo'
+      new:
+        title: 'Cadastrando adicional'
+        add: 'Criar adicional'
+        back: 'Voltar'
+        save: 'Salvar'
+        name: 'Nome'
+        value: 'Valor'
+        category: 'Categoria'
+      edit:
+        title: 'Editando adicional'
+        save: 'Salvar'
+        show: 'Mostrar'
+      show:
+        title: 'Detalhando adicional'
+        edit: 'Editar'
+        back: 'Voltar'
+        save: 'Salvar'
+        delete: 'Apagar'
+        delete_confirm: 'Você tem certeza?'
+      product:
+        show: 'Mostrar'
+        edit: 'Editar'
+        delete: 'Apagar'
+        delete_confirm: 'Você tem certeza?'
