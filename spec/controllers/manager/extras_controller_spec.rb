@@ -133,4 +133,11 @@ RSpec.describe Manager::ExtrasController, type: :controller do
       end
     end
   end
+
+  describe 'GET #edit' do
+    it 'assigns the requested extra to @extra' do
+      get :edit, params: { id: extra.id }
+      expect(assigns(:extra)).to eq(extra)
+    end
+  end
 end
