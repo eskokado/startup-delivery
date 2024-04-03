@@ -118,6 +118,19 @@ RSpec.describe Manager::ExtrasController, type: :controller do
           }
         end.not_to change(Extra, :count)
       end
+
+      it 're-renders the new method' do
+        post :create,
+             params: {
+               extra: FactoryBot.attributes_for(
+                 :extra,
+                 name: nil,
+                 client_id: client.id,
+                 category_id: category.id
+               )
+             }
+        expect(response).to render_template(:new)
+      end
     end
   end
 end
