@@ -1,0 +1,20 @@
+pt-BR:
+  activerecord:
+    errors:
+      models:
+        category:
+          attributes:
+            name:
+              blank: 'nao pode ficar em branco'
+    models:
+      extra:
+        one: 'Extra'
+        other: 'Extras'
+    attributes:
+      extra:
+        name: 'Nome'
+        value: 'Valor'
+        category: 'Categoria'
+        created_at: 'Criado em'
+        updated_at: 'Atualizado em'
+        deleted_at: 'Deletado em'

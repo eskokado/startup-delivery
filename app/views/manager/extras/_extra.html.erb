@@ -1,0 +1,9 @@
+<% @extras.each do |extra| %>
+  <tr class="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600" id="<%= dom_id extra %>">
+    <td class="px-4 py-3"> <%= extra.name %></td>
+    <td class="px-4 py-3"> <%= number_to_currency(extra.value) %></td>
+    <td class="px-4 py-3"> <%= extra.category.name %></td>
+    <td class="px-4 py-3 flex items-center justify-end">
+    </td>
+  </tr>
+<% end %>
