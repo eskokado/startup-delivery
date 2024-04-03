@@ -1,5 +1,5 @@
-<%= simple_form_for @category, url: manager_categories_path,
-                    html: { class: 'form_category_new relative',
+<%= simple_form_for @extra, url: manager_extras_path,
+                    html: { class: 'form_extra_new relative',
                             data: {
                               controller: 'nested-form',
                               nested_form_wrapper_selector_value: '.nested-form-wrapper'
@@ -10,5 +10,5 @@
       <%= form.button :submit, t('.save'), class: 'cursor-pointer' %>
     </div>
   </div>
-  <%= render "form", category: @category, form: form %>
+  <%= render "form", extra: @extra, form: form %>
 <% end %>

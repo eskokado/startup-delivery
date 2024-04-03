@@ -65,4 +65,72 @@ RSpec.describe Manager::ExtrasController, type: :controller do
       expect(response).to render_template(:index)
     end
   end
+
+  describe 'GET #new' do
+    it 'assigns a new Extra to @extra' do
+      get :new
+      expect(assigns(:extra)).to be_a_new(Extra)
+    end
+
+    it 'renders the new template' do
+      get :new
+      expect(response).to render_template(:new)
+    end
+  end
+
+  describe 'POST #create' do
+    context 'with valid attributes' do
+      it 'creates a new extra' do
+        expect do
+          post :create,
+               params: {
+                 extra: FactoryBot.attributes_for(
+                   :extra, client_id: client.id, category_id: category.id
+                 )
+               }
+        end.to change(Extra, :count).by(1)
+      end
+
+      it 'redirects to the extra path with a notice on successful save' do
+        post :create,
+             params: {
+               extra: FactoryBot.attributes_for(
+                 :extra, client_id: client.id, category_id: category.id
+               )
+             }
+        expect(response)
+          .to redirect_to(manager_extra_path(assigns(:extra)))
+        expect(flash[:notice])
+          .to eq I18n.t('controllers.manager.extras.create')
+      end
+    end
+
+    context 'with invalid attributes' do
+      it 'does not save the new extra' do
+        expect do
+          post :create, params: {
+            extra: FactoryBot.attributes_for(
+              :extra,
+              name: nil,
+              client_id: client.id,
+              category_id: category.id
+            )
+          }
+        end.not_to change(Extra, :count)
+      end
+
+      it 're-renders the new method' do
+        post :create,
+             params: {
+               extra: FactoryBot.attributes_for(
+                 :extra,
+                 name: nil,
+                 client_id: client.id,
+                 category_id: category.id
+               )
+             }
+        expect(response).to render_template(:new)
+      end
+    end
+  end
 end
