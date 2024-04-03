@@ -122,5 +122,15 @@ if Rails.env.development?
         deleted_at: nil
       )
     end
+
+    rand(3..6).times do
+      Extra.create(
+        name: FFaker::Product.product_name,
+        value: FFaker::Number.decimal(whole_digits: 2, fractional_digits: 2),
+        category: category,
+        client: client_1,
+        deleted_at: nil
+      )
+    end
   end
 end
