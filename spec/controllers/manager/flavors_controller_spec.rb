@@ -136,5 +136,10 @@ RSpec.describe Manager::FlavorsController, type: :controller do
       get :edit, params: { id: flavor.id }
       expect(assigns(:flavor)).to eq(flavor)
     end
+
+    it 'renders the edit template' do
+      get :edit, params: { id: flavor.id }
+      expect(response).to render_template(:edit)
+    end
   end
 end
