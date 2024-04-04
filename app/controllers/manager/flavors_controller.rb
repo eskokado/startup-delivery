@@ -5,7 +5,7 @@ module Manager
     before_action :build_flavor, only: %i[create]
     before_action :set_current_client_context, only: %i[index create]
     before_action -> { prepare_resource(Flavor) },
-                  only: %i[edit update]
+                  only: %i[show edit update]
     def index
       fetch = ::Flavors::Fetch.new(params, client: @client)
       @q = fetch.search
@@ -32,6 +32,8 @@ module Manager
         failure_view: :edit
       )
     end
+
+    def show; end
 
     private
 
