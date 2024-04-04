@@ -1,0 +1,19 @@
+pt-BR:
+  activerecord:
+    errors:
+      models:
+        flavor:
+          attributes:
+            name:
+              blank: 'nao pode ficar em branco'
+    models:
+      flavor:
+        one: 'Sabor'
+        other: 'Sabores'
+    attributes:
+      flavor:
+        name: 'Nome'
+        value: 'Valor'
+        created_at: 'Criado em'
+        updated_at: 'Atualizado em'
+        deleted_at: 'Deletado em'

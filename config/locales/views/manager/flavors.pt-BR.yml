@@ -1,0 +1,37 @@
+pt-BR:
+  manager:
+    extras:
+      index:
+        search: 'Pesquisar'
+        add: "Cadastrar adicional"
+        filter_by: 'Filtrar'
+        filter_1: 'Concluídas'
+        filter_2: 'Não concluídas'
+        pages:
+          showing: 'Mostrando'
+          of: 'de'
+        previous: 'anterior'
+        next: 'próximo'
+      new:
+        title: 'Cadastrando sabor'
+        add: 'Criar sabor'
+        back: 'Voltar'
+        save: 'Salvar'
+        name: 'Nome'
+        value: 'Valor'
+      edit:
+        title: 'Editando sabor'
+        save: 'Salvar'
+        show: 'Mostrar'
+      show:
+        title: 'Detalhando sabor'
+        edit: 'Editar'
+        back: 'Voltar'
+        save: 'Salvar'
+        delete: 'Apagar'
+        delete_confirm: 'Você tem certeza?'
+      flavor:
+        show: 'Mostrar'
+        edit: 'Editar'
+        delete: 'Apagar'
+        delete_confirm: 'Você tem certeza?'

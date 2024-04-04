@@ -1,0 +1,9 @@
+pt-BR:
+  controllers:
+    manager:
+      flavors:
+        create: 'Sabor cadastrado com sucesso.'
+        update: 'Sabor atualizado com sucesso.'
+        destroy: 'Sabor apagado com sucesso.'
+        not_found: 'Sabor inexistente.'
+        error: 'Falha ao cadastrar sabor.'
