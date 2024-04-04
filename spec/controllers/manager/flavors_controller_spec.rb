@@ -130,4 +130,40 @@ RSpec.describe Manager::FlavorsController, type: :controller do
       end
     end
   end
+
+  describe 'GET #edit' do
+    it 'assigns the requested flavor to @flavor' do
+      get :edit, params: { id: flavor.id }
+      expect(assigns(:flavor)).to eq(flavor)
+    end
+
+    it 'renders the edit template' do
+      get :edit, params: { id: flavor.id }
+      expect(response).to render_template(:edit)
+    end
+  end
+
+  describe 'PATCH #update' do
+    context 'with valid attributes' do
+      it 'updates the flavor' do
+        patch :update, params: {
+          id: flavor.id,
+          flavor: { name: 'Novo sabor', value: 150 }
+        }
+        flavor.reload
+        expect(flavor.name).to eq('Novo sabor')
+        expect(flavor.value).to eq(150)
+      end
+
+      it 'redirects to the flavor with a notice on successful update' do
+        patch :update, params: {
+          id: flavor.id,
+          flavor: { name: 'Atualizada' }
+        }
+        expect(response).to redirect_to(manager_flavor_path(flavor))
+        expect(flash[:notice])
+          .to eq I18n.t('controllers.manager.flavors.update')
+      end
+    end
+  end
 end
