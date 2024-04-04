@@ -39,7 +39,6 @@ RSpec.describe Manager::FlavorsController, type: :controller do
 
   describe 'GET #index with search' do
     it 'returns the extras searched correctly' do
-
       flavor1 = create(:flavor, name: 'Baunilha', client: client)
       flavor2 = create(:flavor, name: 'Chocolate', client: client)
       get :index,
