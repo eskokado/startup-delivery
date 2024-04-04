@@ -58,7 +58,7 @@ class Client < ApplicationRecord
 
   def update_flavors_deleted_at
     flavors.find_each do |flavor|
-      extra.update(deleted_at: Time.current)
+      flavor.update(deleted_at: Time.current)
     end
   end
 end
