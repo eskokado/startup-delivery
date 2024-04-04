@@ -36,4 +36,17 @@ RSpec.describe Manager::FlavorsController, type: :controller do
       expect(assigns(:flavors)).to match_array(flavors)
     end
   end
+
+  describe 'GET #index with search' do
+    it 'returns the extras searched correctly' do
+
+      flavor1 = create(:flavor, name: 'Baunilha', client: client)
+      flavor2 = create(:flavor, name: 'Chocolate', client: client)
+      get :index,
+          params: { q: { name_cont: 'baunilha' } }
+
+      expect(assigns(:flavors)).to include(flavor1)
+      expect(assigns(:flavors)).to_not include(flavor2)
+    end
+  end
 end
