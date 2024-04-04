@@ -1,0 +1,8 @@
+<% @flavors.each do |flavor| %>
+  <tr class="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600" id="<%= dom_id flavor %>">
+    <td class="px-4 py-3"> <%= flavor.name %></td>
+    <td class="px-4 py-3"> <%= number_to_currency(flavor.value) %></td>
+    <td class="px-4 py-3 flex items-center justify-end">
+    </td>
+  </tr>
+<% end %>
