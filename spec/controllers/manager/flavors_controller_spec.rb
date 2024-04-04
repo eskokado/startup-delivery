@@ -89,6 +89,19 @@ RSpec.describe Manager::FlavorsController, type: :controller do
                }
         end.to change(Flavor, :count).by(1)
       end
+
+      it 'redirects to the flavor path with a notice on successful save' do
+        post :create,
+             params: {
+               flavor: FactoryBot.attributes_for(
+                 :flavor, client_id: client.id
+               )
+             }
+        expect(response)
+          .to redirect_to(manager_flavor_path(assigns(:flavor)))
+        expect(flash[:notice])
+          .to eq I18n.t('controllers.manager.flavors.create')
+      end
     end
   end
 end
