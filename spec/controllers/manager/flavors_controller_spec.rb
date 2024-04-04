@@ -180,4 +180,21 @@ RSpec.describe Manager::FlavorsController, type: :controller do
       expect(assigns(:flavor)).to eq(flavor)
     end
   end
+
+  describe 'DELETE #destroy' do
+    let!(:flavor) { create(:flavor, client: client) }
+
+    it 'deletes the flavor' do
+      expect do
+        delete :destroy, params: { id: flavor.id }
+      end.to change(Flavor, :count).by(-1)
+    end
+
+    it 'redirects to the flavor index with a notice' do
+      delete :destroy, params: { id: flavor.id }
+      expect(response).to redirect_to(manager_flavors_path)
+      expect(flash[:notice])
+        .to eq(I18n.t('controllers.manager.flavors.destroy'))
+    end
+  end
 end

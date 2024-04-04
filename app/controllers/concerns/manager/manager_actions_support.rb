@@ -13,6 +13,16 @@ module Manager
 
     private
 
+    def index_with_fetch(module_name)
+      fetch_class = "#{module_name}::Fetch".constantize
+      fetch_instance = fetch_class.new(params, client: @client)
+      @q = fetch_instance.search
+      instance_variable_set(
+        "@#{module_name.downcase.pluralize}",
+        fetch_instance.call
+      )
+    end
+
     def redirect_to_notice(resource, action, status = :found)
       redirect_to path_for(resource),
                   notice: t("controllers.manager.#{controller_name}.#{action}"),

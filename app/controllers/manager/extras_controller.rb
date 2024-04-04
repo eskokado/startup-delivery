@@ -7,9 +7,7 @@ module Manager
                   only: %i[show edit update destroy]
 
     def index
-      fetch = ::Extras::Fetch.new(params, client: @client)
-      @q = fetch.search
-      @extras = fetch.call
+      index_with_fetch('Extras')
     end
 
     def new
