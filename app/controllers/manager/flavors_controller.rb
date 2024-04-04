@@ -7,9 +7,7 @@ module Manager
     before_action -> { prepare_resource(Flavor) },
                   only: %i[show edit update destroy]
     def index
-      fetch = ::Flavors::Fetch.new(params, client: @client)
-      @q = fetch.search
-      @flavors = fetch.call
+      index_with_fetch('Flavors')
     end
 
     def new
