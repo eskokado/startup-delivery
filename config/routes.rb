@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     resources :categories
     resources :products
     resources :extras
+    resources :flavors
     get '', to: 'home#index', as: :home
   end
 
