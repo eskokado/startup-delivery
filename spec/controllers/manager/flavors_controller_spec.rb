@@ -116,6 +116,18 @@ RSpec.describe Manager::FlavorsController, type: :controller do
           }
         end.not_to change(Flavor, :count)
       end
+
+      it 're-renders the new method' do
+        post :create,
+             params: {
+               flavor: FactoryBot.attributes_for(
+                 :flavor,
+                 name: nil,
+                 client_id: client.id
+               )
+             }
+        expect(response).to render_template(:new)
+      end
     end
   end
 end
