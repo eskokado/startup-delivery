@@ -76,4 +76,19 @@ RSpec.describe Manager::FlavorsController, type: :controller do
       expect(response).to render_template(:new)
     end
   end
+
+  describe 'POST #create' do
+    context 'with valid attributes' do
+      it 'creates a new flavor' do
+        expect do
+          post :create,
+               params: {
+                 flavor: FactoryBot.attributes_for(
+                   :flavor, client_id: client.id
+                 )
+               }
+        end.to change(Flavor, :count).by(1)
+      end
+    end
+  end
 end
