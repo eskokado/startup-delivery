@@ -103,5 +103,19 @@ RSpec.describe Manager::FlavorsController, type: :controller do
           .to eq I18n.t('controllers.manager.flavors.create')
       end
     end
+
+    context 'with invalid attributes' do
+      it 'does not save the new flavor' do
+        expect do
+          post :create, params: {
+            flavor: FactoryBot.attributes_for(
+              :flavor,
+              name: nil,
+              client_id: client.id
+            )
+          }
+        end.not_to change(Flavor, :count)
+      end
+    end
   end
 end
