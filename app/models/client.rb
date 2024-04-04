@@ -22,6 +22,7 @@ class Client < ApplicationRecord
   has_many :categories, dependent: :destroy
   has_many :products, dependent: :destroy
   has_many :extras, dependent: :destroy
+  has_many :flavors, dependent: :destroy
 
   validates :document, presence: true
 
@@ -29,6 +30,7 @@ class Client < ApplicationRecord
   before_destroy :update_categories_deleted_at, if: :persisted?
   before_destroy :update_products_deleted_at, if: :persisted?
   before_destroy :update_extras_deleted_at, if: :persisted?
+  before_destroy :update_flavors_deleted_at, if: :persisted?
 
   private
 
@@ -51,6 +53,12 @@ class Client < ApplicationRecord
   def update_extras_deleted_at
     extras.find_each do |extra|
       extra.update(deleted_at: Time.current)
+    end
+  end
+
+  def update_flavors_deleted_at
+    flavors.find_each do |flavor|
+      flavor.update(deleted_at: Time.current)
     end
   end
 end
