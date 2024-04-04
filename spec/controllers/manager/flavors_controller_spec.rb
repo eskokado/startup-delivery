@@ -130,4 +130,11 @@ RSpec.describe Manager::FlavorsController, type: :controller do
       end
     end
   end
+
+  describe 'GET #edit' do
+    it 'assigns the requested flavor to @flavor' do
+      get :edit, params: { id: flavor.id }
+      expect(assigns(:flavor)).to eq(flavor)
+    end
+  end
 end
