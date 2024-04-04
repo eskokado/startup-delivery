@@ -40,4 +40,8 @@ RSpec.describe Flavor, type: :model do
     flavor = build(:flavor, value: 0)
     expect(flavor).not_to be_valid
   end
+
+  describe 'associations' do
+    it { should belong_to(:client) }
+  end
 end
