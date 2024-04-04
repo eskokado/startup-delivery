@@ -20,5 +20,10 @@ RSpec.describe Manager::FlavorsController, type: :controller do
       get :index
       expect(assigns(:flavors)).to eq([flavor])
     end
+
+    it 'renders the :index view' do
+      get :index
+      expect(response).to render_template :index
+    end
   end
 end
