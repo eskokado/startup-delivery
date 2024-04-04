@@ -25,4 +25,9 @@ RSpec.describe Flavor, type: :model do
     flavor = FactoryBot.create(:extra)
     expect(flavor).to be_valid
   end
+
+  it 'is not valid without a name' do
+    flavor = build(:flavor, name: nil)
+    expect(flavor).not_to be_valid
+  end
 end
