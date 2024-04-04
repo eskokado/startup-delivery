@@ -142,4 +142,18 @@ RSpec.describe Manager::FlavorsController, type: :controller do
       expect(response).to render_template(:edit)
     end
   end
+
+  describe 'PATCH #update' do
+    context 'with valid attributes' do
+      it 'updates the flavor' do
+        patch :update, params: {
+          id: flavor.id,
+          flavor: { name: 'Novo sabor', value: 150 }
+        }
+        flavor.reload
+        expect(flavor.name).to eq('Novo sabor')
+        expect(flavor.value).to eq(150)
+      end
+    end
+  end
 end
