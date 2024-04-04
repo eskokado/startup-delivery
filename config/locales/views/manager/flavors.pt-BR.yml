@@ -1,6 +1,6 @@
 pt-BR:
   manager:
-    extras:
+    flavors:
       index:
         search: 'Pesquisar'
         add: "Cadastrar adicional"
