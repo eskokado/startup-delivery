@@ -64,4 +64,11 @@ RSpec.describe Manager::FlavorsController, type: :controller do
       expect(response).to render_template(:index)
     end
   end
+
+  describe 'GET #new' do
+    it 'assigns a new Flavor to @flavor' do
+      get :new
+      expect(assigns(:flavor)).to be_a_new(Flavor)
+    end
+  end
 end
