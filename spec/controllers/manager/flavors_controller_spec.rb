@@ -154,6 +154,16 @@ RSpec.describe Manager::FlavorsController, type: :controller do
         expect(flavor.name).to eq('Novo sabor')
         expect(flavor.value).to eq(150)
       end
+
+      it 'redirects to the flavor with a notice on successful update' do
+        patch :update, params: {
+          id: flavor.id,
+          flavor: { name: 'Atualizada' }
+        }
+        expect(response).to redirect_to(manager_flavor_path(flavor))
+        expect(flash[:notice])
+          .to eq I18n.t('controllers.manager.flavors.update')
+      end
     end
   end
 end
