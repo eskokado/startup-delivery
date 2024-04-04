@@ -70,5 +70,10 @@ RSpec.describe Manager::FlavorsController, type: :controller do
       get :new
       expect(assigns(:flavor)).to be_a_new(Flavor)
     end
+
+    it 'renders the new template' do
+      get :new
+      expect(response).to render_template(:new)
+    end
   end
 end
