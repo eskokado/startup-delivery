@@ -5,7 +5,7 @@ module Manager
     before_action :build_flavor, only: %i[create]
     before_action :set_current_client_context, only: %i[index create]
     before_action -> { prepare_resource(Flavor) },
-                  only: %i[show edit update]
+                  only: %i[show edit update destroy]
     def index
       fetch = ::Flavors::Fetch.new(params, client: @client)
       @q = fetch.search
@@ -34,6 +34,12 @@ module Manager
     end
 
     def show; end
+
+    def destroy
+      @flavor.destroy
+      redirect_to manager_flavors_path,
+                  notice: t('controllers.manager.flavors.destroy')
+    end
 
     private
 
