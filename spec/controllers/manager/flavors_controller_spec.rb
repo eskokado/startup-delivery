@@ -25,5 +25,15 @@ RSpec.describe Manager::FlavorsController, type: :controller do
       get :index
       expect(response).to render_template :index
     end
+
+    it 'assigns @flavors for the given search parameters' do
+      double('search_result', result: flavors)
+      allow(Flavor)
+        .to receive_message_chain(:ransack, :result).and_return(flavors)
+
+      get :index
+
+      expect(assigns(:flavors)).to match_array(flavors)
+    end
   end
 end
