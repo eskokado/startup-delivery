@@ -48,5 +48,14 @@ RSpec.describe Manager::FlavorsController, type: :controller do
       expect(assigns(:flavors)).to include(flavor1)
       expect(assigns(:flavors)).to_not include(flavor2)
     end
+
+    it 'excludes non-matching results' do
+      create(:flavor, name: 'Non-Matching Extra', client: client)
+
+      get :index,
+          params: { q: { name_cont: 'baunilha' } }
+
+      expect(assigns(:flavors)).to be_empty
+    end
   end
 end
