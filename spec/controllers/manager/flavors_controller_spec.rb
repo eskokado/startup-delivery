@@ -175,5 +175,9 @@ RSpec.describe Manager::FlavorsController, type: :controller do
     it 'responds with success' do
       expect(response).to have_http_status(:success)
     end
+
+    it 'assigns the requested flavor to @flavor' do
+      expect(assigns(:flavor)).to eq(flavor)
+    end
   end
 end
