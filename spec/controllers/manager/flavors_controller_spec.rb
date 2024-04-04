@@ -57,5 +57,12 @@ RSpec.describe Manager::FlavorsController, type: :controller do
 
       expect(assigns(:flavors)).to be_empty
     end
+
+    it 'renders the index template' do
+      get :index,
+          params: { q: { name_cont: 'Search Nothing' } }
+
+      expect(response).to render_template(:index)
+    end
   end
 end
