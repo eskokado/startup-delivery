@@ -30,4 +30,9 @@ RSpec.describe Flavor, type: :model do
     flavor = build(:flavor, name: nil)
     expect(flavor).not_to be_valid
   end
+
+  it 'is not valid without a value' do
+    flavor = build(:flavor, value: nil)
+    expect(flavor).not_to be_valid
+  end
 end
