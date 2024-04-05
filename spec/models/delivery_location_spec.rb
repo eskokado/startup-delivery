@@ -40,4 +40,8 @@ RSpec.describe DeliveryLocation, type: :model do
     delivery_location = build(:delivery_location, value: 0)
     expect(delivery_location).not_to be_valid
   end
+
+  describe 'associations' do
+    it { should belong_to(:client) }
+  end
 end
