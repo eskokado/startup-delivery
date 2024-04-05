@@ -71,4 +71,75 @@ RSpec.describe Manager::DeliveryLocationsController, type: :controller do
       expect(response).to render_template(:index)
     end
   end
+
+  describe 'GET #new' do
+    it 'assigns a new DeliveryLocation to @delivery_location' do
+      get :new
+      expect(assigns(:delivery_location)).to be_a_new(DeliveryLocation)
+    end
+
+    it 'renders the new template' do
+      get :new
+      expect(response).to render_template(:new)
+    end
+  end
+
+  describe 'POST #create' do
+    context 'with valid attributes' do
+      it 'creates a new delivery_location' do
+        expect do
+          post :create,
+               params: {
+                 delivery_location: FactoryBot.attributes_for(
+                   :delivery_location, client_id: client.id
+                 )
+               }
+        end.to change(DeliveryLocation, :count).by(1)
+      end
+
+      it 'redirects to the delivery_location
+          path with a notice on successful save' do
+        post :create,
+             params: {
+               delivery_location: FactoryBot.attributes_for(
+                 :delivery_location, client_id: client.id
+               )
+             }
+        expect(response)
+          .to redirect_to(
+            manager_delivery_location_path(
+              assigns(:delivery_location)
+            )
+          )
+        expect(flash[:notice])
+          .to eq I18n.t('controllers.manager.delivery_locations.create')
+      end
+    end
+
+    context 'with invalid attributes' do
+      it 'does not save the new delivery_location' do
+        expect do
+          post :create, params: {
+            delivery_location: FactoryBot.attributes_for(
+              :delivery_location,
+              name: nil,
+              client_id: client.id
+            )
+          }
+        end.not_to change(DeliveryLocation, :count)
+      end
+
+      it 're-renders the new method' do
+        post :create,
+             params: {
+               delivery_location: FactoryBot.attributes_for(
+                 :delivery_location,
+                 name: nil,
+                 client_id: client.id
+               )
+             }
+        expect(response).to render_template(:new)
+      end
+    end
+  end
 end
