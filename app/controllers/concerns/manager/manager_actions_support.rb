@@ -81,7 +81,7 @@ module Manager
     end
 
     def find_resource(resource_class)
-      resource_name = resource_class.to_s.downcase
+      resource_name = resource_class.to_s.underscore
       current_user.client
                   .send(resource_name.pluralize.to_s)
                   .find_by(id: params[:id]).tap do |resource|
