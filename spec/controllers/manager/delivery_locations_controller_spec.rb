@@ -167,5 +167,17 @@ RSpec.describe Manager::DeliveryLocationsController, type: :controller do
         expect(delivery_location.value).to eq(150)
       end
     end
+
+    it 'redirects to the delivery_location
+        with a notice on successful update' do
+      patch :update, params: {
+        id: delivery_location.id,
+        delivery_location: { name: 'Atualizada' }
+      }
+      expect(response)
+        .to redirect_to(manager_delivery_location_path(delivery_location))
+      expect(flash[:notice])
+        .to eq I18n.t('controllers.manager.delivery_locations.update')
+    end
   end
 end
