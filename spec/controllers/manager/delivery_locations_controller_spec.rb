@@ -77,5 +77,10 @@ RSpec.describe Manager::DeliveryLocationsController, type: :controller do
       get :new
       expect(assigns(:delivery_location)).to be_a_new(DeliveryLocation)
     end
+
+    it 'renders the new template' do
+      get :new
+      expect(response).to render_template(:new)
+    end
   end
 end
