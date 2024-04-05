@@ -142,4 +142,11 @@ RSpec.describe Manager::DeliveryLocationsController, type: :controller do
       end
     end
   end
+
+  describe 'GET #edit' do
+    it 'assigns the requested delivery_location to @delivery_location' do
+      get :edit, params: { id: delivery_location.id }
+      expect(assigns(:delivery_location)).to eq(delivery_location)
+    end
+  end
 end
