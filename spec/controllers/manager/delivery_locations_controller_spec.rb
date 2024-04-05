@@ -4,7 +4,9 @@ RSpec.describe Manager::DeliveryLocationsController, type: :controller do
   let(:user) { FactoryBot.create(:user) }
   let(:client) { create(:client, user: user) }
 
-  let(:delivery_locations) { create_list(:delivery_location, 3, client: client) }
+  let(:delivery_locations) do
+    create_list(:delivery_location, 3, client: client)
+  end
   let(:delivery_location) { create(:delivery_location, client: client) }
 
   before(:each) do
