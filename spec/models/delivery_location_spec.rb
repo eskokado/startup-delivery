@@ -30,4 +30,9 @@ RSpec.describe DeliveryLocation, type: :model do
     delivery_location = build(:delivery_location, name: nil)
     expect(delivery_location).not_to be_valid
   end
+
+  it 'is not valid without a value' do
+    delivery_location = build(:delivery_location, value: nil)
+    expect(delivery_location).not_to be_valid
+  end
 end
