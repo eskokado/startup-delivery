@@ -18,7 +18,7 @@ module Manager
       fetch_instance = fetch_class.new(params, client: @client)
       @q = fetch_instance.search
       instance_variable_set(
-        "@#{module_name.downcase.pluralize}",
+        "@#{module_name.underscore.pluralize}",
         fetch_instance.call
       )
     end

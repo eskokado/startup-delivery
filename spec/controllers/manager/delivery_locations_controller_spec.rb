@@ -27,5 +27,48 @@ RSpec.describe Manager::DeliveryLocationsController, type: :controller do
       get :index
       expect(response).to render_template :index
     end
+
+    it 'assigns @flavors for the given search parameters' do
+      double('search_result', result: delivery_locations)
+      allow(DeliveryLocation)
+        .to receive_message_chain(:ransack, :result)
+        .and_return(delivery_locations)
+
+      get :index
+
+      expect(assigns(:delivery_locations)).to match_array(delivery_locations)
+    end
+  end
+
+  describe 'GET #index with search' do
+    it 'returns the extras searched correctly' do
+      delivery_location1 = create(
+        :delivery_location, name: 'Tal Tal', client: client
+      )
+      delivery_location2 = create(
+        :delivery_location, name: 'Lat Lat', client: client
+      )
+      get :index,
+          params: { q: { name_cont: 'tal' } }
+
+      expect(assigns(:delivery_locations)).to include(delivery_location1)
+      expect(assigns(:delivery_locations)).to_not include(delivery_location2)
+    end
+
+    it 'excludes non-matching results' do
+      create(:delivery_location, name: 'Non-Matching Location', client: client)
+
+      get :index,
+          params: { q: { name_cont: 'tal' } }
+
+      expect(assigns(:delivery_locations)).to be_empty
+    end
+
+    it 'renders the index template' do
+      get :index,
+          params: { q: { name_cont: 'Search Nothing' } }
+
+      expect(response).to render_template(:index)
+    end
   end
 end
