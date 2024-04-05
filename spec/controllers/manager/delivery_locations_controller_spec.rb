@@ -124,6 +124,18 @@ RSpec.describe Manager::DeliveryLocationsController, type: :controller do
           }
         end.not_to change(DeliveryLocation, :count)
       end
+
+      it 're-renders the new method' do
+        post :create,
+             params: {
+               delivery_location: FactoryBot.attributes_for(
+                 :delivery_location,
+                 name: nil,
+                 client_id: client.id
+               )
+             }
+        expect(response).to render_template(:new)
+      end
     end
   end
 end
