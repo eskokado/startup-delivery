@@ -142,4 +142,42 @@ RSpec.describe Manager::DeliveryLocationsController, type: :controller do
       end
     end
   end
+
+  describe 'GET #edit' do
+    it 'assigns the requested delivery_location to @delivery_location' do
+      get :edit, params: { id: delivery_location.id }
+      expect(assigns(:delivery_location)).to eq(delivery_location)
+    end
+
+    it 'renders the edit template' do
+      get :edit, params: { id: delivery_location.id }
+      expect(response).to render_template(:edit)
+    end
+  end
+
+  describe 'PATCH #update' do
+    context 'with valid attributes' do
+      it 'updates the delivery_location' do
+        patch :update, params: {
+          id: delivery_location.id,
+          delivery_location: { name: 'Novo local', value: 150 }
+        }
+        delivery_location.reload
+        expect(delivery_location.name).to eq('Novo local')
+        expect(delivery_location.value).to eq(150)
+      end
+    end
+
+    it 'redirects to the delivery_location
+        with a notice on successful update' do
+      patch :update, params: {
+        id: delivery_location.id,
+        delivery_location: { name: 'Atualizada' }
+      }
+      expect(response)
+        .to redirect_to(manager_delivery_location_path(delivery_location))
+      expect(flash[:notice])
+        .to eq I18n.t('controllers.manager.delivery_locations.update')
+    end
+  end
 end
