@@ -4,6 +4,8 @@ module Manager
 
     before_action :build_delivery_location, only: %i[create]
     before_action :set_current_client_context, only: %i[index create]
+    before_action -> { prepare_resource(DeliveryLocation) },
+                  only: %i[edit update]
 
     def index
       index_with_fetch('DeliveryLocations')
@@ -17,6 +19,17 @@ module Manager
       create_resource(@delivery_location, delivery_location_params,
                       success_action: 'create',
                       failure_view: :new)
+    end
+
+    def edit; end
+
+    def update
+      update_resource(
+        @delivery_location,
+        delivery_location_params,
+        success_action: 'update',
+        failure_view: :edit
+      )
     end
 
     private
