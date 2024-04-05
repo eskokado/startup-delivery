@@ -189,5 +189,9 @@ RSpec.describe Manager::DeliveryLocationsController, type: :controller do
     it 'responds with success' do
       expect(response).to have_http_status(:success)
     end
+
+    it 'assigns the requested delivery_location to @delivery_location' do
+      expect(assigns(:delivery_location)).to eq(delivery_location)
+    end
   end
 end
