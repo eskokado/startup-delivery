@@ -154,4 +154,18 @@ RSpec.describe Manager::DeliveryLocationsController, type: :controller do
       expect(response).to render_template(:edit)
     end
   end
+
+  describe 'PATCH #update' do
+    context 'with valid attributes' do
+      it 'updates the delivery_location' do
+        patch :update, params: {
+          id: delivery_location.id,
+          delivery_location: { name: 'Novo local', value: 150 }
+        }
+        delivery_location.reload
+        expect(delivery_location.name).to eq('Novo local')
+        expect(delivery_location.value).to eq(150)
+      end
+    end
+  end
 end
