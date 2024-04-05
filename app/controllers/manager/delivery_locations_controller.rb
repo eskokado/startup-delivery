@@ -5,7 +5,7 @@ module Manager
     before_action :build_delivery_location, only: %i[create]
     before_action :set_current_client_context, only: %i[index create]
     before_action -> { prepare_resource(DeliveryLocation) },
-                  only: %i[show edit update]
+                  only: %i[show edit update destroy]
 
     def index
       index_with_fetch('DeliveryLocations')
@@ -33,6 +33,12 @@ module Manager
     end
 
     def show; end
+
+    def destroy
+      @delivery_location.destroy
+      redirect_to manager_delivery_locations_path,
+                  notice: t('controllers.manager.delivery_locations.destroy')
+    end
 
     private
 
