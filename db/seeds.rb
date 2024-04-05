@@ -142,4 +142,13 @@ if Rails.env.development?
       deleted_at: nil
     )
   end
+
+  15.times do
+    DeliveryLocation.create(
+      name: FFaker::Product.product_name,
+      value: FFaker::Number.decimal(whole_digits: 2, fractional_digits: 2),
+      client: client_1,
+      deleted_at: nil
+    )
+  end
 end
