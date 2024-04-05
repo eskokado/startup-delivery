@@ -20,5 +20,10 @@ RSpec.describe Manager::DeliveryLocationsController, type: :controller do
       get :index
       expect(assigns(:delivery_locations)).to eq([delivery_location])
     end
+
+    it 'renders the :index view' do
+      get :index
+      expect(response).to render_template :index
+    end
   end
 end
