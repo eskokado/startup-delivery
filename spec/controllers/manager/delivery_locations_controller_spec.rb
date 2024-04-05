@@ -71,4 +71,11 @@ RSpec.describe Manager::DeliveryLocationsController, type: :controller do
       expect(response).to render_template(:index)
     end
   end
+
+  describe 'GET #new' do
+    it 'assigns a new DeliveryLocation to @delivery_location' do
+      get :new
+      expect(assigns(:delivery_location)).to be_a_new(DeliveryLocation)
+    end
+  end
 end
