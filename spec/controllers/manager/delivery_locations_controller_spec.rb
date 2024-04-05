@@ -83,4 +83,19 @@ RSpec.describe Manager::DeliveryLocationsController, type: :controller do
       expect(response).to render_template(:new)
     end
   end
+
+  describe 'POST #create' do
+    context 'with valid attributes' do
+      it 'creates a new delivery_location' do
+        expect do
+          post :create,
+               params: {
+                 delivery_location: FactoryBot.attributes_for(
+                   :delivery_location, client_id: client.id
+                 )
+               }
+        end.to change(DeliveryLocation, :count).by(1)
+      end
+    end
+  end
 end
