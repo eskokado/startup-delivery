@@ -1,0 +1,8 @@
+<% @delivery_locations.each do |delivery_location| %>
+  <tr class="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600" id="<%= dom_id delivery_location %>">
+    <td class="px-4 py-3"> <%= delivery_location.name %></td>
+    <td class="px-4 py-3"> <%= number_to_currency(delivery_location.value) %></td>
+    <td class="px-4 py-3 flex items-center justify-end">
+    </td>
+  </tr>
+<% end %>
