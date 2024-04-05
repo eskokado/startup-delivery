@@ -35,4 +35,9 @@ RSpec.describe DeliveryLocation, type: :model do
     delivery_location = build(:delivery_location, value: nil)
     expect(delivery_location).not_to be_valid
   end
+
+  it 'is not valid with a value less than or equal to 0' do
+    delivery_location = build(:delivery_location, value: 0)
+    expect(delivery_location).not_to be_valid
+  end
 end
