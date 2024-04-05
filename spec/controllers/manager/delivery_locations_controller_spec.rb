@@ -180,4 +180,14 @@ RSpec.describe Manager::DeliveryLocationsController, type: :controller do
         .to eq I18n.t('controllers.manager.delivery_locations.update')
     end
   end
+
+  describe 'GET #show' do
+    before do
+      get :show, params: { id: delivery_location.id }
+    end
+
+    it 'responds with success' do
+      expect(response).to have_http_status(:success)
+    end
+  end
 end
