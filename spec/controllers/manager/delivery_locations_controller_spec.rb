@@ -111,5 +111,19 @@ RSpec.describe Manager::DeliveryLocationsController, type: :controller do
           .to eq I18n.t('controllers.manager.delivery_locations.create')
       end
     end
+
+    context 'with invalid attributes' do
+      it 'does not save the new delivery_location' do
+        expect do
+          post :create, params: {
+            delivery_location: FactoryBot.attributes_for(
+              :delivery_location,
+              name: nil,
+              client_id: client.id
+            )
+          }
+        end.not_to change(DeliveryLocation, :count)
+      end
+    end
   end
 end
