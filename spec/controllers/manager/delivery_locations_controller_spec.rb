@@ -148,5 +148,10 @@ RSpec.describe Manager::DeliveryLocationsController, type: :controller do
       get :edit, params: { id: delivery_location.id }
       expect(assigns(:delivery_location)).to eq(delivery_location)
     end
+
+    it 'renders the edit template' do
+      get :edit, params: { id: delivery_location.id }
+      expect(response).to render_template(:edit)
+    end
   end
 end
