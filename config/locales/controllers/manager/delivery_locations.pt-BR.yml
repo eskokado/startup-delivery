@@ -1,0 +1,9 @@
+pt-BR:
+  controllers:
+    manager:
+      delivery_locations:
+        create: 'Local de entrega cadastrado com sucesso.'
+        update: 'Local de entrega atualizado com sucesso.'
+        destroy: 'Local de entrega apagado com sucesso.'
+        not_found: 'Local de entrega inexistente.'
+        error: 'Falha ao cadastrar local de entrega.'

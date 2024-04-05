@@ -1,0 +1,19 @@
+pt-BR:
+  activerecord:
+    errors:
+      models:
+        delivery_location:
+          attributes:
+            name:
+              blank: 'nao pode ficar em branco'
+    models:
+      delivery_location:
+        one: 'Local de Entrega'
+        other: 'Locais de Entrega'
+    attributes:
+      delivery_location:
+        name: 'Nome'
+        value: 'Valor'
+        created_at: 'Criado em'
+        updated_at: 'Atualizado em'
+        deleted_at: 'Deletado em'

@@ -8,9 +8,7 @@ module Manager
                   only: %i[show edit update destroy]
 
     def index
-      fetch = ::Products::Fetch.new(params, client: @client)
-      @q = fetch.search
-      @products = fetch.call
+      index_with_fetch('Products')
     end
 
     def show; end

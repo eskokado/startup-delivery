@@ -1,0 +1,37 @@
+pt-BR:
+  manager:
+    delivery_locations:
+      index:
+        search: 'Pesquisar'
+        add: "Cadastrar local de entrega"
+        filter_by: 'Filtrar'
+        filter_1: 'Concluídas'
+        filter_2: 'Não concluídas'
+        pages:
+          showing: 'Mostrando'
+          of: 'de'
+        previous: 'anterior'
+        next: 'próximo'
+      new:
+        title: 'Cadastrando local de entrega'
+        add: 'Criar local de entrega'
+        back: 'Voltar'
+        save: 'Salvar'
+        name: 'Nome'
+        value: 'Valor'
+      edit:
+        title: 'Editando local de entrega'
+        save: 'Salvar'
+        show: 'Mostrar'
+      show:
+        title: 'Detalhando local de entrega'
+        edit: 'Editar'
+        back: 'Voltar'
+        save: 'Salvar'
+        delete: 'Apagar'
+        delete_confirm: 'Você tem certeza?'
+      delivery_location:
+        show: 'Mostrar'
+        edit: 'Editar'
+        delete: 'Apagar'
+        delete_confirm: 'Você tem certeza?'
