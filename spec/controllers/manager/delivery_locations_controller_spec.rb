@@ -39,4 +39,20 @@ RSpec.describe Manager::DeliveryLocationsController, type: :controller do
       expect(assigns(:delivery_locations)).to match_array(delivery_locations)
     end
   end
+
+  describe 'GET #index with search' do
+    it 'returns the extras searched correctly' do
+      delivery_location1 = create(
+        :delivery_location, name: 'Tal Tal', client: client
+      )
+      delivery_location2 = create(
+        :delivery_location, name: 'Lat Lat', client: client
+      )
+      get :index,
+          params: { q: { name_cont: 'tal' } }
+
+      expect(assigns(:delivery_locations)).to include(delivery_location1)
+      expect(assigns(:delivery_locations)).to_not include(delivery_location2)
+    end
+  end
 end
