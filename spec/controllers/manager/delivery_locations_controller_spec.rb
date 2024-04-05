@@ -194,4 +194,21 @@ RSpec.describe Manager::DeliveryLocationsController, type: :controller do
       expect(assigns(:delivery_location)).to eq(delivery_location)
     end
   end
+
+  describe 'DELETE #destroy' do
+    let!(:delivery_location) { create(:delivery_location, client: client) }
+
+    it 'deletes the delivery_location' do
+      expect do
+        delete :destroy, params: { id: delivery_location.id }
+      end.to change(DeliveryLocation, :count).by(-1)
+    end
+
+    it 'redirects to the delivery_location index with a notice' do
+      delete :destroy, params: { id: delivery_location.id }
+      expect(response).to redirect_to(manager_delivery_locations_path)
+      expect(flash[:notice])
+        .to eq(I18n.t('controllers.manager.delivery_locations.destroy'))
+    end
+  end
 end
