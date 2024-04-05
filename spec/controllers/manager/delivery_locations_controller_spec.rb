@@ -105,8 +105,12 @@ RSpec.describe Manager::DeliveryLocationsController, type: :controller do
                  :delivery_location, client_id: client.id
                )
              }
-        expect(response)
-          .to redirect_to(manager_delivery_location_path(assigns(:delivery_location)))
+        expect(response).to
+        redirect_to(
+          manager_delivery_location_path(
+            assigns(:delivery_location)
+          )
+        )
         expect(flash[:notice])
           .to eq I18n.t('controllers.manager.delivery_locations.create')
       end
