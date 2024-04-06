@@ -130,4 +130,39 @@ RSpec.describe Manager::ClerksController, type: :controller do
       end
     end
   end
+
+  describe 'GET #edit' do
+    it 'assigns the requested clerk to @clerk' do
+      get :edit, params: { id: clerk.id }
+      expect(assigns(:clerk)).to eq(clerk)
+    end
+
+    it 'renders the edit template' do
+      get :edit, params: { id: clerk.id }
+      expect(response).to render_template(:edit)
+    end
+  end
+
+  describe 'PATCH #update' do
+    context 'with valid attributes' do
+      it 'updates the clerk' do
+        patch :update, params: {
+          id: clerk.id,
+          clerk: { name: 'Novo name' }
+        }
+        clerk.reload
+        expect(clerk.name).to eq('Novo name')
+      end
+
+      it 'redirects to the clerk with a notice on successful update' do
+        patch :update, params: {
+          id: clerk.id,
+          clerk: { name: 'Atualizada' }
+        }
+        expect(response).to redirect_to(manager_clerk_path(clerk))
+        expect(flash[:notice])
+          .to eq I18n.t('controllers.manager.clerks.update')
+      end
+    end
+  end
 end

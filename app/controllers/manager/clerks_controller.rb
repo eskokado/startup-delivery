@@ -4,6 +4,8 @@ module Manager
 
     before_action :build_clerk, only: %i[create]
     before_action :set_current_client_context, only: %i[index create]
+    before_action -> { prepare_resource(Clerk) },
+                  only: %i[edit update]
     def index
       index_with_fetch('Clerks')
     end
@@ -16,6 +18,17 @@ module Manager
       create_resource(@clerk, clerk_params,
                       success_action: 'create',
                       failure_view: :new)
+    end
+
+    def edit; end
+
+    def update
+      update_resource(
+        @clerk,
+        clerk_params,
+        success_action: 'update',
+        failure_view: :edit
+      )
     end
 
     private
