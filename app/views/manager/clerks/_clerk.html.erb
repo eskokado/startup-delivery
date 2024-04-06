@@ -1,0 +1,10 @@
+<% @clerks.each do |clerk| %>
+  <tr class="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600" id="<%= dom_id clerk %>">
+    <td class="px-4 py-3"> <%= clerk.name %></td>
+    <td class="px-4 py-3"> <%= clerk.document %></td>
+    <td class="px-4 py-3"> <%= clerk.phone %></td>
+    <td class="px-4 py-3"> <%= clerk.person %></td>
+    <td class="px-4 py-3 flex items-center justify-end">
+    </td>
+  </tr>
+<% end %>
