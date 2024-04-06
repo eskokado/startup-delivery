@@ -47,4 +47,8 @@ RSpec.describe Clerk, type: :model do
     clerk = build(:clerk, person: nil)
     expect(clerk).not_to be_valid
   end
+
+  describe 'associations' do
+    it { should belong_to(:client) }
+  end
 end
