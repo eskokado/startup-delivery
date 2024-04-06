@@ -33,6 +33,7 @@ Rails.application.routes.draw do
     resources :extras
     resources :flavors
     resources :delivery_locations
+    resources :clerks
     get '', to: 'home#index', as: :home
   end
 
