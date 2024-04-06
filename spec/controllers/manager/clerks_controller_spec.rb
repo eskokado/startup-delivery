@@ -36,4 +36,16 @@ RSpec.describe Manager::ClerksController, type: :controller do
       expect(assigns(:clerks)).to match_array(clerks)
     end
   end
+
+  describe 'GET #index with search' do
+    it 'returns the extras searched correctly' do
+      clerk1 = create(:clerk, name: 'Erica Silva', client: client)
+      clerk2 = create(:clerk, name: 'Marcos Souza', client: client)
+      get :index,
+          params: { q: { name_cont: 'silva' } }
+
+      expect(assigns(:clerks)).to include(clerk1)
+      expect(assigns(:clerks)).to_not include(clerk2)
+    end
+  end
 end
