@@ -70,5 +70,10 @@ RSpec.describe Manager::ClerksController, type: :controller do
       get :new
       expect(assigns(:clerk)).to be_a_new(Clerk)
     end
+
+    it 'renders the new template' do
+      get :new
+      expect(response).to render_template(:new)
+    end
   end
 end
