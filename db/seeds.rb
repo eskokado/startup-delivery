@@ -151,4 +151,15 @@ if Rails.env.development?
       deleted_at: nil
     )
   end
+
+  5.times do
+    Clerk.create(
+      name: FFaker::NameBR.name,
+      document: FFaker::Number.number(digits: 11),
+      phone: FFaker::PhoneNumberBR.phone_number,
+      person: "root",
+      client: client_1,
+      deleted_at: nil
+    )
+  end
 end
