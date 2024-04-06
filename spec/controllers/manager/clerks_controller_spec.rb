@@ -76,4 +76,19 @@ RSpec.describe Manager::ClerksController, type: :controller do
       expect(response).to render_template(:new)
     end
   end
+
+  describe 'POST #create' do
+    context 'with valid attributes' do
+      it 'creates a new clerk' do
+        expect do
+          post :create,
+               params: {
+                 clerk: FactoryBot.attributes_for(
+                   :clerk, client_id: client.id
+                 )
+               }
+        end.to change(Clerk, :count).by(1)
+      end
+    end
+  end
 end
