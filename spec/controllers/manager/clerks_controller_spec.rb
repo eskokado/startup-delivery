@@ -103,5 +103,19 @@ RSpec.describe Manager::ClerksController, type: :controller do
           .to eq I18n.t('controllers.manager.clerks.create')
       end
     end
+
+    context 'with invalid attributes' do
+      it 'does not save the new clerk' do
+        expect do
+          post :create, params: {
+            clerk: FactoryBot.attributes_for(
+              :clerk,
+              name: nil,
+              client_id: client.id
+            )
+          }
+        end.not_to change(Clerk, :count)
+      end
+    end
   end
 end
