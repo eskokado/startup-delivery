@@ -47,5 +47,14 @@ RSpec.describe Manager::ClerksController, type: :controller do
       expect(assigns(:clerks)).to include(clerk1)
       expect(assigns(:clerks)).to_not include(clerk2)
     end
+
+    it 'excludes non-matching results' do
+      create(:clerk, name: 'Non-Matching clerk', client: client)
+
+      get :index,
+          params: { q: { name_cont: 'silva' } }
+
+      expect(assigns(:clerks)).to be_empty
+    end
   end
 end
