@@ -64,4 +64,70 @@ RSpec.describe Manager::ClerksController, type: :controller do
       expect(response).to render_template(:index)
     end
   end
+
+  describe 'GET #new' do
+    it 'assigns a new Clerk to @clerk' do
+      get :new
+      expect(assigns(:clerk)).to be_a_new(Clerk)
+    end
+
+    it 'renders the new template' do
+      get :new
+      expect(response).to render_template(:new)
+    end
+  end
+
+  describe 'POST #create' do
+    context 'with valid attributes' do
+      it 'creates a new clerk' do
+        expect do
+          post :create,
+               params: {
+                 clerk: FactoryBot.attributes_for(
+                   :clerk, client_id: client.id
+                 )
+               }
+        end.to change(Clerk, :count).by(1)
+      end
+
+      it 'redirects to the clerk path with a notice on successful save' do
+        post :create,
+             params: {
+               clerk: FactoryBot.attributes_for(
+                 :clerk, client_id: client.id
+               )
+             }
+        expect(response)
+          .to redirect_to(manager_clerk_path(assigns(:clerk)))
+        expect(flash[:notice])
+          .to eq I18n.t('controllers.manager.clerks.create')
+      end
+    end
+
+    context 'with invalid attributes' do
+      it 'does not save the new clerk' do
+        expect do
+          post :create, params: {
+            clerk: FactoryBot.attributes_for(
+              :clerk,
+              name: nil,
+              client_id: client.id
+            )
+          }
+        end.not_to change(Clerk, :count)
+      end
+
+      it 're-renders the new method' do
+        post :create,
+             params: {
+               clerk: FactoryBot.attributes_for(
+                 :clerk,
+                 name: nil,
+                 client_id: client.id
+               )
+             }
+        expect(response).to render_template(:new)
+      end
+    end
+  end
 end
