@@ -165,4 +165,18 @@ RSpec.describe Manager::ClerksController, type: :controller do
       end
     end
   end
+
+  describe 'GET #show' do
+    before do
+      get :show, params: { id: clerk.id }
+    end
+
+    it 'responds with success' do
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'assigns the requested extra to @clerk' do
+      expect(assigns(:clerk)).to eq(clerk)
+    end
+  end
 end
