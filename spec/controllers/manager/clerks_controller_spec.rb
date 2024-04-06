@@ -25,5 +25,15 @@ RSpec.describe Manager::ClerksController, type: :controller do
       get :index
       expect(response).to render_template :index
     end
+
+    it 'assigns @clerks for the given search parameters' do
+      double('search_result', result: clerks)
+      allow(Clerk)
+        .to receive_message_chain(:ransack, :result).and_return(clerks)
+
+      get :index
+
+      expect(assigns(:clerks)).to match_array(clerks)
+    end
   end
 end
