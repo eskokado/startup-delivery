@@ -1,0 +1,21 @@
+pt-BR:
+  activerecord:
+    errors:
+      models:
+        clerk:
+          attributes:
+            name:
+              blank: 'nao pode ficar em branco'
+    models:
+      clerk:
+        one: 'Balconista'
+        other: 'Balconistas'
+    attributes:
+      clerk:
+        name: 'Nome'
+        document: 'Documento'
+        phone: 'Telefone'
+        person: 'Pessoa'
+        created_at: 'Criado em'
+        updated_at: 'Atualizado em'
+        deleted_at: 'Deletado em'
