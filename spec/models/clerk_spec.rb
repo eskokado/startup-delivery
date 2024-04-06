@@ -27,4 +27,9 @@ RSpec.describe Clerk, type: :model do
     clerk = FactoryBot.create(:clerk)
     expect(clerk).to be_valid
   end
+
+  it 'is not valid without a name' do
+    clerk = build(:clerk, name: nil)
+    expect(clerk).not_to be_valid
+  end
 end
