@@ -64,4 +64,11 @@ RSpec.describe Manager::ClerksController, type: :controller do
       expect(response).to render_template(:index)
     end
   end
+
+  describe 'GET #new' do
+    it 'assigns a new Clerk to @clerk' do
+      get :new
+      expect(assigns(:clerk)).to be_a_new(Clerk)
+    end
+  end
 end
