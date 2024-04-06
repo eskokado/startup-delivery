@@ -37,4 +37,9 @@ RSpec.describe Clerk, type: :model do
     clerk = build(:clerk, document: nil)
     expect(clerk).not_to be_valid
   end
+
+  it 'is not valid without a phone' do
+    clerk = build(:clerk, phone: nil)
+    expect(clerk).not_to be_valid
+  end
 end
