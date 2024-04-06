@@ -130,4 +130,11 @@ RSpec.describe Manager::ClerksController, type: :controller do
       end
     end
   end
+
+  describe 'GET #edit' do
+    it 'assigns the requested clerk to @clerk' do
+      get :edit, params: { id: clerk.id }
+      expect(assigns(:clerk)).to eq(clerk)
+    end
+  end
 end
