@@ -142,4 +142,17 @@ RSpec.describe Manager::ClerksController, type: :controller do
       expect(response).to render_template(:edit)
     end
   end
+
+  describe 'PATCH #update' do
+    context 'with valid attributes' do
+      it 'updates the clerk' do
+        patch :update, params: {
+          id: clerk.id,
+          clerk: { name: 'Novo name' }
+        }
+        clerk.reload
+        expect(clerk.name).to eq('Novo name')
+      end
+    end
+  end
 end
