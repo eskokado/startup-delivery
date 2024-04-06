@@ -116,6 +116,18 @@ RSpec.describe Manager::ClerksController, type: :controller do
           }
         end.not_to change(Clerk, :count)
       end
+
+      it 're-renders the new method' do
+        post :create,
+             params: {
+               clerk: FactoryBot.attributes_for(
+                 :clerk,
+                 name: nil,
+                 client_id: client.id
+               )
+             }
+        expect(response).to render_template(:new)
+      end
     end
   end
 end
