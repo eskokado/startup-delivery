@@ -179,4 +179,21 @@ RSpec.describe Manager::ClerksController, type: :controller do
       expect(assigns(:clerk)).to eq(clerk)
     end
   end
+
+  describe 'DELETE #destroy' do
+    let!(:clerk) { create(:clerk, client: client) }
+
+    it 'deletes the clerk' do
+      expect do
+        delete :destroy, params: { id: clerk.id }
+      end.to change(Clerk, :count).by(-1)
+    end
+
+    it 'redirects to the clerk index with a notice' do
+      delete :destroy, params: { id: clerk.id }
+      expect(response).to redirect_to(manager_clerks_path)
+      expect(flash[:notice])
+        .to eq(I18n.t('controllers.manager.clerks.destroy'))
+    end
+  end
 end

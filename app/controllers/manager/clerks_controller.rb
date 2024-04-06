@@ -5,7 +5,7 @@ module Manager
     before_action :build_clerk, only: %i[create]
     before_action :set_current_client_context, only: %i[index create]
     before_action -> { prepare_resource(Clerk) },
-                  only: %i[show edit update]
+                  only: %i[show edit update destroy]
     def index
       index_with_fetch('Clerks')
     end
@@ -32,6 +32,12 @@ module Manager
     end
 
     def show; end
+
+    def destroy
+      @clerk.destroy
+      redirect_to manager_clerks_path,
+                  notice: t('controllers.manager.clerks.destroy')
+    end
 
     private
 
