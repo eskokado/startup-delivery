@@ -153,6 +153,16 @@ RSpec.describe Manager::ClerksController, type: :controller do
         clerk.reload
         expect(clerk.name).to eq('Novo name')
       end
+
+      it 'redirects to the clerk with a notice on successful update' do
+        patch :update, params: {
+          id: clerk.id,
+          clerk: { name: 'Atualizada' }
+        }
+        expect(response).to redirect_to(manager_clerk_path(clerk))
+        expect(flash[:notice])
+          .to eq I18n.t('controllers.manager.clerks.update')
+      end
     end
   end
 end
