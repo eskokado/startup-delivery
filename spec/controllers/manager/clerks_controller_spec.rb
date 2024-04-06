@@ -174,5 +174,9 @@ RSpec.describe Manager::ClerksController, type: :controller do
     it 'responds with success' do
       expect(response).to have_http_status(:success)
     end
+
+    it 'assigns the requested extra to @clerk' do
+      expect(assigns(:clerk)).to eq(clerk)
+    end
   end
 end
