@@ -1,0 +1,9 @@
+pt-BR:
+  controllers:
+    manager:
+      clerks:
+        create: 'Balconista cadastrada com sucesso.'
+        update: 'Balconista atualizada com sucesso.'
+        destroy: 'Balconista apagada com sucesso.'
+        not_found: 'Balconista inexistente.'
+        error: 'Falha ao cadastrar balconista.'
