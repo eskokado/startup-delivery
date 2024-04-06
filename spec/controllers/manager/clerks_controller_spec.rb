@@ -136,5 +136,10 @@ RSpec.describe Manager::ClerksController, type: :controller do
       get :edit, params: { id: clerk.id }
       expect(assigns(:clerk)).to eq(clerk)
     end
+
+    it 'renders the edit template' do
+      get :edit, params: { id: clerk.id }
+      expect(response).to render_template(:edit)
+    end
   end
 end
