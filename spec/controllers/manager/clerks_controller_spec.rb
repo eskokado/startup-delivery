@@ -89,6 +89,19 @@ RSpec.describe Manager::ClerksController, type: :controller do
                }
         end.to change(Clerk, :count).by(1)
       end
+
+      it 'redirects to the clerk path with a notice on successful save' do
+        post :create,
+             params: {
+               clerk: FactoryBot.attributes_for(
+                 :clerk, client_id: client.id
+               )
+             }
+        expect(response)
+          .to redirect_to(manager_clerk_path(assigns(:clerk)))
+        expect(flash[:notice])
+          .to eq I18n.t('controllers.manager.clerks.create')
+      end
     end
   end
 end
