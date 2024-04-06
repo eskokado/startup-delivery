@@ -42,4 +42,9 @@ RSpec.describe Clerk, type: :model do
     clerk = build(:clerk, phone: nil)
     expect(clerk).not_to be_valid
   end
+
+  it 'is not valid without a person' do
+    clerk = build(:clerk, person: nil)
+    expect(clerk).not_to be_valid
+  end
 end
