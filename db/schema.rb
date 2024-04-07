@@ -152,6 +152,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_07_102225) do
     t.string "document"
     t.integer "quantity"
     t.date "date"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["order_id"], name: "index_order_items_on_order_id"
