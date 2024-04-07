@@ -22,6 +22,12 @@
 #  fk_rails_...  (product_id => products.id)
 #
 class OrderItem < ApplicationRecord
+  acts_as_paranoid
+
   belongs_to :order
   belongs_to :product
+
+  validates :document, :quantity, presence: true
+  validates :quantity, numericality: { greater_than: 0 }
+
 end
