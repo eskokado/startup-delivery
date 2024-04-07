@@ -20,5 +20,10 @@ RSpec.describe Manager::OrdersController, type: :controller do
       get :index
       expect(assigns(:orders)).to eq([order])
     end
+
+    it 'renders the :index view' do
+      get :index
+      expect(response).to render_template :index
+    end
   end
 end
