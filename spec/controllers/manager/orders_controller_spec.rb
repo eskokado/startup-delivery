@@ -47,5 +47,14 @@ RSpec.describe Manager::OrdersController, type: :controller do
       expect(assigns(:orders)).to include(order1)
       expect(assigns(:orders)).to_not include(order2)
     end
+
+    it 'excludes non-matching results' do
+      create(:order, date: '2024-04-07', client: client)
+
+      get :index,
+          params: { q: { date_eq: '2024-01-01' } }
+
+      expect(assigns(:orders)).to be_empty
+    end
   end
 end
