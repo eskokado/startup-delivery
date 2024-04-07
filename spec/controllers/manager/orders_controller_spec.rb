@@ -56,5 +56,12 @@ RSpec.describe Manager::OrdersController, type: :controller do
 
       expect(assigns(:orders)).to be_empty
     end
+
+    it 'renders the index template' do
+      get :index,
+          params: { q: { date_eq: '2024-01-01' } }
+
+      expect(response).to render_template(:index)
+    end
   end
 end
