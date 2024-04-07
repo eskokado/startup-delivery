@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_06_091354) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_07_102225) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -146,6 +146,36 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_06_091354) do
     t.index ["deleted_at"], name: "index_goals_on_deleted_at"
   end
 
+  create_table "order_items", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "product_id", null: false
+    t.string "document"
+    t.integer "quantity"
+    t.date "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+    t.index ["product_id"], name: "index_order_items_on_product_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.decimal "total"
+    t.decimal "total_paid"
+    t.decimal "change"
+    t.string "payment_type"
+    t.date "date"
+    t.time "time"
+    t.string "status"
+    t.string "paid"
+    t.text "notes"
+    t.decimal "fixed_delivery"
+    t.bigint "client_id", null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_orders_on_client_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -200,6 +230,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_06_091354) do
   add_foreign_key "extras", "categories"
   add_foreign_key "extras", "clients"
   add_foreign_key "flavors", "clients"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "order_items", "products"
+  add_foreign_key "orders", "clients"
   add_foreign_key "products", "categories"
   add_foreign_key "products", "clients"
 end
