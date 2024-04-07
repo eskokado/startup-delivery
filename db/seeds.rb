@@ -162,4 +162,37 @@ if Rails.env.development?
       deleted_at: nil
     )
   end
+
+  product_ids = Product.pluck(:id)
+
+  20.times do |i|
+    order = Order.create!(
+      total: FFaker::Number.decimal(whole_digits: 2, fractional_digits: 2),
+      total_paid: FFaker::Number.decimal(whole_digits: 2, fractional_digits: 2),
+      change: 0,
+      payment_type: ['Cash', 'CreditCard', 'DebitCard', 'Transfer'].sample,
+      date: FFaker::Time.date,
+      time: FFaker::Time.datetime,
+      status: ["Pending", "Completed", "Cancelled"].sample,
+      paid: ["Yes", "No"].sample,
+      notes: FFaker::Lorem.paragraph,
+      fixed_delivery: FFaker::Number.decimal(whole_digits: 1),
+      client: client_1,
+      deleted_at: nil
+    )
+
+    # Each order will have 3 to 6 order items
+    rand(3..6).times do
+      product_id = product_ids.sample
+      quantity = rand(1..10)
+
+      OrderItem.create!(
+        order_id: order.id,
+        product_id: product_id,
+        document: FFaker::IdentificationBR.pretty_cpf, # Example CPF, replace as necessary
+        quantity: quantity,
+        date: Date.today
+      )
+    end
+  end
 end
