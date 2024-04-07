@@ -6,6 +6,7 @@ class CreateOrderItems < ActiveRecord::Migration[7.0]
       t.string :document
       t.integer :quantity
       t.date :date
+      t.datetime :deleted_at
 
       t.timestamps
     end
