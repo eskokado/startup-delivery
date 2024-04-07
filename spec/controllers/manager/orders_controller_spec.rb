@@ -25,5 +25,15 @@ RSpec.describe Manager::OrdersController, type: :controller do
       get :index
       expect(response).to render_template :index
     end
+
+    it 'assigns @orders for the given search parameters' do
+      double('search_result', result: orders)
+      allow(Order)
+        .to receive_message_chain(:ransack, :result).and_return(orders)
+
+      get :index
+
+      expect(assigns(:orders)).to match_array(orders)
+    end
   end
 end
