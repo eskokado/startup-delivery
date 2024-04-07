@@ -4,6 +4,7 @@
 #
 #  id         :bigint           not null, primary key
 #  date       :date
+#  deleted_at :datetime
 #  document   :string
 #  quantity   :integer
 #  created_at :datetime         not null
@@ -28,5 +29,6 @@ FactoryBot.define do
     document { FFaker::IdentificationBR.pretty_cpf }
     quantity { rand(1..10) }
     date { FFaker::Time.date }
+    deleted_at { nil }
   end
 end
