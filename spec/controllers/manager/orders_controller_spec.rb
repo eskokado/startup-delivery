@@ -25,5 +25,43 @@ RSpec.describe Manager::OrdersController, type: :controller do
       get :index
       expect(response).to render_template :index
     end
+
+    it 'assigns @orders for the given search parameters' do
+      double('search_result', result: orders)
+      allow(Order)
+        .to receive_message_chain(:ransack, :result).and_return(orders)
+
+      get :index
+
+      expect(assigns(:orders)).to match_array(orders)
+    end
+  end
+
+  describe 'GET #index with search' do
+    it 'returns the orders searched correctly' do
+      order1 = create(:order, date: '2024-04-07', client: client)
+      order2 = create(:order, date: '2024-04-06', client: client)
+      get :index,
+          params: { q: { date_eq: '2024-04-07' } }
+
+      expect(assigns(:orders)).to include(order1)
+      expect(assigns(:orders)).to_not include(order2)
+    end
+
+    it 'excludes non-matching results' do
+      create(:order, date: '2024-04-07', client: client)
+
+      get :index,
+          params: { q: { date_eq: '2024-01-01' } }
+
+      expect(assigns(:orders)).to be_empty
+    end
+
+    it 'renders the index template' do
+      get :index,
+          params: { q: { date_eq: '2024-01-01' } }
+
+      expect(response).to render_template(:index)
+    end
   end
 end
