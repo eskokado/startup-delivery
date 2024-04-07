@@ -25,16 +25,16 @@
 require 'rails_helper'
 
 RSpec.describe OrderItem, type: :model do
-  it "has a valid factory" do
+  it 'has a valid factory' do
     expect(FactoryBot.create(:order_item)).to be_valid
   end
 
-  describe "validations" do
+  describe 'validations' do
     it { should validate_presence_of(:quantity) }
     it { should validate_presence_of(:document) }
   end
 
-  describe "associations" do
+  describe 'associations' do
     it { should belong_to(:order) }
     it { should belong_to(:product) }
   end

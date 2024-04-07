@@ -31,11 +31,11 @@ FactoryBot.define do
     total { FFaker::Number.decimal(whole_digits: 2, fractional_digits: 2) }
     total_paid { FFaker::Number.decimal(whole_digits: 2, fractional_digits: 2) }
     change { 0 }
-    payment_type { ['Cash', 'CreditCard', 'DebitCard', 'Transfer'].sample }
-    date  { FFaker::Time.date }
+    payment_type { %w[Cash CreditCard DebitCard Transfer].sample }
+    date { FFaker::Time.date }
     time { FFaker::Time.datetime }
-    status { ["Pending", "Completed", "Cancelled"].sample }
-    paid { ["Yes", "No"].sample }
+    status { %w[Pending Completed Cancelled].sample }
+    paid { %w[Yes No].sample }
     notes { FFaker::Lorem.paragraph }
     fixed_delivery { FFaker::Number.decimal(whole_digits: 1) }
     association :client, factory: :client

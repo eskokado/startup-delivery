@@ -29,11 +29,11 @@
 require 'rails_helper'
 
 RSpec.describe Order, type: :model do
-  it "has a valid factory" do
+  it 'has a valid factory' do
     expect(FactoryBot.create(:order)).to be_valid
   end
 
-  describe "validations" do
+  describe 'validations' do
     it { should validate_presence_of(:client_id) }
     it { should validate_presence_of(:total) }
     it { should validate_presence_of(:total_paid) }
@@ -43,17 +43,38 @@ RSpec.describe Order, type: :model do
     it { should validate_presence_of(:time) }
     it { should validate_presence_of(:status) }
 
-    it { should validate_numericality_of(:total).is_greater_than_or_equal_to(0) }
-    it { should validate_numericality_of(:total_paid).is_greater_than_or_equal_to(0) }
-    it { should validate_numericality_of(:change).is_greater_than_or_equal_to(0) }
-    it { should validate_numericality_of(:fixed_delivery).is_greater_than_or_equal_to(0) }
+    it {
+      should validate_numericality_of(:total)
+        .is_greater_than_or_equal_to(0)
+    }
+    it {
+      should validate_numericality_of(:total_paid)
+        .is_greater_than_or_equal_to(0)
+    }
+    it {
+      should validate_numericality_of(:change)
+        .is_greater_than_or_equal_to(0)
+    }
+    it {
+      should validate_numericality_of(:fixed_delivery)
+        .is_greater_than_or_equal_to(0)
+    }
 
-    it { should validate_inclusion_of(:payment_type).in_array(%w[Cash CreditCard DebitCard Transfer]) }
-    it { should validate_inclusion_of(:status).in_array(%w[Pending Completed Cancelled]) }
-    it { should validate_inclusion_of(:paid).in_array(%w[Yes No]).allow_blank }
+    it {
+      should validate_inclusion_of(:payment_type)
+        .in_array(%w[Cash CreditCard DebitCard Transfer])
+    }
+    it {
+      should validate_inclusion_of(:status)
+        .in_array(%w[Pending Completed Cancelled])
+    }
+    it {
+      should validate_inclusion_of(:paid)
+        .in_array(%w[Yes No]).allow_blank
+    }
   end
 
-  describe "associations" do
+  describe 'associations' do
     it { should belong_to(:client) }
   end
 end

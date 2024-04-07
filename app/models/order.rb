@@ -30,11 +30,14 @@ class Order < ApplicationRecord
   acts_as_paranoid
   belongs_to :client
 
-  validates :client_id, :total, :total_paid, :change, :payment_type, :date, :time, :status, presence: true
+  validates :client_id, :total, :total_paid, :change, :payment_type,
+            :date, :time, :status, presence: true
 
-  validates :total, :total_paid, :change, :fixed_delivery, numericality: { greater_than_or_equal_to: 0 }
+  validates :total, :total_paid, :change,
+            :fixed_delivery, numericality: { greater_than_or_equal_to: 0 }
 
-  validates :payment_type, inclusion: { in: %w[Cash CreditCard DebitCard Transfer] }
+  validates :payment_type,
+            inclusion: { in: %w[Cash CreditCard DebitCard Transfer] }
   validates :status, inclusion: { in: %w[Pending Completed Cancelled] }
   validates :paid, inclusion: { in: %w[Yes No] }, allow_blank: true
 
