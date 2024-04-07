@@ -4,6 +4,7 @@
 #
 #  id         :bigint           not null, primary key
 #  date       :date
+#  deleted_at :datetime
 #  document   :string
 #  quantity   :integer
 #  created_at :datetime         not null
@@ -29,5 +30,4 @@ class OrderItem < ApplicationRecord
 
   validates :document, :quantity, presence: true
   validates :quantity, numericality: { greater_than: 0 }
-
 end
