@@ -1,0 +1,14 @@
+<% @orders.each do |order| %>
+  <tr class="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600" id="<%= dom_id order %>">
+    <td class="px-4 py-3"> <%= order.client.user.name %></td>
+    <td class="px-4 py-3"> <%= number_to_currency(order.total) %></td>
+    <td class="px-4 py-3"> <%= number_to_currency(order.total_paid) %></td>
+    <td class="px-4 py-3"> <%= number_to_currency(order.change) %></td>
+    <td class="px-4 py-3"> <%= order.payment_type %></td>
+    <td class="px-4 py-3"> <%= order.date %></td>
+    <td class="px-4 py-3"> <%= order.time.strftime('%H:%M') %></td>
+    <td class="px-4 py-3"> <%= order.status %></td>
+    <td class="px-4 py-3 flex items-center justify-end">
+    </td>
+  </tr>
+<% end %>

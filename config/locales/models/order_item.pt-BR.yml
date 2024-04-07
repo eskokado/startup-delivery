@@ -1,0 +1,24 @@
+pt-BR:
+  activerecord:
+    errors:
+      models:
+        order_item:
+          attributes:
+            order:
+              blank: 'nao pode ficar em branco'
+            product:
+              blank: 'nao pode ficar em branco'
+    models:
+      order_item:
+        one: 'Item de Pedido'
+        other: 'Itens de Pedido'
+    attributes:
+      order:
+        order: 'Pedido'
+        product: 'Produto'
+        document: 'Documento'
+        quantity: 'Quantidade'
+        date: 'Data'
+        created_at: 'Criado em'
+        updated_at: 'Atualizado em'
+        deleted_at: 'Deletado em'
