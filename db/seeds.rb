@@ -191,7 +191,8 @@ if Rails.env.development?
         product_id: product_id,
         document: FFaker::IdentificationBR.pretty_cpf, # Example CPF, replace as necessary
         quantity: quantity,
-        date: Date.today
+        date: Date.today,
+        deleted_at: nil
       )
     end
   end
