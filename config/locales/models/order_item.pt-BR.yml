@@ -13,9 +13,10 @@ pt-BR:
         one: 'Item de Pedido'
         other: 'Itens de Pedido'
     attributes:
-      order:
+      order_item:
         order: 'Pedido'
         product: 'Produto'
+        image: 'Imagem'
         document: 'Documento'
         quantity: 'Quantidade'
         date: 'Data'
