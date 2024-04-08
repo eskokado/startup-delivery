@@ -17,18 +17,22 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  client_id      :bigint           not null
+#  consumer_id    :bigint           not null
 #
 # Indexes
 #
-#  index_orders_on_client_id  (client_id)
+#  index_orders_on_client_id    (client_id)
+#  index_orders_on_consumer_id  (consumer_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (client_id => clients.id)
+#  fk_rails_...  (consumer_id => consumers.id)
 #
 class Order < ApplicationRecord
   acts_as_paranoid
   belongs_to :client
+  belongs_to :consumer
 
   validates :client_id, :total, :total_paid, :change, :payment_type,
             :date, :time, :status, presence: true
