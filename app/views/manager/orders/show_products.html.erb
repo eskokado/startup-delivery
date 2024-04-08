@@ -1,0 +1,31 @@
+<div class="relative">
+  <div class="flex justify-between items-center mb-4">
+    <h1 class="font-bold text-4xl"><%= "#{t('.title')} - Pedido #{@order.id}" %></h1>
+  </div>
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <tr>
+        <th scope="col" class="px-4 py-3"><%= OrderItem.human_attribute_name("image") %></th>
+        <th scope="col" class="px-4 py-3"><%= OrderItem.human_attribute_name("date") %></th>
+        <th scope="col" class="px-4 py-3"><%= OrderItem.human_attribute_name("document") %></th>
+        <th scope="col" class="px-4 py-3"><%= OrderItem.human_attribute_name("product") %></th>
+        <th scope="col" class="px-4 py-3"><%= OrderItem.human_attribute_name("quantity") %></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @order.order_items.each do |item| %>
+        <tr class="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600" id="<%= dom_id @order %>">
+          <td class="px-4 py-3">
+            <%= image_tag(item.product.photo, size: "50x50", alt: item.product.name) if item.product.photo.attached? %>
+          </td>
+          <td class="px-4 py-3"> <%= item.date %></td>
+          <td class="px-4 py-3"> <%= item.document %></td>
+          <td class="px-4 py-3"> <%= item.product.name %></td>
+          <td class="px-4 py-3"> <%= item.quantity %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
