@@ -1,0 +1,28 @@
+pt-BR:
+  activerecord:
+    errors:
+      models:
+        consumer:
+          attributes:
+            name:
+              blank: 'nao pode ficar em branco'
+    models:
+      consumer:
+        one: 'Consumidor'
+        other: 'Consumidores'
+    attributes:
+      consumer:
+        name: 'Nome'
+        document: 'Documento'
+        email: 'E-mail'
+        phone: 'Telefone'
+        street: 'Logradouro'
+        number: 'Número'
+        complement: 'Complemento'
+        zipcode: 'CEP'
+        district: 'Bairro'
+        city: 'Cidade'
+        state: 'UP'
+        created_at: 'Criado em'
+        updated_at: 'Atualizado em'
+        deleted_at: 'Deletado em'

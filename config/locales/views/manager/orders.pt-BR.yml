@@ -33,5 +33,9 @@ pt-BR:
       order:
         show: 'Mostrar'
         edit: 'Editar'
+        show_consumer: 'Mostrar Consumidor'
         delete: 'Apagar'
         delete_confirm: 'Você tem certeza?'
+      show_consumer:
+        title: 'Detalhando consumidor'
+        show: 'Mostrar'

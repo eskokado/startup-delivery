@@ -34,7 +34,11 @@ Rails.application.routes.draw do
     resources :flavors
     resources :delivery_locations
     resources :clerks
-    resources :orders
+    resources :orders do
+      member do
+        get 'show_consumer'
+      end
+    end
     get '', to: 'home#index', as: :home
   end
 

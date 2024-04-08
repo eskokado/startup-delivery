@@ -1,4 +1,5 @@
 if Rails.env.development?
+  puts "Initial seed"
   AdminUser.create!(email: 'admin@mail.com',
                     password: '000000', password_confirmation: '000000')
   user_1 = User.create!(name: 'User 1', email: 'user1@mail.com',
@@ -163,6 +164,47 @@ if Rails.env.development?
     )
   end
 
+
+  user_3 = User.create(
+    email: 'edson.shideki@mail.com',
+    password: '000000',
+    password_confirmation: '000000',
+    )
+
+  consumer_1 = Consumer.create(
+    name: 'Edson Shideki',
+    document: FFaker::IdentificationBR.cpf,
+    phone: FFaker::PhoneNumber.phone_number,
+    street: FFaker::AddressBR.street,
+    number: FFaker::AddressBR.building_number,
+    district: FFaker::AddressBR.neighborhood,
+    city: FFaker::AddressBR.city,
+    state: FFaker::AddressBR.state_abbr,
+    zipcode: FFaker::AddressBR.zip_code,
+    complement: FFaker::AddressBR.secondary_address,
+    user: user_3
+  )
+
+  user_4 = User.create(
+    email: 'edson.kokado@mail.com',
+    password: '000000',
+    password_confirmation: '000000',
+    )
+
+  consumer_2 = Consumer.create(
+    name: 'Edson Kokado',
+    document: FFaker::IdentificationBR.cpf,
+    phone: FFaker::PhoneNumber.phone_number,
+    street: FFaker::AddressBR.street,
+    number: FFaker::AddressBR.building_number,
+    district: FFaker::AddressBR.neighborhood,
+    city: FFaker::AddressBR.city,
+    state: FFaker::AddressBR.state_abbr,
+    zipcode: FFaker::AddressBR.zip_code,
+    complement: FFaker::AddressBR.secondary_address,
+    user: user_4
+  )
+
   product_ids = Product.pluck(:id)
 
   20.times do |i|
@@ -178,10 +220,10 @@ if Rails.env.development?
       notes: FFaker::Lorem.paragraph,
       fixed_delivery: FFaker::Number.decimal(whole_digits: 1),
       client: client_1,
+      consumer: consumer_1,
       deleted_at: nil
     )
 
-    # Each order will have 3 to 6 order items
     rand(3..6).times do
       product_id = product_ids.sample
       quantity = rand(1..10)
@@ -196,4 +238,5 @@ if Rails.env.development?
       )
     end
   end
+  puts "seed success!!!!"
 end
