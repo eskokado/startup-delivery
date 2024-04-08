@@ -34,8 +34,12 @@ pt-BR:
         show: 'Mostrar'
         edit: 'Editar'
         show_consumer: 'Mostrar Consumidor'
+        show_products: 'Mostrar os Produtos'
         delete: 'Apagar'
         delete_confirm: 'Você tem certeza?'
       show_consumer:
         title: 'Detalhando consumidor'
+        show: 'Mostrar'
+      show_products:
+        title: 'Detalhando produtos'
         show: 'Mostrar'

@@ -37,6 +37,7 @@ Rails.application.routes.draw do
     resources :orders do
       member do
         get 'show_consumer'
+        get 'show_products'
       end
     end
     get '', to: 'home#index', as: :home
