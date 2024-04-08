@@ -17,14 +17,17 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  client_id      :bigint           not null
+#  consumer_id    :bigint           not null
 #
 # Indexes
 #
-#  index_orders_on_client_id  (client_id)
+#  index_orders_on_client_id    (client_id)
+#  index_orders_on_consumer_id  (consumer_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (client_id => clients.id)
+#  fk_rails_...  (consumer_id => consumers.id)
 #
 require 'rails_helper'
 
@@ -76,5 +79,6 @@ RSpec.describe Order, type: :model do
 
   describe 'associations' do
     it { should belong_to(:client) }
+    it { should belong_to(:consumer) }
   end
 end
