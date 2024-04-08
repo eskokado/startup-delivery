@@ -70,5 +70,10 @@ RSpec.describe Manager::OrdersController, type: :controller do
       get :show_consumer, params: { id: order.id }
       expect(assigns(:order)).to eq(order)
     end
+
+    it 'renders the :show_consumer template' do
+      get :show_consumer, params: { id: order.id }
+      expect(response).to render_template :show_consumer
+    end
   end
 end
