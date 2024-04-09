@@ -35,6 +35,7 @@ pt-BR:
         edit: 'Editar'
         show_consumer: 'Mostrar Consumidor'
         show_products: 'Mostrar os Produtos'
+        generate_pdf_receipt: 'Gerar comprovante'
         delete: 'Apagar'
         delete_confirm: 'Você tem certeza?'
       show_consumer:
@@ -43,3 +44,7 @@ pt-BR:
       show_products:
         title: 'Detalhando produtos'
         show: 'Mostrar'
+      generate_pdf_receipt:
+        title: 'Comprovante do pedido'
+        show: 'Mostrar'
+
