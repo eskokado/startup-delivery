@@ -106,5 +106,11 @@ RSpec.describe Manager::OrdersController, type: :controller do
       expect(response.headers['Content-Disposition']).to include('inline')
       expect(response.body).to eq 'PDF DATA'
     end
+
+    it 'renders the PDF with the correct filename' do
+      get :generate_pdf_receipt, params: { id: order.id }
+      expect(response.headers['Content-Disposition'])
+        .to include("filename=\"comprovante_pedido_#{order.id}.pdf\"")
+    end
   end
 end
