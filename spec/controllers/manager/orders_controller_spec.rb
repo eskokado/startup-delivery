@@ -88,4 +88,23 @@ RSpec.describe Manager::OrdersController, type: :controller do
       expect(response).to render_template :show_products
     end
   end
+
+  describe 'GET #generate_pdf_receipt' do
+    let(:order) { create(:order, client: client) }
+    let(:pdf_generator) { instance_double(Orders::GeneratePdfReceipt) }
+    let(:pdf_data) { double(render: 'PDF DATA') }
+
+    before do
+      allow(Orders::GeneratePdfReceipt)
+        .to receive(:new).and_return(pdf_generator)
+      allow(pdf_generator).to receive(:call).and_return(pdf_data)
+    end
+
+    it 'generates a PDF receipt and sends it as inline disposition' do
+      get :generate_pdf_receipt, params: { id: order.id }
+      expect(response.headers['Content-Type']).to eq 'application/pdf'
+      expect(response.headers['Content-Disposition']).to include('inline')
+      expect(response.body).to eq 'PDF DATA'
+    end
+  end
 end
