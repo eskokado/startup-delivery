@@ -38,6 +38,7 @@ Rails.application.routes.draw do
       member do
         get 'show_consumer'
         get 'show_products'
+        get 'generate_pdf_receipt'
       end
     end
     get '', to: 'home#index', as: :home
