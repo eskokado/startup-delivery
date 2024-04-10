@@ -7,3 +7,4 @@ pt-BR:
         destroy: 'Pedido apagado com sucesso.'
         not_found: 'Pedido inexistente.'
         error: 'Falha ao cadastrar pedido.'
+        not_allowed_to_delete: 'Pedido não permitido deletar'
