@@ -164,8 +164,8 @@ RSpec.describe Manager::OrdersController, type: :controller do
       delete :destroy, params: { id: order.id }
 
       expect(response).to redirect_to(manager_orders_path)
-      expect(flash[:notice]).to eq(I18n.t('controllers.manager.orders.not_allowed_to_delete'))
+      expect(flash[:notice])
+        .to eq(I18n.t('controllers.manager.orders.not_allowed_to_delete'))
     end
-
   end
 end
