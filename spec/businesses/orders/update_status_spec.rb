@@ -45,5 +45,16 @@ RSpec.describe Orders::UpdateStatus do
         expect(order.reload.status).to eq('Completed')
       end
     end
+
+    context 'when the current status is Canceled' do
+      let(:order) { create(:order, client: client, status: 'Canceled') }
+
+      it 'does not update the order status' do
+        business = described_class.new(order)
+        business.call
+
+        expect(order.reload.status).to eq('Canceled')
+      end
+    end
   end
 end
