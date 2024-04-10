@@ -23,5 +23,16 @@ RSpec.describe Orders::UpdateStatus do
         expect(order.reload.status).to eq('Prepared')
       end
     end
+
+    context 'when the current status is "Prepared"' do
+      let(:order) { create(:order, client: client, status: 'Prepared') }
+
+      it 'updates the order status to "Dispatched"' do
+        business = described_class.new(order)
+        business.call
+
+        expect(order.reload.status).to eq('Dispatched')
+      end
+    end
   end
 end
