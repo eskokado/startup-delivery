@@ -4,7 +4,8 @@ module Manager
 
     before_action :set_current_client_context, only: %i[index]
     before_action -> { prepare_resource(Order) },
-                  only: %i[show_consumer show_products generate_pdf_receipt]
+                  only: %i[show_consumer show_products
+                           generate_pdf_receipt update_status]
 
     def index
       index_with_fetch('Orders')
@@ -21,6 +22,16 @@ module Manager
                 filename: "comprovante_pedido_#{@order.id}.pdf",
                 type: 'application/pdf',
                 disposition: 'inline'
+    end
+
+    def update_status
+      if Orders::UpdateStatus.new(@order).call
+        redirect_to manager_orders_path,
+                    notice: t('controllers.manager.orders.update')
+      else
+        redirect_to manager_orders_path,
+                    notice: t('controllers.manager.orders.error')
+      end
     end
 
     private
