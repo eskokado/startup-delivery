@@ -113,4 +113,25 @@ RSpec.describe Manager::OrdersController, type: :controller do
         .to include("filename=\"comprovante_pedido_#{order.id}.pdf\"")
     end
   end
+
+  describe 'PATCH #update_status' do
+    let(:update_status_business) { instance_double(Orders::UpdateStatus) }
+
+    before do
+      allow(Orders::UpdateStatus)
+        .to receive(:new).with(order).and_return(update_status_business)
+    end
+
+    context 'when the order status is successfully updated' do
+      it 'redirects to the manager_orders_path with a notice message' do
+        allow(update_status_business).to receive(:call).and_return(true)
+
+        post :update_status, params: { id: order.id }
+
+        expect(response).to redirect_to(manager_orders_path)
+        expect(flash[:notice])
+          .to eq(I18n.t('controllers.manager.orders.update'))
+      end
+    end
+  end
 end
