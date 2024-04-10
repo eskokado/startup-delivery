@@ -15,5 +15,14 @@ RSpec.describe Orders::Destroy, type: :business do
         expect(result).to be true
       end
     end
+
+    context 'when the order status is not "Waiting"' do
+      it 'does not destroy the order and returns false' do
+        order.update(status: 'Dispatched')
+        expect(order).not_to receive(:destroy)
+        result = business.call
+        expect(result).to be false
+      end
+    end
   end
 end
