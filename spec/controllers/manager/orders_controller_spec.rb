@@ -133,5 +133,16 @@ RSpec.describe Manager::OrdersController, type: :controller do
           .to eq(I18n.t('controllers.manager.orders.update'))
       end
     end
+
+    context 'when the order status update fails' do
+      it 'redirects to the manager_orders_path with an error message' do
+        allow(update_status_business).to receive(:call).and_return(false)
+
+        post :update_status, params: { id: order.id }
+
+        expect(response).to redirect_to(manager_orders_path)
+        expect(flash[:notice]).to eq(I18n.t('controllers.manager.orders.error'))
+      end
+    end
   end
 end
