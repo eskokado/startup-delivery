@@ -145,4 +145,27 @@ RSpec.describe Manager::OrdersController, type: :controller do
       end
     end
   end
+
+  describe 'DELETE #destroy' do
+    it 'destroys the order and redirects with a notice message' do
+      allow_any_instance_of(Orders::Destroy)
+        .to receive(:call).and_return(true)
+
+      delete :destroy, params: { id: order.id }
+
+      expect(response).to redirect_to(manager_orders_path)
+      expect(flash[:notice]).to eq(I18n.t('controllers.manager.orders.destroy'))
+    end
+
+    it 'redirects with an error message when order deletion fails' do
+      allow_any_instance_of(Orders::Destroy)
+        .to receive(:call).and_return(false)
+
+      delete :destroy, params: { id: order.id }
+
+      expect(response).to redirect_to(manager_orders_path)
+      expect(flash[:notice])
+        .to eq(I18n.t('controllers.manager.orders.not_allowed_to_delete'))
+    end
+  end
 end
