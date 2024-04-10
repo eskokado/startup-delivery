@@ -207,18 +207,22 @@ if Rails.env.development?
 
   product_ids = Product.pluck(:id)
 
-  20.times do |i|
+  40.times do |i|
+    total = FFaker::Number.decimal(whole_digits: 2, fractional_digits: 2)
+    change = FFaker::Number.decimal(whole_digits: 1, fractional_digits: 2)
+    fixed_delivery = FFaker::Number.decimal(whole_digits: 1)
+    total_paid = total + change + fixed_delivery
     order = Order.create!(
-      total: FFaker::Number.decimal(whole_digits: 2, fractional_digits: 2),
-      total_paid: FFaker::Number.decimal(whole_digits: 2, fractional_digits: 2),
-      change: 0,
-      payment_type: ['Cash', 'CreditCard', 'DebitCard', 'Transfer'].sample,
+      total: total,
+      total_paid: total_paid,
+      change: change,
+      payment_type: %w[Cash CreditCard DebitCard Transfer].sample,
       date: FFaker::Time.date,
       time: FFaker::Time.datetime,
-      status: ["Pending", "Completed", "Cancelled"].sample,
-      paid: ["Yes", "No"].sample,
+      status: %w[Waiting Started Prepared Dispatched Completed Canceled].sample,
+      paid: %w[Yes No].sample,
       notes: FFaker::Lorem.paragraph,
-      fixed_delivery: FFaker::Number.decimal(whole_digits: 1),
+      fixed_delivery: fixed_delivery,
       client: client_1,
       consumer: consumer_1,
       deleted_at: nil
