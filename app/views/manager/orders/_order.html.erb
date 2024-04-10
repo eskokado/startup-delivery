@@ -24,6 +24,10 @@
               <%= link_to t('.show_products'), show_products_manager_order_path(order), class: "block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
             </li>
             <li>
+              <%= link_to t('.update_status'), update_status_manager_order_path(order), data: { turbo_method: :patch },
+                          class: "block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
+            </li>
+            <li>
               <%= link_to t('.generate_pdf_receipt'), generate_pdf_receipt_manager_order_path(order), target: "_blank", class: "block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
             </li>
           </ul>

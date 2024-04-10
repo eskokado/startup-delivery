@@ -37,7 +37,7 @@ FactoryBot.define do
     payment_type { %w[Cash CreditCard DebitCard Transfer].sample }
     date { FFaker::Time.date }
     time { FFaker::Time.datetime }
-    status { %w[Pending Completed Cancelled].sample }
+    status { %w[Waiting Started Prepared Dispatched Completed Canceled].sample }
     paid { %w[Yes No].sample }
     notes { FFaker::Lorem.paragraph }
     fixed_delivery { FFaker::Number.decimal(whole_digits: 1) }

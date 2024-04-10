@@ -69,7 +69,7 @@ RSpec.describe Order, type: :model do
     }
     it {
       should validate_inclusion_of(:status)
-        .in_array(%w[Pending Completed Cancelled])
+        .in_array(%w[Waiting Started Prepared Dispatched Completed Canceled])
     }
     it {
       should validate_inclusion_of(:paid)

@@ -42,7 +42,9 @@ class Order < ApplicationRecord
 
   validates :payment_type,
             inclusion: { in: %w[Cash CreditCard DebitCard Transfer] }
-  validates :status, inclusion: { in: %w[Pending Completed Cancelled] }
+  validates :status,
+            inclusion: { in: %w[Waiting Started Prepared
+                                Dispatched Completed Canceled] }
   validates :paid, inclusion: { in: %w[Yes No] }, allow_blank: true
 
   has_many :order_items, dependent: :destroy
