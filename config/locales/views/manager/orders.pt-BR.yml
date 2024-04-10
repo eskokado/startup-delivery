@@ -36,6 +36,7 @@ pt-BR:
         show_consumer: 'Mostrar Consumidor'
         show_products: 'Mostrar os Produtos'
         generate_pdf_receipt: 'Gerar comprovante'
+        update_status: 'Alterar a situação'
         delete: 'Apagar'
         delete_confirm: 'Você tem certeza?'
       show_consumer:
