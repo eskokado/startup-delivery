@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_06_091354) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_08_125837) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -102,6 +102,26 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_06_091354) do
     t.index ["user_id"], name: "index_clients_on_user_id"
   end
 
+  create_table "consumers", force: :cascade do |t|
+    t.string "name"
+    t.string "document"
+    t.string "phone"
+    t.string "email"
+    t.string "street"
+    t.string "number"
+    t.string "district"
+    t.string "city"
+    t.string "state"
+    t.string "zipcode"
+    t.string "complement"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_consumers_on_deleted_at"
+    t.index ["user_id"], name: "index_consumers_on_user_id"
+  end
+
   create_table "delivery_locations", force: :cascade do |t|
     t.string "name"
     t.decimal "value"
@@ -146,6 +166,39 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_06_091354) do
     t.index ["deleted_at"], name: "index_goals_on_deleted_at"
   end
 
+  create_table "order_items", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "product_id", null: false
+    t.string "document"
+    t.integer "quantity"
+    t.date "date"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+    t.index ["product_id"], name: "index_order_items_on_product_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.decimal "total"
+    t.decimal "total_paid"
+    t.decimal "change"
+    t.string "payment_type"
+    t.date "date"
+    t.time "time"
+    t.string "status"
+    t.string "paid"
+    t.text "notes"
+    t.decimal "fixed_delivery"
+    t.bigint "client_id", null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "consumer_id", null: false
+    t.index ["client_id"], name: "index_orders_on_client_id"
+    t.index ["consumer_id"], name: "index_orders_on_consumer_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -188,6 +241,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_06_091354) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -196,10 +251,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_06_091354) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "categories", "clients"
   add_foreign_key "clerks", "clients"
+  add_foreign_key "consumers", "users"
   add_foreign_key "delivery_locations", "clients"
   add_foreign_key "extras", "categories"
   add_foreign_key "extras", "clients"
   add_foreign_key "flavors", "clients"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "order_items", "products"
+  add_foreign_key "orders", "clients"
+  add_foreign_key "orders", "consumers"
   add_foreign_key "products", "categories"
   add_foreign_key "products", "clients"
 end

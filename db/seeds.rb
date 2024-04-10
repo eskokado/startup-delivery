@@ -1,4 +1,5 @@
 if Rails.env.development?
+  puts "Initial seed"
   AdminUser.create!(email: 'admin@mail.com',
                     password: '000000', password_confirmation: '000000')
   user_1 = User.create!(name: 'User 1', email: 'user1@mail.com',
@@ -162,4 +163,84 @@ if Rails.env.development?
       deleted_at: nil
     )
   end
+
+
+  user_3 = User.create(
+    email: 'edson.shideki@mail.com',
+    password: '000000',
+    password_confirmation: '000000',
+    )
+
+  consumer_1 = Consumer.create(
+    name: 'Edson Shideki',
+    document: FFaker::IdentificationBR.cpf,
+    phone: FFaker::PhoneNumber.phone_number,
+    street: FFaker::AddressBR.street,
+    number: FFaker::AddressBR.building_number,
+    district: FFaker::AddressBR.neighborhood,
+    city: FFaker::AddressBR.city,
+    state: FFaker::AddressBR.state_abbr,
+    zipcode: FFaker::AddressBR.zip_code,
+    complement: FFaker::AddressBR.secondary_address,
+    user: user_3
+  )
+
+  user_4 = User.create(
+    email: 'edson.kokado@mail.com',
+    password: '000000',
+    password_confirmation: '000000',
+    )
+
+  consumer_2 = Consumer.create(
+    name: 'Edson Kokado',
+    document: FFaker::IdentificationBR.cpf,
+    phone: FFaker::PhoneNumber.phone_number,
+    street: FFaker::AddressBR.street,
+    number: FFaker::AddressBR.building_number,
+    district: FFaker::AddressBR.neighborhood,
+    city: FFaker::AddressBR.city,
+    state: FFaker::AddressBR.state_abbr,
+    zipcode: FFaker::AddressBR.zip_code,
+    complement: FFaker::AddressBR.secondary_address,
+    user: user_4
+  )
+
+  product_ids = Product.pluck(:id)
+
+  40.times do |i|
+    total = FFaker::Number.decimal(whole_digits: 2, fractional_digits: 2)
+    change = FFaker::Number.decimal(whole_digits: 1, fractional_digits: 2)
+    fixed_delivery = FFaker::Number.decimal(whole_digits: 1)
+    total_paid = total + change + fixed_delivery
+    order = Order.create!(
+      total: total,
+      total_paid: total_paid,
+      change: change,
+      payment_type: %w[Cash CreditCard DebitCard Transfer].sample,
+      date: FFaker::Time.date,
+      time: FFaker::Time.datetime,
+      status: %w[Waiting Started Prepared Dispatched Completed Canceled].sample,
+      paid: %w[Yes No].sample,
+      notes: FFaker::Lorem.paragraph,
+      fixed_delivery: fixed_delivery,
+      client: client_1,
+      consumer: consumer_1,
+      deleted_at: nil
+    )
+
+    rand(3..6).times do
+      product_id = product_ids.sample
+      quantity = rand(1..10)
+
+      OrderItem.create!(
+        order_id: order.id,
+        product_id: product_id,
+        document: FFaker::IdentificationBR.pretty_cpf, # Example CPF, replace as necessary
+        quantity: quantity,
+        date: Date.today,
+        deleted_at: nil
+      )
+    end
+  end
+  puts "seed success!!!!"
 end

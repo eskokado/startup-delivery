@@ -1,0 +1,28 @@
+pt-BR:
+  activerecord:
+    errors:
+      models:
+        order:
+          attributes:
+            client:
+              blank: 'nao pode ficar em branco'
+    models:
+      order:
+        one: 'Pedido'
+        other: 'Pedidos'
+    attributes:
+      order:
+        client: 'Cliente'
+        total: 'Total'
+        total_paid: 'Total pago'
+        change: 'Troco'
+        payment_type: 'Tipo de pagamento'
+        date: 'Data'
+        time: 'Hora'
+        status: 'Situação'
+        paid: 'Pago'
+        notes: 'Observação'
+        fixed_delivery: 'Entrega fixa'
+        created_at: 'Criado em'
+        updated_at: 'Atualizado em'
+        deleted_at: 'Deletado em'
