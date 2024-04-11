@@ -1,0 +1,7 @@
+pt-BR:
+  controllers:
+    manager:
+      config_deliveries:
+        update: 'Configuração atualizada com sucesso.'
+        not_found: 'Configuração inexistente.'
+        error: 'Falha ao atualizar configuração.'

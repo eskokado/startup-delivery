@@ -1,0 +1,22 @@
+pt-BR:
+  activerecord:
+    errors:
+      models:
+        config_delivery:
+          attributes:
+            client:
+              blank: 'nao pode ficar em branco'
+    models:
+      config_delivery:
+        one: 'Configuração'
+        other: 'Configurações'
+    attributes:
+      config_delivery:
+        client: 'Cliente'
+        delivery_forecast: 'Previsão de entrega em minutos'
+        delivery_fee: 'Taxa de entrega'
+        opening_time: 'Hora de abertura'
+        closing_time: 'Hora de fechamento'
+        created_at: 'Criado em'
+        updated_at: 'Atualizado em'
+        deleted_at: 'Deletado em'
