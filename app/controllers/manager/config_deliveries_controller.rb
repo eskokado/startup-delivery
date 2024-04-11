@@ -6,15 +6,15 @@ module Manager
     def edit_config; end
 
     def update_config
-      if @config_delivery.id.nil?
-        create_config_delivery
-      else
+      if @config_delivery.persisted?
         update_config_delivery
+      else
+        create_config_delivery
       end
 
       redirect_to manager_edit_config_path,
                   notice: t('controllers.manager.config_deliveries.update')
-    rescue StandardError
+    rescue StandardError => e
       redirect_to manager_edit_config_path,
                   notice: t('controllers.manager.config_deliveries.error')
     end
@@ -23,7 +23,9 @@ module Manager
 
     def config_delivery_params
       params.require(:config_delivery).permit(
-        :delivery_forecast, :delivery_fee, :opening_time, :closing_time
+        :delivery_forecast, :delivery_fee,
+        :opening_time, :closing_time,
+        :deleted_at
       )
     end
 
