@@ -10,6 +10,16 @@ if Rails.env.development?
   client_1 = Client.create(document: '81939120047', user: user_1)
   client_2 = Client.create(document: '66778473061', user: user_2)
 
+  ConfigDelivery.create(
+    delivery_forecast: 30, delivery_fee: 6,
+    opening_time: '08:00', closing_time: '23:59',
+    client: client_1)
+
+  ConfigDelivery.create(
+    delivery_forecast: 30, delivery_fee: 6,
+    opening_time: '08:00', closing_time: '23:59',
+    client: client_2)
+
   user_1.avatar.attach(io: File.open(
     Rails.root.join('spec', 'support', 'images', 'avatar-1.jpg')),
                        filename: 'avatar-1', content_type: 'image/jpg')
