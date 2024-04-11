@@ -20,5 +20,10 @@ RSpec.describe Manager::ConfigDeliveriesController,
       get :edit_config
       expect(assigns(:config_delivery)).to eq(config_delivery)
     end
+
+    it 'renders the index template' do
+      get :edit_config
+      expect(response).to render_template(:edit_config)
+    end
   end
 end
