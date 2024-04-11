@@ -26,4 +26,24 @@ RSpec.describe Manager::ConfigDeliveriesController,
       expect(response).to render_template(:edit_config)
     end
   end
+
+  describe 'PATCH #update' do
+    context 'with valid attributes' do
+      it 'updates the config_delivery' do
+        patch :update_config, params: {
+          config_delivery: {
+            delivery_forecast: 30,
+            delivery_fee: 6,
+            opening_time: '08:00',
+            closing_time: '23:59'
+          }
+        }
+        config_delivery.reload
+        expect(config_delivery.delivery_forecast).to eq(30)
+        expect(config_delivery.delivery_fee).to eq(6)
+        expect(config_delivery.opening_time.strftime('%H:%M')).to eq('08:00')
+        expect(config_delivery.closing_time.strftime('%H:%M')).to eq('23:59')
+      end
+    end
+  end
 end
