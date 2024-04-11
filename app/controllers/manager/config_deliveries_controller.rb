@@ -14,7 +14,7 @@ module Manager
 
       redirect_to manager_edit_config_path,
                   notice: t('controllers.manager.config_deliveries.update')
-    rescue StandardError => e
+    rescue StandardError
       redirect_to manager_edit_config_path,
                   notice: t('controllers.manager.config_deliveries.error')
     end

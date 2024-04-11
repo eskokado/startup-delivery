@@ -29,9 +29,9 @@ RSpec.describe Manager::ConfigDeliveriesController,
 
   describe 'PATCH #update' do
     context 'with valid attributes' do
-      let(:config_delivery_attributes) {
+      let(:config_delivery_attributes) do
         FactoryBot.attributes_for(:config_delivery)
-      }
+      end
 
       it 'updates the config_delivery' do
         patch :update_config, params: {
