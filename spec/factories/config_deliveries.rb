@@ -24,8 +24,8 @@ FactoryBot.define do
   factory :config_delivery do
     delivery_forecast { 30 }
     delivery_fee { 6 }
-    opening_time { '08:00' }
-    closing_time { '23:59' }
+    opening_time { Time.zone.parse('08:00') }
+    closing_time { Time.zone.parse('23:59') }
     association :client, factory: :client
     deleted_at { nil }
   end
