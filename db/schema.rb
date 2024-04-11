@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_08_125837) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_11_104019) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -100,6 +100,18 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_08_125837) do
     t.datetime "deleted_at"
     t.index ["deleted_at"], name: "index_clients_on_deleted_at"
     t.index ["user_id"], name: "index_clients_on_user_id"
+  end
+
+  create_table "config_deliveries", force: :cascade do |t|
+    t.integer "delivery_forecast"
+    t.decimal "delivery_fee"
+    t.time "opening_time"
+    t.time "closing_time"
+    t.bigint "client_id", null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_config_deliveries_on_client_id"
   end
 
   create_table "consumers", force: :cascade do |t|
@@ -251,6 +263,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_08_125837) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "categories", "clients"
   add_foreign_key "clerks", "clients"
+  add_foreign_key "config_deliveries", "clients"
   add_foreign_key "consumers", "users"
   add_foreign_key "delivery_locations", "clients"
   add_foreign_key "extras", "categories"
