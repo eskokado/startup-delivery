@@ -1,0 +1,6 @@
+pt-BR:
+  manager:
+    config_deliveries:
+      edit_config:
+        title: 'Editando configuração'
+        save: 'Salvar'

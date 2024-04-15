@@ -1,0 +1,17 @@
+<div class="flex flex-col">
+  <div class="w-full">
+    <%= form.input :delivery_forecast, as: :integer, placeholder: '', required: true, class: 'form-control' %>
+  </div>
+
+  <div class="w-full mt-4">
+    <%= form.input :delivery_fee, as: :decimal, placeholder: '', required: true, class: 'form-control' %>
+  </div>
+
+  <div class="w-full mt-4">
+    <%= form.input :opening_time, as: :time, placeholder: '', required: true, class: 'form-control' %>
+  </div>
+
+  <div class="w-full mt-4">
+    <%= form.input :closing_time, as: :time, placeholder: '', required: true, class: 'form-control' %>
+  </div>
+</div>

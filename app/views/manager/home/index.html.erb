@@ -20,3 +20,66 @@
     </button>
   </div>
 </div>
+<section class="content">
+  <div class="container mx-auto px-4 sm:px-8">
+    <div class="flex flex-wrap -mx-4">
+
+      <div class="px-4 mb-4 flex-auto sm:w-1/2 md:w-1/4">
+        <div class="flex info-box shadow-lg rounded-lg overflow-hidden bg-white">
+          <div class="info-box-icon bg-blue-500 p-4">
+            <i class="fas fa-users text-xl"></i>
+          </div>
+          <div class="info-box-content p-4">
+            <span class="info-box-text text-gray-600 text-sm"><%= t('manager.home.index.clients') %></span>
+            <span class="info-box-number text-gray-800 text-lg font-semibold">
+              <%= @total_clients %>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="px-4 mb-4 flex-auto sm:w-1/2 md:w-1/4">
+        <div class="flex info-box shadow-lg rounded-lg overflow-hidden bg-white">
+          <div class="info-box-icon bg-green-500 p-4">
+            <i class="fas fa-shopping-cart text-xl"></i>
+          </div>
+          <div class="info-box-content p-4">
+            <span class="info-box-text text-gray-600 text-sm"><%= t('manager.home.index.orders_now') %></span>
+            <span class="info-box-number text-gray-800 text-lg font-semibold">
+              <%= @total_orders_day %>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="px-4 mb-4 flex-auto sm:w-1/2 md:w-1/4">
+        <div class="flex info-box shadow-lg rounded-lg overflow-hidden bg-white">
+          <div class="info-box-icon bg-red-500 p-4">
+            <i class="fas fa-truck text-xl"></i>
+          </div>
+          <div class="info-box-content p-4">
+            <span class="info-box-text text-gray-600 text-sm"><%= t('manager.home.index.delivery_waiting') %></span>
+            <span class="info-box-number text-gray-800 text-lg font-semibold">
+              <%= @total_orders_waiting %>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="px-4 mb-4 flex-auto sm:w-1/2 md:w-1/4">
+        <div class="flex info-box shadow-lg rounded-lg overflow-hidden bg-white">
+          <div class="info-box-icon bg-green-500 p-4">
+            <i class="fas fa-dollar text-xl"></i>
+          </div>
+          <div class="info-box-content p-4">
+            <span class="info-box-text text-gray-600 text-sm"><%= t('manager.home.index.total_sold') %></span>
+            <span class="info-box-number text-gray-800 text-lg font-semibold">
+              <%= number_to_currency(@total_sold) %>
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

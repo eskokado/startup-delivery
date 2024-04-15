@@ -43,6 +43,8 @@ Rails.application.routes.draw do
       end
     end
     get '', to: 'home#index', as: :home
+    get 'config_delivery', to: 'config_deliveries#edit_config', as: :edit_config
+    patch 'config_delivery', to: 'config_deliveries#update_config', as: :update_config
   end
 
   scope module: :external do
