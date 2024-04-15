@@ -1,0 +1,8 @@
+pt-BR:
+  manager:
+    home:
+      index:
+        clients: 'Clientes:'
+        orders_now: "Pedidos hoje:"
+        delivery_waiting: 'Entregas aguardando:'
+        total_sold: 'Total vendido:'
