@@ -46,3 +46,4 @@ dump.rdb
 /node_modules
 *before*.*
 *after*.*
+*_origin

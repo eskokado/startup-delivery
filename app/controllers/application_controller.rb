@@ -3,6 +3,10 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  helper Railsui::ThemeHelper
+
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
   set_current_tenant_through_filter
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :configure_account_update_params, if: :devise_controller?
