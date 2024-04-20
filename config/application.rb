@@ -8,6 +8,15 @@ Bundler.require(*Rails.groups)
 
 module StartupMissionBaseRails
   class Application < Rails::Application
+    config.generators do |g|
+      g.template_engine :railsui
+      g.fallbacks[:railsui] = :erb
+    end
+
+    config.to_prepare do
+      Devise::Mailer.layout "mailer"
+    end
+
     # Config default time to Brasília for lesson launch_time
     config.time_zone = 'Brasilia'
 

@@ -24,9 +24,11 @@ gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 7.0.4', '>= 7.0.4.2'
 gem 'railsui', github: 'getrailsui/railsui'
 gem 'ransack', '< 4.0'
+gem 'redis', '~> 4.0'
 gem 'rswag-api'
 gem 'rswag-ui'
 gem 'sassc'
+gem 'sidekiq', '~> 7.2'
 gem 'simple_form'
 gem 'simple_form-tailwind'
 gem 'sprockets-rails'
@@ -80,5 +82,3 @@ group :test do
   gem 'selenium-webdriver'
   gem 'webdrivers'
 end
-
-gem 'sidekiq', '~> 7.2'
