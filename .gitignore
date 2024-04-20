@@ -42,3 +42,7 @@ node_modules
 coverage
 dump.rdb
 .byebug_history
+
+/node_modules
+*before*.*
+*after*.*

@@ -14,8 +14,7 @@
 #
 # Indexes
 #
-#  index_configurations_on_client_id   (client_id)
-#  index_configurations_on_deleted_at  (deleted_at)
+#  index_config_deliveries_on_client_id  (client_id)
 #
 # Foreign Keys
 #

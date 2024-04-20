@@ -1,4 +1,8 @@
 class ApplicationController < ActionController::Base
+  helper Railsui::ThemeHelper
+
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
   set_current_tenant_through_filter
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :configure_account_update_params, if: :devise_controller?
@@ -22,6 +26,7 @@ class ApplicationController < ActionController::Base
         { client_attributes: [:document] }
       ]
     )
+    devise_parameter_sanitizer.permit(:account_update, keys: %i[avatar name])
   end
 
   def configure_account_update_params
