@@ -38,5 +38,6 @@ FactoryBot.define do
     password_confirmation { 'abc12345abc' }
     uid { email }
     provider { 'email' }
+    confirmed_at { Time.current }
   end
 end
