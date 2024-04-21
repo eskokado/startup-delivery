@@ -1,6 +1,6 @@
 RSpec.describe Devise::ConfirmationsController, type: :controller do
   before do
-    @request.env["devise.mapping"] = Devise.mappings[:user]
+    @request.env['devise.mapping'] = Devise.mappings[:user]
   end
 
   describe 'GET #show' do
