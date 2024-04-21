@@ -7,7 +7,7 @@ RSpec.describe RailsuiMailer, type: :mailer do
     it 'renders the headers' do
       expect(mail.subject).to eq('Minimal')
       expect(mail.to).to eq(['to@example.org'])
-      expect(mail.from).to eq(['support@example.com'])
+      expect(mail.from).to eq(['from@example.com'])
     end
 
     it 'renders the body' do
@@ -21,7 +21,7 @@ RSpec.describe RailsuiMailer, type: :mailer do
     it 'renders the headers' do
       expect(mail.subject).to eq('Promotion')
       expect(mail.to).to eq(['to@example.org'])
-      expect(mail.from).to eq(['support@example.com'])
+      expect(mail.from).to eq(['from@example.com'])
     end
 
     it 'renders the body' do
@@ -35,7 +35,7 @@ RSpec.describe RailsuiMailer, type: :mailer do
     it 'renders the headers' do
       expect(mail.subject).to eq('Transactional')
       expect(mail.to).to eq(['to@example.org'])
-      expect(mail.from).to eq(['support@example.com'])
+      expect(mail.from).to eq(['from@example.com'])
     end
 
     it 'renders the body' do
