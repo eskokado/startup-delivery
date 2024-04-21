@@ -55,10 +55,4 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :consumer
 
   has_one_attached :avatar
-
-  private
-
-  def send_confirmation_instructions
-    super
-  end
 end
