@@ -7,16 +7,21 @@
 #  confirmation_sent_at   :datetime
 #  confirmation_token     :string
 #  confirmed_at           :datetime
+#  current_sign_in_at     :datetime
+#  current_sign_in_ip     :string
 #  deleted_at             :datetime
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  first_name             :string
 #  last_name              :string
+#  last_sign_in_at        :datetime
+#  last_sign_in_ip        :string
 #  name                   :string
 #  provider               :string           default("email"), not null
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
+#  sign_in_count          :integer          default(0), not null
 #  tokens                 :json
 #  uid                    :string           default(""), not null
 #  unconfirmed_email      :string
@@ -36,14 +41,11 @@ class User < ApplicationRecord
   has_person_name
   has_one_attached :avatar
 
-  has_person_name
-  has_one_attached :avatar
-
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-         :confirmable
+         :confirmable, :trackable
   acts_as_paranoid
 
   include DeviseTokenAuth::Concerns::User
@@ -54,5 +56,11 @@ class User < ApplicationRecord
   has_one :consumer, dependent: :destroy
   accepts_nested_attributes_for :consumer
 
-  has_one_attached :avatar
+  def send_email_changed_notification?
+    previous_changes.include?('email') && persisted?
+  end
+
+  def send_password_change_notification?
+    previous_changes.include?('encrypted_password') && persisted?
+  end
 end
