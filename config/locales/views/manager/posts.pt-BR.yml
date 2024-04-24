@@ -1,0 +1,43 @@
+pt-BR:
+  manager:
+    posts:
+      index:
+        search: 'Pesquisar'
+        add: "Cadastrar post"
+        filter_by: 'Filtrar'
+        filter_1: 'Concluídas'
+        filter_2: 'Não concluídas'
+        pages:
+          showing: 'Mostrando'
+          of: 'de'
+        previous: 'anterior'
+        next: 'próximo'
+      new:
+        title: 'Cadastrando post'
+        add: 'Criar post'
+        back: 'Voltar'
+        save: 'Salvar'
+        titlex: 'Título'
+        content: 'Descrição'
+        image: 'Imagem'
+      edit:
+        title: 'Editando post'
+        save: 'Salvar'
+        show: 'Mostrar'
+      show:
+        title: 'Detalhando post'
+        edit: 'Editar'
+        back: 'Voltar'
+        save: 'Salvar'
+        delete: 'Apagar'
+        delete_confirm: 'Você tem certeza?'
+      post:
+        show: 'Mostrar'
+        edit: 'Editar'
+        done: 'Finalizar'
+        delete: 'Apagar'
+        delete_confirm: 'Você tem certeza?'
+      shared:
+        image_actual: 'Imagem atual'
+        image_actual_message: 'Imagem atual. Para alterar, selecione uma nova imagem abaixo.'
+        image_remove: 'Remover imagem'
