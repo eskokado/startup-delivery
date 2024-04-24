@@ -1,0 +1,10 @@
+pt-BR:
+  controllers:
+    manager:
+      posts:
+        create: 'Post cadastrado com sucesso.'
+        update: 'Post atualizado com sucesso.'
+        destroy: 'Post apagado com sucesso.'
+        not_found: 'Post inexistente.'
+        error: 'Falha ao cadastrar post.'
+

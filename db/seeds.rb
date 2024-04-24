@@ -252,5 +252,16 @@ if Rails.env.development?
       )
     end
   end
+
+  40.times do
+    client = [client_1].sample
+    Post.create(
+      title: FFaker::Lorem.sentence,
+      content: FFaker::Lorem.paragraph,
+      client: client,
+      image_url: FFaker::Image.url,
+      deleted_at: nil
+    )
+  end
   puts "seed success!!!!"
 end

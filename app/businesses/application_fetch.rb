@@ -20,7 +20,8 @@ class ApplicationFetch < BusinessApplication
   end
 
   def configure_search
-    search_params = @params.fetch(:q, {}).merge(client_eq: @client)
+    search_params = @params.fetch(:q, {}).presence || {}
+    search_params = search_params.merge(client_eq: @client)
     @search = model_class.ransack(search_params)
   end
 

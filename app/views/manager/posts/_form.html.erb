@@ -1,0 +1,40 @@
+<%= render "shared/error_messages", resource: form.object %>
+
+<div class="form-group">
+  <%= form.label :title, class: "form-label" %>
+  <%= form.text_field :title, class: "form-input" %>
+</div>
+
+<div class="form-group">
+  <%= form.label :content, class: "form-label" %>
+  <%= form.text_area :content, class: "form-input" %>
+</div>
+
+<div class="w-full mt-4 mb-6">
+  <% if form.object.image.attached? %>
+    <div class="mb-3 w-1/3">
+      <%= image_tag form.object.image, class: 'existing-image-class', alt: t('manager.categories.shared.image_actual') %>
+      <p><%= t('manager.categories.shared.image_actual_message') %></p>
+    </div>
+  <% end %>
+  <%= form.input :image, as: :file, input_html: { class: 'form-control' } %>
+  <% if form.object.image.attached? %>
+    <div class="mt-2">
+      <%= hidden_field_tag 'post[remove_image]', '0' %>
+      <%= check_box_tag 'post[remove_image]', '1' %>
+      <%= label_tag 'post_remove_image', t('manager.categories.shared.image_remove') %>
+    </div>
+  <% end %>
+</div>
+
+<div class="flex items-center justify-between flex-wrap">
+  <div class="sm:flex-1 sm:mb-0 mb-6">
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+
+  <% if form.object.new_record? %>
+    <%= link_to "Cancel", manager_posts_path, class: "btn btn-light" %>
+  <% else %>
+    <%= link_to "Cancel", manager_posts_path(form.object), class: "btn btn-light" %>
+  <% end %>
+</div>
