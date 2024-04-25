@@ -36,6 +36,7 @@ module Manager
 
     def set_current_client_context
       @client = current_user.client
+      Rails.logger.debug "@client #{@client.inspect}"
     end
 
     def process_resource(resource, params:,

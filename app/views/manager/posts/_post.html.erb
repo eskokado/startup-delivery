@@ -1,0 +1,35 @@
+<article id="<%= dom_id post %>" class="py-6 prose dark:prose-invert">
+    <div class="relative z-0 w-full mb-6 group mt-4 w-1/3">
+        <% if post.image.attached? %>
+          <div class="mb-3 w-1/3">
+            <%= image_tag post.image, class: 'existing-image-class', alt: t('manager.categories.shared.image_actual') %>
+            <p><%= t('manager.categories.shared.image_actual_message') %></p>
+          </div>
+        <% end %>
+    </div>
+
+    <p class="mb-0 font-semibold">
+      Title
+    </p>
+    <p class="my-0">
+      <%= post.title %>
+    </p>
+    <p class="mb-0 font-semibold">
+      Content
+    </p>
+    <p class="my-0">
+      <%= post.content %>
+    </p>
+    <p class="mb-0 font-semibold">
+      Author
+    </p>
+    <p class="my-0">
+      <%= "#{post.client_id} - #{post.client.user.name}" %>
+    </p>
+
+   <p>
+    <%= link_to "View Post", manager_post_path(post), class: "underline" %>
+  </p>
+
+  <time class="text-slate-600 dark:text-slate-400 text-xs mt-2" datetime="<%= post.created_at.to_formatted_s(:long) %>">Created <%= time_ago_in_words(post.created_at) + " ago" %></time>
+</article>
