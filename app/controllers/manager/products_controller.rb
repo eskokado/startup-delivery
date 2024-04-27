@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/AbcSize
 module Manager
   class ProductsController < InheritedResources::Base
     def index
@@ -10,7 +11,8 @@ module Manager
     def create
       create! do |success, failure|
         success.html do
-          redirect_to manager_products_path, notice: 'Produto criado com sucesso!'
+          redirect_to manager_products_path,
+                      notice: I18n.t('controllers.manager.products.create')
         end
 
         failure.html do
@@ -27,13 +29,22 @@ module Manager
     def update
       update! do |success, failure|
         success.html do
-          flash[:notice] = 'Recurso atualizado com sucesso.'
+          flash[:notice] = I18n.t('controllers.manager.products.update')
           redirect_to manager_products_path
         end
 
         failure.html do
           flash[:error] = resource.errors.full_messages.join(', ')
           render :edit
+        end
+      end
+    end
+
+    def destroy
+      destroy! do |success|
+        success.html do
+          redirect_to manager_products_path,
+                      notice: I18n.t('controllers.manager.products.destroy')
         end
       end
     end
@@ -60,3 +71,4 @@ module Manager
     end
   end
 end
+# rubocop:enable Metrics/AbcSize
