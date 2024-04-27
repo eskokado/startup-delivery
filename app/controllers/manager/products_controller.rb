@@ -1,50 +1,49 @@
 module Manager
-  class ProductsController < InternalController
-    include ManagerActionsSupport
-
-    before_action :build_product, only: %i[create]
-    before_action :set_current_client_context, only: %i[index create]
-    before_action -> { prepare_resource(Product) },
-                  only: %i[show edit update destroy]
-
+  class ProductsController < InheritedResources::Base
     def index
-      index_with_fetch('Products')
-    end
-
-    def show; end
-
-    def new
-      @product = Product.new
+      @params = { q: params[:q], page: params[:page] }
+      @fetcher = Products::Fetch.new(@params, current_user.client)
+      @q = @fetcher.search
+      @products = @fetcher.call
     end
 
     def create
-      create_resource(@product, product_params,
-                      success_action: 'create',
-                      failure_view: :new)
-    end
+      create! do |success, failure|
+        success.html do
+          redirect_to manager_products_path, notice: 'Produto criado com sucesso!'
+        end
 
-    def edit; end
+        failure.html do
+          flash.now[:error] = resource.errors.full_messages.join(', ')
+          if resource.persisted?
+            redirect_to edit_manager_product_path(resource)
+          else
+            render :new
+          end
+        end
+      end
+    end
 
     def update
-      update_resource(
-        @product,
-        product_params,
-        success_action: 'update',
-        failure_view: :edit,
-        purge_attachment: :photo
-      )
-    end
+      update! do |success, failure|
+        success.html do
+          flash[:notice] = 'Recurso atualizado com sucesso.'
+          redirect_to manager_products_path
+        end
 
-    def destroy
-      @product.destroy
-      redirect_to manager_products_path,
-                  notice: t('controllers.manager.products.destroy')
+        failure.html do
+          flash[:error] = resource.errors.full_messages.join(', ')
+          render :edit
+        end
+      end
     end
 
     private
 
-    def build_product
-      @product = Product.new(product_params)
+    def build_resource(*args)
+      super.tap do |resource|
+        resource.client = current_user.client
+      end
     end
 
     def product_params
@@ -58,10 +57,6 @@ module Manager
         :value,
         :category_id
       )
-    end
-
-    def path_for(resource)
-      manager_product_path(resource)
     end
   end
 end
