@@ -1,47 +1,43 @@
-<div class="flex flex-col">
-  <div class="w-full">
-    <%= form.input :name, placeholder: '', required: true, class: 'form-control' %>
-  </div>
+<%= render "shared/error_messages", resource: form.object %>
 
-  <div class="w-full mt-4">
-    <%= form.input :description, as: :text, placeholder: '', required: true, class: 'form-control' %>
-  </div>
+<div class="form-group">
+  <%= form.label :name, class: "form-label" %>
+  <%= form.text_field :name, class: "form-input" %>
+</div>
 
-  <div class="w-full mt-4">
-    <%= form.input :long_description, as: :text, placeholder: '', class: 'form-control' %>
-  </div>
+<div class="form-group">
+  <%= form.label :description, class: "form-label" %>
+  <%= form.text_area :description, class: "form-input" %>
+</div>
 
-  <div class="w-full mt-4">
-    <%= form.input :value, as: :decimal, placeholder: '', required: true, step: '0.01', class: 'form-control' %>
-  </div>
+<div class="form-group">
+  <%= form.label :long_description, class: "form-label" %>
+  <%= form.text_area :long_description, class: "form-input" %>
+</div>
 
-  <div class="w-full mt-4">
-    <%= form.collection_select :category_id, Category.all, :id, :name, prompt: '', class: 'form-control' %>
-  </div>
+<div class="form-group">
+  <%= form.label :value, class: "form-label" %>
+  <%= form.text_field :value, as: :decimal, placeholder: '', step: '0.01', class: 'form-input' %>
+</div>
 
-  <div class="w-full mt-4">
-    <% if @product.photo.attached? %>
-      <div class="mb-3 w-1/3">
-        <%= image_tag @product.photo, class: 'existing-image-class', alt: t('manager.products.shared.image_actual') %>
-        <p><%= t('manager.products.shared.image_actual_message') %></p>
-      </div>
-    <% end %>
-    <%= form.input :photo, as: :file, required: !@product.photo.attached?, input_html: { class: 'form-control' } %>
-    <% if @product.photo.attached? %>
-      <div class="mt-2">
-        <%= hidden_field_tag 'product[remove_photo]', '0' %>
-        <%= check_box_tag 'product[remove_photo]', '1' %>
-        <%= label_tag 'product_remove_photo', t('manager.products.shared.image_remove') %>
-      </div>
-    <% end %>
-  </div>
+<div class="form-group">
+  <%= form.label :category, class: "form-label" %>
+  <%= form.select :category_id, Category.all.collect { |c| [c.name, c.id] }, { prompt: "Selecione uma categoria" }, class: "form-select" %>
+</div>
 
-  <!-- Additional fields for combo and pizza if required -->
-  <div class="w-full mt-4">
-    <%= form.input :combo, as: :boolean, inline_label: t('manager.products.shared.combo'), class: 'form-check-input' %>
-  </div>
-
-  <div class="w-full mt-4">
-    <%= form.input :pizza, as: :boolean, inline_label: t('manager.products.shared.pizza_allow_two_flavors'), class: 'form-check-input' %>
-  </div>
+<div class="w-full mt-4">
+  <% if @product.photo.attached? %>
+    <div class="mb-3 w-1/3">
+      <%= image_tag @product.photo, class: 'existing-image-class', alt: t('manager.products.shared.image_actual') %>
+      <p><%= t('manager.products.shared.image_actual_message') %></p>
+    </div>
+  <% end %>
+  <%= form.input :photo, as: :file, input_html: { class: 'form-input' } %>
+  <% if @product.photo.attached? %>
+    <div class="mt-2">
+      <%= hidden_field_tag 'product[remove_photo]', '0' %>
+      <%= check_box_tag 'product[remove_photo]', '1' %>
+      <%= label_tag 'product_remove_photo', t('manager.products.shared.image_remove') %>
+    </div>
+  <% end %>
 </div>
