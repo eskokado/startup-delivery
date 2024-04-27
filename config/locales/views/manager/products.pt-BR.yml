@@ -2,8 +2,10 @@ pt-BR:
   manager:
     products:
       index:
+        title: 'Produtos'
         search: 'Pesquisar'
         add: "Cadastrar produto"
+        show: "Mostrar"
         filter_by: 'Filtrar'
         filter_1: 'Concluídas'
         filter_2: 'Não concluídas'
@@ -17,8 +19,10 @@ pt-BR:
         add: 'Criar produto'
         back: 'Voltar'
         save: 'Salvar'
+        last: 'Produtos'
         name: 'Nome'
         description: 'Descrição'
+        long_description: 'Descrição longo'
         image: 'Imagem'
       edit:
         title: 'Editando produto'
