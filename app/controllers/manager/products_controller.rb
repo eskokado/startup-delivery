@@ -17,11 +17,7 @@ module Manager
 
         failure.html do
           flash.now[:error] = resource.errors.full_messages.join(', ')
-          if resource.persisted?
-            redirect_to edit_manager_product_path(resource)
-          else
-            render :new
-          end
+          render :new
         end
       end
     end
