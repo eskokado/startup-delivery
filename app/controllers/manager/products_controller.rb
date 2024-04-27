@@ -1,82 +1,55 @@
 module Manager
-  class ProductsController < InheritedResources::Base
+  class ProductsController < InternalController
+    include ManagerActionsSupport
+
+    before_action :build_product, only: %i[create]
+    before_action :set_current_client_context, only: %i[index create]
+    before_action -> { prepare_resource(Product) },
+                  only: %i[show edit update destroy]
+
     def index
-      @params = { q: params[:q], page: params[:page] }
-      @fetcher = Products::Fetch.new(@params, current_user.client)
-      @q = @fetcher.search
-      @products = @fetcher.call
+      index_with_fetch('Products')
+    end
+
+    def show; end
+
+    def new
+      @product = Product.new
     end
 
     def create
-      create_product(success: -> { redirect_to manager_products_path }, failure: :render_new)
+      create_resource(@product, product_params, success_action: 'create',
+                                                failure_view: :new)
     end
 
+    def edit; end
+
     def update
-      update_product(success: -> { redirect_to manager_products_path }, failure: :render_edit)
+      update_resource(@product, product_params, success_action: 'update',
+                                                failure_view: :edit,
+                                                purge_attachment: :photo)
     end
 
     def destroy
-      destroy_product(success: -> { redirect_to manager_products_path })
+      @product.destroy
+      redirect_to manager_products_path,
+                  notice: t('controllers.manager.products.destroy')
     end
 
     private
 
-    def create_product(success:, failure:)
-      create! do |success_callback, failure_callback|
-        success_callback.html { success.call }
-        failure_callback.html do
-          flash.now[:error] = resource.errors.full_messages.join(', ')
-          send(failure)
-        end
-      end
-    end
-
-    def update_product(success:, failure:)
-      update! do |success_callback, failure_callback|
-        success_callback.html do
-          flash[:notice] = I18n.t('controllers.manager.products.update')
-          success.call
-        end
-        failure_callback.html do
-          flash[:error] = resource.errors.full_messages.join(', ')
-          send(failure)
-        end
-      end
-    end
-
-    def destroy_product(success:)
-      destroy! do |success_callback|
-        success_callback.html do
-          redirect_to manager_products_path, notice: I18n.t('controllers.manager.products.destroy')
-        end
-      end
-    end
-
-    def render_new
-      render :new
-    end
-
-    def render_edit
-      render :edit
-    end
-
-    def build_resource(*args)
-      super.tap do |resource|
-        resource.client = current_user.client
-      end
+    def build_product
+      @product = Product.new(product_params)
     end
 
     def product_params
-      params.require(:product).permit(
-        :name,
-        :description,
-        :long_description,
-        :photo,
-        :combo,
-        :pizza,
-        :value,
-        :category_id
-      )
+      params.require(:product).permit(:name, :description, :long_description,
+                                      :photo, :combo, :pizza, :value,
+                                      :category_id)
+    end
+
+    def path_for(resource)
+      manager_product_path(resource)
     end
   end
 end
