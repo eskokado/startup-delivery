@@ -116,7 +116,7 @@ RSpec.describe Manager::ProductsController, type: :controller do
           id: product.id,
           product: { name: 'Atualizada' }
         }
-        expect(response).to redirect_to(manager_products_path)
+        expect(response).to redirect_to(manager_product_path(product))
         expect(flash[:notice])
           .to eq I18n.t('controllers.manager.products.update')
       end
