@@ -1,4 +1,3 @@
-# rubocop:disable Metrics/AbcSize
 module Manager
   class ProductsController < InheritedResources::Base
     def index
@@ -9,43 +8,57 @@ module Manager
     end
 
     def create
-      create! do |success, failure|
-        success.html do
-          redirect_to manager_products_path,
-                      notice: I18n.t('controllers.manager.products.create')
-        end
-
-        failure.html do
-          flash.now[:error] = resource.errors.full_messages.join(', ')
-          render :new
-        end
-      end
+      create_product(success: -> { redirect_to manager_products_path }, failure: :render_new)
     end
 
     def update
-      update! do |success, failure|
-        success.html do
-          flash[:notice] = I18n.t('controllers.manager.products.update')
-          redirect_to manager_products_path
-        end
-
-        failure.html do
-          flash[:error] = resource.errors.full_messages.join(', ')
-          render :edit
-        end
-      end
+      update_product(success: -> { redirect_to manager_products_path }, failure: :render_edit)
     end
 
     def destroy
-      destroy! do |success|
-        success.html do
-          redirect_to manager_products_path,
-                      notice: I18n.t('controllers.manager.products.destroy')
+      destroy_product(success: -> { redirect_to manager_products_path })
+    end
+
+    private
+
+    def create_product(success:, failure:)
+      create! do |success_callback, failure_callback|
+        success_callback.html { success.call }
+        failure_callback.html do
+          flash.now[:error] = resource.errors.full_messages.join(', ')
+          send(failure)
         end
       end
     end
 
-    private
+    def update_product(success:, failure:)
+      update! do |success_callback, failure_callback|
+        success_callback.html do
+          flash[:notice] = I18n.t('controllers.manager.products.update')
+          success.call
+        end
+        failure_callback.html do
+          flash[:error] = resource.errors.full_messages.join(', ')
+          send(failure)
+        end
+      end
+    end
+
+    def destroy_product(success:)
+      destroy! do |success_callback|
+        success_callback.html do
+          redirect_to manager_products_path, notice: I18n.t('controllers.manager.products.destroy')
+        end
+      end
+    end
+
+    def render_new
+      render :new
+    end
+
+    def render_edit
+      render :edit
+    end
 
     def build_resource(*args)
       super.tap do |resource|
@@ -67,4 +80,3 @@ module Manager
     end
   end
 end
-# rubocop:enable Metrics/AbcSize
