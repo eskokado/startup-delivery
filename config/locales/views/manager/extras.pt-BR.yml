@@ -2,8 +2,10 @@ pt-BR:
   manager:
     extras:
       index:
+        title: 'Adicionais'
         search: 'Pesquisar'
         add: "Cadastrar adicional"
+        show: "Mostrar"
         filter_by: 'Filtrar'
         filter_1: 'Concluídas'
         filter_2: 'Não concluídas'
@@ -17,6 +19,7 @@ pt-BR:
         add: 'Criar adicional'
         back: 'Voltar'
         save: 'Salvar'
+        last: 'Adicionais'
         name: 'Nome'
         value: 'Valor'
         category: 'Categoria'
@@ -24,10 +27,12 @@ pt-BR:
         title: 'Editando adicional'
         save: 'Salvar'
         show: 'Mostrar'
+        last: 'Adicionais'
       show:
         title: 'Detalhando adicional'
         edit: 'Editar'
         back: 'Voltar'
+        last: 'Adicionais'
         save: 'Salvar'
         delete: 'Apagar'
         delete_confirm: 'Você tem certeza?'
