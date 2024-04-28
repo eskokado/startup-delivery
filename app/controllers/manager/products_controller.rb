@@ -18,21 +18,16 @@ module Manager
     end
 
     def create
-      create_resource(@product, product_params,
-                      success_action: 'create',
-                      failure_view: :new)
+      create_resource(@product, product_params, success_action: 'create',
+                                                failure_view: :new)
     end
 
     def edit; end
 
     def update
-      update_resource(
-        @product,
-        product_params,
-        success_action: 'update',
-        failure_view: :edit,
-        purge_attachment: :photo
-      )
+      update_resource(@product, product_params, success_action: 'update',
+                                                failure_view: :edit,
+                                                purge_attachment: :photo)
     end
 
     def destroy
@@ -48,16 +43,9 @@ module Manager
     end
 
     def product_params
-      params.require(:product).permit(
-        :name,
-        :description,
-        :long_description,
-        :photo,
-        :combo,
-        :pizza,
-        :value,
-        :category_id
-      )
+      params.require(:product).permit(:name, :description, :long_description,
+                                      :photo, :combo, :pizza, :value,
+                                      :category_id)
     end
 
     def path_for(resource)
