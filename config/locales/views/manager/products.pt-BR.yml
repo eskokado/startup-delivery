@@ -28,6 +28,7 @@ pt-BR:
         title: 'Editando produto'
         save: 'Salvar'
         show: 'Mostrar'
+        last: 'Produtos'
       show:
         title: 'Detalhando produto'
         edit: 'Editar'
@@ -35,6 +36,7 @@ pt-BR:
         save: 'Salvar'
         delete: 'Apagar'
         delete_confirm: 'Você tem certeza?'
+        last: 'Produtos'
       product:
         show: 'Mostrar'
         edit: 'Editar'
