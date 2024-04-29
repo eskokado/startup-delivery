@@ -2,8 +2,10 @@ pt-BR:
   manager:
     flavors:
       index:
+        title: 'Sabores'
         search: 'Pesquisar'
         add: "Cadastrar adicional"
+        show: "Mostrar"
         filter_by: 'Filtrar'
         filter_1: 'Concluídas'
         filter_2: 'Não concluídas'
@@ -18,11 +20,13 @@ pt-BR:
         back: 'Voltar'
         save: 'Salvar'
         name: 'Nome'
+        last: 'Sabores'
         value: 'Valor'
       edit:
         title: 'Editando sabor'
         save: 'Salvar'
         show: 'Mostrar'
+        last: 'Sabores'
       show:
         title: 'Detalhando sabor'
         edit: 'Editar'
@@ -30,6 +34,7 @@ pt-BR:
         save: 'Salvar'
         delete: 'Apagar'
         delete_confirm: 'Você tem certeza?'
+        last: 'Sabores'
       flavor:
         show: 'Mostrar'
         edit: 'Editar'
