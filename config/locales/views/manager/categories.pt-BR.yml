@@ -2,8 +2,10 @@ pt-BR:
   manager:
     categories:
       index:
+        title: 'Categorias'
         search: 'Pesquisar'
         add: "Cadastrar categoria"
+        show: "Mostrar"
         filter_by: 'Filtrar'
         filter_1: 'Concluídas'
         filter_2: 'Não concluídas'
@@ -18,12 +20,14 @@ pt-BR:
         back: 'Voltar'
         save: 'Salvar'
         name: 'Nome'
+        last: 'Categorias'
         description: 'Descrição'
         image: 'Imagem'
       edit:
         title: 'Editando categoria'
         save: 'Salvar'
         show: 'Mostrar'
+        last: 'Categorias'
       show:
         title: 'Detalhando categoria'
         edit: 'Editar'
@@ -31,6 +35,7 @@ pt-BR:
         save: 'Salvar'
         delete: 'Apagar'
         delete_confirm: 'Você tem certeza?'
+        last: 'Categorias'
       category:
         show: 'Mostrar'
         edit: 'Editar'
