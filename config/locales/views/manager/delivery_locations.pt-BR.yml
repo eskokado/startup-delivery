@@ -4,6 +4,7 @@ pt-BR:
       index:
         search: 'Pesquisar'
         add: "Cadastrar local de entrega"
+        show: "Mostrar"
         filter_by: 'Filtrar'
         filter_1: 'Concluídas'
         filter_2: 'Não concluídas'
@@ -17,17 +18,20 @@ pt-BR:
         add: 'Criar local de entrega'
         back: 'Voltar'
         save: 'Salvar'
+        last: 'Local de entregas'
         name: 'Nome'
         value: 'Valor'
       edit:
         title: 'Editando local de entrega'
         save: 'Salvar'
         show: 'Mostrar'
+        last: 'Local de entregas'
       show:
         title: 'Detalhando local de entrega'
         edit: 'Editar'
         back: 'Voltar'
         save: 'Salvar'
+        last: 'Local de entregas'
         delete: 'Apagar'
         delete_confirm: 'Você tem certeza?'
       delivery_location:
