@@ -1,10 +1,11 @@
-<div class="flex flex-col">
-  <div class="w-full">
-    <%= form.input :name, placeholder: '', required: true, class: 'form-control' %>
-  </div>
+<%= render "shared/error_messages", resource: form.object %>
 
-  <div class="w-full mt-4">
-    <%= form.input :value, as: :decimal, placeholder: '', required: true, step: '0.01', class: 'form-control' %>
-  </div>
+<div class="form-group">
+  <%= form.label :name, class: "form-label" %>
+  <%= form.text_field :name, class: "form-input" %>
+</div>
 
+<div class="form-group">
+  <%= form.label :value, class: "form-label" %>
+  <%= form.text_field :value, as: :decimal, placeholder: '', step: '0.01', class: 'form-input' %>
 </div>
