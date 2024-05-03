@@ -1,14 +1,21 @@
-<div class="flex flex-col">
-  <div class="w-full">
-    <%= form.input :name, placeholder: '', required: true, class: 'form-control' %>
-  </div>
-  <div class="w-full">
-    <%= form.input :document, placeholder: '', required: true, class: 'form-control' %>
-  </div>
-  <div class="w-full">
-    <%= form.input :phone, placeholder: '', required: true, class: 'form-control' %>
-  </div>
-  <div class="w-full">
-    <%= form.input :person, placeholder: '', required: true, class: 'form-control' %>
-  </div>
+<%= render "shared/error_messages", resource: form.object %>
+
+<div class="form-group">
+  <%= form.label :name, class: "form-label" %>
+  <%= form.text_field :name, class: "form-input" %>
+</div>
+
+<div class="form-group">
+  <%= form.label :document, class: "form-label" %>
+  <%= form.text_field :document, class: "form-input" %>
+</div>
+
+<div class="form-group">
+  <%= form.label :phone, class: "form-label" %>
+  <%= form.text_field :phone, class: "form-input" %>
+</div>
+
+<div class="form-group">
+  <%= form.label :person, class: "form-label" %>
+  <%= form.text_field :person, class: "form-input" %>
 </div>
