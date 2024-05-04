@@ -7,6 +7,7 @@ pt-BR:
         filter_by: 'Filtrar'
         filter_1: 'Concluídas'
         filter_2: 'Não concluídas'
+        show: "Mostrar"
         pages:
           showing: 'Mostrando'
           of: 'de'
@@ -21,10 +22,12 @@ pt-BR:
         document: 'Documento'
         phone: 'Telefone'
         person: 'Pessoa'
+        last: 'Balconistas'
       edit:
         title: 'Editando balconista'
         save: 'Salvar'
         show: 'Mostrar'
+        last: 'Balconistas'
       show:
         title: 'Detalhando balconista'
         edit: 'Editar'
@@ -32,6 +35,7 @@ pt-BR:
         save: 'Salvar'
         delete: 'Apagar'
         delete_confirm: 'Você tem certeza?'
+        last: 'Balconistas'
       clerk:
         show: 'Mostrar'
         edit: 'Editar'
